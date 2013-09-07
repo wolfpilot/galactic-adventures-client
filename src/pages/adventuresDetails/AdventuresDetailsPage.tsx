@@ -16,15 +16,11 @@ import { useGetProduct } from "@utils/hooks/products"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
 
-// Styles
-import styles from "./AdventuresDetailsPage.module.css"
-
 // Components
 import Head from "@components/layout/Head/Head"
-import { PageHeader } from "@components/layout/Page"
+import { PageHeader, PageCta } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
-import { Cta } from "@components/ctas"
 
 const AdventuresDetailsPage = () => {
   const { id } = useParams()
@@ -64,14 +60,12 @@ const AdventuresDetailsPage = () => {
           <Container>
             {data.id && (
               <ContentRow>
-                <div className={styles.ctaWrapper}>
-                  <Cta
-                    as="anchor"
-                    to={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
-                  >
-                    Continue
-                  </Cta>
-                </div>
+                <PageCta
+                  as="anchor"
+                  to={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
+                >
+                  Continue
+                </PageCta>
               </ContentRow>
             )}
 
