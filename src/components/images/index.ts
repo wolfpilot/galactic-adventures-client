@@ -1,4 +1,4 @@
 import Image from "./Image/Image"
-import ProgressiveImage from "./ProgressiveImage/ProgressiveImage"
+import CustomImage from "./CustomImage/CustomImage"
 
-export { Image, ProgressiveImage }
+export { Image, CustomImage }

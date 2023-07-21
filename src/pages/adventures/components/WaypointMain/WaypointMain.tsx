@@ -1,6 +1,9 @@
 // Types
 import { Props } from "./types"
 
+// Constants
+import { BREAKPOINTS_PX } from "@constants/layout.constants"
+
 // Utils
 import { categoryToFolderName } from "@utils/helpers/asset.helpers"
 
@@ -9,7 +12,18 @@ import styles from "./WaypointMain.module.css"
 
 // Components
 import Container from "@components/layout/Container/Container"
-import { Image } from "@components/images"
+import { CustomImage } from "@components/images"
+
+// Setup
+const srcSetBreakpoints = [
+  BREAKPOINTS_PX.XXS,
+  BREAKPOINTS_PX.XS,
+  BREAKPOINTS_PX.S,
+  BREAKPOINTS_PX.M,
+  BREAKPOINTS_PX.L,
+  BREAKPOINTS_PX.XL,
+  BREAKPOINTS_PX.XXL,
+]
 
 const WaypointMain = ({ waypoint }: Props) => {
   const { name, code, category } = waypoint
@@ -19,9 +33,11 @@ const WaypointMain = ({ waypoint }: Props) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.imageWrapper}>
-        <Image
+        <CustomImage
           className={styles.image}
-          path={imgPath}
+          imgPath={imgPath}
+          srcSetBreakpoints={srcSetBreakpoints}
+          sizes="100vw"
           alt={`Featured image of ${category} ${name}.`}
         />
       </div>

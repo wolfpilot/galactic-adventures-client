@@ -58,6 +58,10 @@ button {
   cursor: pointer;
 }
 
+figcaption {
+  font-family: var(--font-family-secondary);
+}
+
 /* Global modifiers */
 .IS_GRABBABLE {
   cursor: grab;
