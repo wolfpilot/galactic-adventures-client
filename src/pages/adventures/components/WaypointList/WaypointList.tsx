@@ -5,10 +5,13 @@ import { WaypointChildPartial } from "@ts/waypoints/waypoint.types"
 import { routes } from "@constants/routes.constants"
 
 // Utils
-import { getImagePath } from "@utils/helpers/asset.helpers"
+import { categoryToFolderName } from "@utils/helpers/asset.helpers"
 
 // Styles
 import styles from "./WaypointList.module.css"
+
+// Components
+import { ProgressiveImage } from "@components/images"
 
 export interface Props {
   waypoints: WaypointChildPartial[]
@@ -20,6 +23,8 @@ const WaypointList = ({ waypoints }: Props) => (
       {waypoints.map((item) => {
         const { id, category, code, name, adventure } = item
 
+        const imgPath = `${categoryToFolderName[category]}/${code}-thumb.webp`
+
         return (
           <li key={id} className={styles.item}>
             <a
@@ -27,9 +32,10 @@ const WaypointList = ({ waypoints }: Props) => (
               href={`${routes.adventures.url}?waypointId=${id}`}
             >
               <div className={styles.itemImageWrapper}>
-                <img
+                <ProgressiveImage
                   className={styles.itemImage}
-                  src={`${getImagePath(category)}/${code}-thumb.webp`}
+                  path={imgPath}
+                  placeholderSizePx={4}
                   alt={`Thumbnail image of ${category} ${name}.`}
                 />
 

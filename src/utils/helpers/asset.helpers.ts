@@ -1,10 +1,21 @@
+import { Cloudinary } from "@cloudinary/url-gen"
+
 // Types
 import { WaypointCategory } from "@ts/waypoints/waypoint.types"
 
 // Setup
-const { VITE_ASSETS_URL = "" } = import.meta.env
+const { VITE_CLOUDINARY_PROJECT_ID = "" } = import.meta.env
 
-const categoryToFolderName: Record<WaypointCategory, string> = {
+export const cld = new Cloudinary({
+  cloud: {
+    cloudName: VITE_CLOUDINARY_PROJECT_ID,
+  },
+  url: {
+    secure: true,
+  },
+})
+
+export const categoryToFolderName: Record<WaypointCategory, string> = {
   Supercluster: "Superclusters",
   Cluster: "Clusters",
   Galaxy: "Galaxies",
@@ -14,6 +25,3 @@ const categoryToFolderName: Record<WaypointCategory, string> = {
   Planet: "Planets",
   Satellite: "Satellites",
 }
-
-export const getImagePath = (category: WaypointCategory) =>
-  `${VITE_ASSETS_URL}/${categoryToFolderName[category]}`
