@@ -1,12 +1,18 @@
 {
   "name": "galactic-adventures-client",
-  "private": true,
   "version": "1.0.0",
+  "description": "",
+  "author": "Razvan Negrea",
+  "license": "MIT",
+  "keywords": [],
   "type": "module",
+  "private": true,
   "scripts": {
     "start:dev": "vite",
     "start:prod": "vite preview",
     "build": "tsc && vite build",
+    "format": "prettier src/**/*.ts --write",
+    "validate": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
@@ -20,8 +26,10 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "prettier": "^3.3.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }
