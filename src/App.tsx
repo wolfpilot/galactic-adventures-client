@@ -1,33 +1,48 @@
-import { useState } from "react"
-import reactLogo from "./assets/react.svg"
-import viteLogo from "/vite.svg"
+import { useState, useEffect } from "react"
+import { Elements } from "@stripe/react-stripe-js"
+import { type Stripe, loadStripe } from "@stripe/stripe-js"
+
+// Assets
 import "./App.css"
 
-function App() {
-  const [count, setCount] = useState(0)
+// Hooks
+import { usePublicKey, useClientSecret } from "@hooks/index"
+
+// Components
+import CheckoutForm from "@components/forms/CheckoutForm/CheckoutForm"
+
+const App = () => {
+  const [stripe, setStripe] = useState<Promise<Stripe | null> | null>(null)
+
+  const publicKey = usePublicKey()
+  const clientSecret = useClientSecret()
+
+  // Hooks
+  useEffect(() => {
+    if (!publicKey.data) return
+
+    setStripe(loadStripe(publicKey.data))
+  }, [publicKey.data])
+
+  const isPending = publicKey.isPending || clientSecret.isPending
+  const error = publicKey.error || clientSecret.error
+  const hasData = !!(publicKey.data && clientSecret.data)
+
+  const options = {
+    clientSecret: clientSecret.data,
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {isPending ? (
+        <h4>Loading...</h4>
+      ) : error ? (
+        <h4>Oops, something went wrong</h4>
+      ) : hasData ? (
+        <Elements stripe={stripe} options={options}>
+          <CheckoutForm />
+        </Elements>
+      ) : null}
     </>
   )
 }

@@ -7,6 +7,16 @@
     /* Modules */
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["./typings/*"],
+      "@/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@ts/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"],
+    },
 
     /* Bundler mode */
     "allowImportingTsExtensions": true,
