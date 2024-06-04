@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { Elements } from "@stripe/react-stripe-js"
 import { type Stripe, loadStripe } from "@stripe/stripe-js"
 
-// Assets
+// Styles
 import "./App.css"
 
 // Hooks
