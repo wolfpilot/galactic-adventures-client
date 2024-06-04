@@ -12,11 +12,18 @@ import "./index.css"
 // Setup
 const queryClient = new QueryClient()
 
+const search = window.location.search
+const params = new URLSearchParams(search)
+
+const debugReactQueryParam = params.get("debugReactQuery")
+const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
-      <ReactQueryDevtools />
+
+      {enableDebugReactQuery && <ReactQueryDevtools />}
     </QueryClientProvider>
   </React.StrictMode>
 )
