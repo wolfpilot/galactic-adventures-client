@@ -10,12 +10,11 @@
     "baseUrl": "./",
     "paths": {
       "*": ["./typings/*"],
-      "@/*": ["./src/*"],
-      "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
-      "@hooks/*": ["./src/hooks/*"],
+      "@features/*": ["./src/features/*"],
+      "@styles/*": ["./src/styles/*"],
       "@ts/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@utils/*": ["./src/utils/*"]
     },
 
     /* Bundler mode */
@@ -48,14 +47,14 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
     "exactOptionalPropertyTypes": true,
+    "noPropertyAccessFromIndexSignature": false,
 
     /* Completeness */
     "skipLibCheck": true,
 
     "types": ["vitest/globals"]
   },
-  "include": ["src"],
+  "include": ["src", "tests"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

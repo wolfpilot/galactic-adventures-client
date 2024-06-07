@@ -1,49 +1,38 @@
-import { useState, useEffect } from "react"
-import { Elements } from "@stripe/react-stripe-js"
-import { type Stripe, loadStripe } from "@stripe/stripe-js"
+import { useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 
 // Styles
-import "./App.css"
-
-// Hooks
-import { usePublicKey, useClientSecret } from "@hooks/index"
+import styles from "./App.module.css"
 
 // Components
-import CheckoutForm from "@components/forms/CheckoutForm/CheckoutForm"
+import { WizardStep1Destination, WizardStep2Payment } from "@features/wizard/"
 
 const App = () => {
-  const [stripe, setStripe] = useState<Promise<Stripe | null> | null>(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const stepParam = searchParams.get("step")
 
-  const publicKey = usePublicKey()
-  const clientSecret = useClientSecret()
-
-  // Hooks
+  /**
+   * Update default step to 1 if not already set
+   */
   useEffect(() => {
-    if (!publicKey.data) return
+    if (stepParam) return
 
-    setStripe(loadStripe(publicKey.data))
-  }, [publicKey.data])
-
-  const isPending = publicKey.isPending || clientSecret.isPending
-  const error = publicKey.error || clientSecret.error
-  const hasData = !!(publicKey.data && clientSecret.data)
-
-  const options = {
-    clientSecret: clientSecret.data,
-  }
+    setSearchParams((newParams) => {
+      newParams.set("step", "1")
+      return newParams
+    })
+  }, [stepParam, setSearchParams])
 
   return (
-    <>
-      {isPending ? (
-        <h4>Loading...</h4>
-      ) : error ? (
-        <h4>Oops, something went wrong</h4>
-      ) : hasData ? (
-        <Elements stripe={stripe} options={options}>
-          <CheckoutForm />
-        </Elements>
-      ) : null}
-    </>
+    <main className={styles.wrapper}>
+      <div className={styles.content}>
+        {stepParam === "1" ? (
+          <WizardStep1Destination />
+        ) : stepParam === "2" ? (
+          <WizardStep2Payment />
+        ) : null}
+      </div>
+    </main>
   )
 }
 

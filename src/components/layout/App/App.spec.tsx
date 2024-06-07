@@ -1,18 +1,19 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-import App from "./App"
+// Components
+import Root from "@components/layout/Root/Root"
 
-// Setup
-const queryClient = new QueryClient()
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+  },
+])
 
 describe("App", () => {
   it("renders the App component", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    )
+    render(<RouterProvider router={router} />)
 
     screen.debug() // prints out the jsx in the App component unto the command line
   })

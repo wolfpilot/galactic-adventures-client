@@ -2,9 +2,6 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-// Styles
-import "./index.css"
-
 // Components
 import Root from "@components/layout/Root/Root"
 
