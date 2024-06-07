@@ -3,8 +3,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 // Components
-import Head from "./components/layout/Head/Head.tsx"
-import App from "./App.tsx"
+import Head from "@components/layout/Head/Head.tsx"
+import App from "@components/layout/App/App.tsx"
+
+// Styles
+import "@styles/index.css"
 
 // React Query
 const queryClient = new QueryClient()
@@ -16,13 +19,15 @@ const debugReactQueryParam = params.get("debugReactQuery")
 const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
 
 const Root = () => (
-  <QueryClientProvider client={queryClient}>
+  <HelmetProvider>
     <Head />
 
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
 
-    {enableDebugReactQuery && <ReactQueryDevtools />}
-  </QueryClientProvider>
+      {enableDebugReactQuery && <ReactQueryDevtools />}
+    </QueryClientProvider>
+  </HelmetProvider>
 )
 
 export default Root
