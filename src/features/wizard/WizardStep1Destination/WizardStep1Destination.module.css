@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+}
+
+.content {
+  width: 60%;
+  padding-right: var(--spacing-default);
+  border-right: 2px solid var(--c-lGrey);
+}
+
+.dataSheet {
+  width: 40%;
+  padding-left: var(--spacing-default);
+}

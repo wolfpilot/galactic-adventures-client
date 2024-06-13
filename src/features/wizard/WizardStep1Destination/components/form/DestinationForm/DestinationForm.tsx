@@ -15,7 +15,14 @@ const DestinationForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>()
+  } = useForm<FormData>({
+    values: {
+      destination: fields.destination.value,
+    },
+    defaultValues: {
+      destination: fields.destination.value,
+    },
+  })
 
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
@@ -26,7 +33,7 @@ const DestinationForm = ({
         onChange={destinationChangeHandler}
       />
 
-      <input type="submit" />
+      <button type="submit">Continue</button>
     </form>
   )
 }

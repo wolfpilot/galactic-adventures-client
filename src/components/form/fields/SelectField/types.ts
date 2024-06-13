@@ -1,7 +1,6 @@
 import {
   type UseFormRegister,
   type FieldError,
-  type ChangeHandler,
   type FieldValues,
   type ValidationRule,
   type Path,
@@ -9,20 +8,20 @@ import {
 
 export interface Option {
   label: string
-  value: string
+  value: number | string
 }
 
-export interface BaseProps<T> {
+export interface BaseProps<T, K> {
   required?: string | ValidationRule<boolean>
   name: Path<T>
-  defaultValue: string
   label: string
+  value: K | undefined
   options: Option[]
 }
 
-export interface Props<T extends FieldValues> extends BaseProps<T> {
+export interface Props<T extends FieldValues, K> extends BaseProps<T, K> {
   register: UseFormRegister<T>
   error: FieldError | undefined
-  onChange?: (data: FieldValues) => void
-  onBlur?: ChangeHandler
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>
+  onBlur?: React.FocusEventHandler<HTMLSelectElement>
 }

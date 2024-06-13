@@ -1,5 +1,8 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
+// Constants
+import { metadata } from "@constants/metadata.constants"
+
 // Components
 import Head from "@components/layout/Head/Head.tsx"
 import App from "@components/layout/App/App.tsx"
@@ -15,7 +18,7 @@ const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
 
 const Root = () => (
   <>
-    <Head />
+    <Head {...metadata} />
     <App />
 
     {enableDebugReactQuery && <ReactQueryDevtools />}

@@ -1,16 +1,18 @@
-import { type FieldValues } from "react-hook-form"
+import { type SubmitHandler } from "react-hook-form"
 
 // Types
 import { type BaseProps as SelectFieldBaseProps } from "@components/form/fields/SelectField/types"
 
 export interface FormData {
-  destination: string
+  destination: number | undefined
+}
+
+export interface FormFields {
+  destination: SelectFieldBaseProps<FormData, number>
 }
 
 export interface Props {
-  fields: {
-    destination: SelectFieldBaseProps<FormData>
-  }
-  destinationChangeHandler: (e: FieldValues) => void
-  submitHandler: (data: FieldValues) => void
+  fields: FormFields
+  destinationChangeHandler: React.ChangeEventHandler<HTMLSelectElement>
+  submitHandler: SubmitHandler<FormData>
 }

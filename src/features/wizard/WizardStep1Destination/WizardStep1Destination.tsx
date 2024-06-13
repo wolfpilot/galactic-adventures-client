@@ -1,71 +1,92 @@
 import { useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
-import { type FieldValues } from "react-hook-form"
 
 // Types
-import { Props as FormProps } from "./components/form/DestinationForm/types"
+import {
+  type Props as FormProps,
+  type FormData,
+} from "./components/form/DestinationForm/types"
 
 // Data
-import { wizardStep1Data as data } from "./data/wizardStep1Data"
+import { wizardStep1Data } from "./data/wizardStep1Data"
+
+// Utils
+import {
+  generateMetadata,
+  generateFieldsData,
+  updateBgImage,
+} from "./utils/helpers"
+
+// Hooks
+import { useGetAllDestinations } from "./hooks"
+
+// Styles
+import styles from "./WizardStep1Destination.module.css"
 
 // Components
+import Head from "@components/layout/Head/Head"
 import WizardHeader from "@components/form/wizard/WizardHeader/WizardHeader"
 import DestinationForm from "./components/form/DestinationForm/DestinationForm"
 
-// Utils
-const updateBgImage = (destinationParam: string) => {
-  const parsedDestinationParam = destinationParam?.toLowerCase()
-  const bgImgPath = `/images/destinations/destination-sol-${parsedDestinationParam}.jpg`
-
-  const imgUrl = new URL(bgImgPath, import.meta.url).href
-
-  document.documentElement.style.setProperty("--bg-url", `url(${imgUrl})`)
-}
-
 const WizardStep1Destination = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const destinationParam = searchParams.get("destination")
+  const destinationIdParam = searchParams.get("destinationId")
 
-  const defaultDestination =
-    destinationParam || data.formData.fields.destination.defaultValue
+  const {
+    isPending: allDestinationsIsPending,
+    error: allDestinationsError,
+    data: allDestinationsData,
+  } = useGetAllDestinations()
+
+  const activeDestinationId = destinationIdParam
+    ? parseInt(destinationIdParam, 10)
+    : undefined
+
+  const activeDestinationData = activeDestinationId
+    ? allDestinationsData.find((item) => item.id === activeDestinationId)
+    : undefined
+
+  const isDestinationInvalid = destinationIdParam && !activeDestinationData
 
   /**
    * Update default destination if not already set
    */
   useEffect(() => {
-    if (destinationParam) return
+    if (destinationIdParam || !activeDestinationId) return
 
     setSearchParams((newParams) => {
-      newParams.set("destination", defaultDestination)
+      newParams.set("destinationId", activeDestinationId.toString())
       return newParams
     })
-  }, [destinationParam, defaultDestination, setSearchParams])
+  }, [destinationIdParam, activeDestinationId, setSearchParams])
 
   /**
    * Update background img based on selected destination
    */
   useEffect(() => {
-    if (!destinationParam) return
+    const newDestinationCode = activeDestinationData?.code || ""
 
-    updateBgImage(destinationParam)
-  }, [destinationParam])
+    updateBgImage(newDestinationCode)
+  }, [activeDestinationData?.code])
 
   // Handlers
-  const destinationChangeHandler = (e: FieldValues) => {
-    const newDestination = e.target.value
+  const destinationChangeHandler = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newDestinationId = e.target.value
 
-    if (!newDestination) return
+    if (!newDestinationId) return
 
     setSearchParams((newParams) => {
-      newParams.set("destination", newDestination)
+      newParams.set("destinationId", newDestinationId)
       return newParams
     })
   }
 
-  const submitHandler = (data: FieldValues) => {
-    // TODO: Validate and submit to BE, then redirect
+  const submitHandler = (data: FormData) => {
+    // TODO: Post to BE, validate, then redirect
 
-    console.log(data)
+    console.log("data", data)
 
     setSearchParams((newParams) => {
       newParams.set("step", "2")
@@ -74,27 +95,60 @@ const WizardStep1Destination = () => {
   }
 
   // Parse data
-  const parsedFormData = {
-    ...data.formData,
-    fields: {
-      ...data.formData.fields,
-      destination: {
-        ...data.formData.fields.destination,
-        defaultValue: defaultDestination,
-      },
-    },
-  }
+  const parsedMetadata = generateMetadata({
+    destinationName: activeDestinationData?.name || "",
+    metadata: wizardStep1Data.metadata,
+  })
 
   const parsedFormProps: FormProps = {
-    ...parsedFormData,
+    fields: generateFieldsData({
+      data: allDestinationsData,
+      activeDestinationId,
+    }),
     destinationChangeHandler,
     submitHandler,
   }
 
   return (
     <>
-      <WizardHeader {...data.headerData} />
-      <DestinationForm {...parsedFormProps} />
+      <Head {...parsedMetadata} />
+
+      <div className={styles.wrapper}>
+        <div className={styles.content}>
+          <WizardHeader {...wizardStep1Data.headerData} />
+
+          {allDestinationsData.length > 0 && (
+            <DestinationForm {...parsedFormProps} />
+          )}
+        </div>
+
+        <div className={styles.dataSheet}>
+          {allDestinationsIsPending && <p>Loading...</p>}
+
+          {(allDestinationsError || isDestinationInvalid) && (
+            <p>
+              Oops, can't find destination! Please select a new configuration
+              for your new exciting adventure.
+            </p>
+          )}
+
+          {activeDestinationData && (
+            <>
+              {activeDestinationData.description && (
+                <p>{activeDestinationData.description}</p>
+              )}
+
+              {activeDestinationData.category && (
+                <p>Category: {activeDestinationData.category}</p>
+              )}
+
+              {activeDestinationData.price && (
+                <p>Price: {activeDestinationData.price}</p>
+              )}
+            </>
+          )}
+        </div>
+      </div>
     </>
   )
 }
