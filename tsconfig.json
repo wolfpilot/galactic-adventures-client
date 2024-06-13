@@ -11,6 +11,7 @@
     "paths": {
       "*": ["./typings/*"],
       "@components/*": ["./src/components/*"],
+      "@constants/*": ["./src/constants/*"],
       "@features/*": ["./src/features/*"],
       "@styles/*": ["./src/styles/*"],
       "@ts/*": ["./src/types/*"],
