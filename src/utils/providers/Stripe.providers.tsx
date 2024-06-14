@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react"
-import { type Stripe, loadStripe } from "@stripe/stripe-js"
+import {
+  type Stripe,
+  type StripeElementsOptions,
+  loadStripe,
+} from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
 
 // Hooks
-import { usePublicKey, useClientSecret } from "./hooks"
+import { usePublicKey } from "@utils/hooks/stripe"
 
 export interface Props {
   children: React.ReactNode
@@ -12,32 +16,27 @@ export interface Props {
 const StripeProvider = ({ children }: Props) => {
   const [stripe, setStripe] = useState<Promise<Stripe | null> | null>(null)
 
-  const publicKey = usePublicKey()
-  const clientSecret = useClientSecret()
+  const { isPending, error, data } = usePublicKey()
 
   useEffect(() => {
-    if (!publicKey.data) return
+    if (!data) return
 
-    setStripe(loadStripe(publicKey.data))
-  }, [publicKey.data])
+    setStripe(loadStripe(data))
+  }, [data])
 
-  const isPending = publicKey.isPending || clientSecret.isPending
-  const error = publicKey.error || clientSecret.error
-  const hasData = !!(publicKey.data && clientSecret.data)
-
-  const options = {
-    clientSecret: clientSecret.data,
+  const options: StripeElementsOptions = {
+    mode: "setup",
+    currency: "eur",
   }
 
   return (
-    stripe &&
-    clientSecret.data && (
+    stripe && (
       <Elements stripe={stripe} options={options}>
         {isPending ? (
           <p>Loading...</p>
         ) : error ? (
           <p>Oops, something went wrong</p>
-        ) : hasData ? (
+        ) : data ? (
           children
         ) : null}
       </Elements>

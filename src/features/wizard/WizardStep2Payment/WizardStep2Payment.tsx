@@ -5,10 +5,7 @@ import { loadStripe } from "@stripe/stripe-js"
 import { Props as FormProps } from "./components/form/PaymentForm/types"
 
 // Hooks
-import {
-  usePublicKey,
-  useClientSecret,
-} from "@utils/providers/StripeProvider/hooks"
+import { usePublicKey, useClientSecret } from "@utils/hooks/stripe"
 
 // Data
 import { wizardStep2Data as data } from "./data/wizardStep2Data"

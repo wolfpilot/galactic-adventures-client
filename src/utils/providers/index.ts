@@ -1,5 +1,5 @@
-import RouterProvider from "./RouterProvider/Router.providers"
-import QueryProvider from "./QueryProvider/Query.providers"
-import StripeProvider from "./StripeProvider/Stripe.providers"
+import RouterProvider from "./Router.providers"
+import QueryProvider from "./Query.providers"
+import StripeProvider from "./Stripe.providers"
 
 export { RouterProvider, QueryProvider, StripeProvider }
