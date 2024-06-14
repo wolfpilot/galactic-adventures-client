@@ -22,6 +22,7 @@ export const useGetAllDestinations = () => {
     error,
     data: allDestinationsData,
   } = useQuery({
+    // TODO: [`allDestinations-${galaxy / whatever}`] so it can be cached and not overwritten
     queryKey: ["allDestinations"],
     queryFn: () => getAllDestinations,
   })

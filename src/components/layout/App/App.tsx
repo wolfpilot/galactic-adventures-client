@@ -5,7 +5,11 @@ import { useSearchParams } from "react-router-dom"
 import styles from "./App.module.css"
 
 // Components
-import { WizardStep1Destination, WizardStep2Payment } from "@features/wizard/"
+import {
+  WizardStep1Destination,
+  WizardStep2Payment,
+  WizardStep3Complete,
+} from "@features/wizard/"
 
 const App = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -30,6 +34,8 @@ const App = () => {
           <WizardStep1Destination />
         ) : stepParam === "2" ? (
           <WizardStep2Payment />
+        ) : stepParam === "3" ? (
+          <WizardStep3Complete />
         ) : null}
       </div>
     </main>

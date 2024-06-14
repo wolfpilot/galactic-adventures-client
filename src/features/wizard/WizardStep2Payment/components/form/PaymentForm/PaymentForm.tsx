@@ -3,6 +3,9 @@ import { PaymentElement } from "@stripe/react-stripe-js"
 // Types
 import { Props } from "./types"
 
+// Utils
+import { getFormattedPrice } from "@utils/helpers/number.helpers"
+
 // Styles
 import styles from "@components/form/form.module.css"
 
@@ -15,10 +18,10 @@ const PaymentPage = ({
   amount,
   submitHandler,
 }: Props) => {
-  const formattedPrice = new Intl.NumberFormat("en-US", {
-    style: "currency",
+  const formattedPrice = getFormattedPrice({
     currency,
-  }).format(amount)
+    amount,
+  })
 
   return (
     <form onSubmit={submitHandler}>

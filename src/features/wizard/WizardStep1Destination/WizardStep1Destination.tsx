@@ -18,7 +18,7 @@ import {
 } from "./utils/helpers"
 
 // Hooks
-import { useGetAllDestinations } from "./hooks"
+import { useGetAllDestinations } from "@utils/hooks/products"
 
 // Styles
 import styles from "./WizardStep1Destination.module.css"
