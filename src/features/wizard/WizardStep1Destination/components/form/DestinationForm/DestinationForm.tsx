@@ -5,6 +5,7 @@ import { Props, FormData } from "./types"
 
 // Components
 import SelectField from "@components/form/fields/SelectField/SelectField"
+import { SubmitButton } from "@components/buttons"
 
 const DestinationForm = ({
   fields,
@@ -33,7 +34,7 @@ const DestinationForm = ({
         onChange={destinationChangeHandler}
       />
 
-      <button type="submit">Continue</button>
+      <SubmitButton>Next Step</SubmitButton>
     </form>
   )
 }

@@ -1,0 +1,10 @@
+.wrapper {
+  composes: button from "@styles/buttons.css";
+  background-color: var(--c-accentPrimary);
+  color: var(--c-white);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--c-accentSecondary);
+  }
+}
