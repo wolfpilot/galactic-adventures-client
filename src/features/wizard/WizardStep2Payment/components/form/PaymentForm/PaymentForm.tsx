@@ -4,7 +4,7 @@ import { PaymentElement } from "@stripe/react-stripe-js"
 import { Props } from "./types"
 
 // Styles
-import styles from "./PaymentForm.module.css"
+import styles from "@components/form/form.module.css"
 
 // Components
 import { SubmitButton } from "@components/buttons"
