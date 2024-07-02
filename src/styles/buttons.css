@@ -1,0 +1,11 @@
+.button {
+  padding: var(--spacing-small);
+  background-color: var(--c-dGrey);
+  color: var(--c-white);
+  border: none;
+  border-radius: calc(var(--spacing-small) / 2);
+  outline: none;
+  cursor: pointer;
+  transition: background-color var(--anim-ease-default)
+    var(--anim-duration-fast);
+}

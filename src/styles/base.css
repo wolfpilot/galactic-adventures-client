@@ -1,0 +1,25 @@
+:root {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom text highlighting */
+::selection {
+  background-color: var(--c-black);
+  color: var(--c-white);
+}
+
+html,
+body {
+  min-height: 100%;
+  cursor: initial;
+}
+
+html {
+  height: 100%;
+}
+
+#root {
+  height: 100vh;
+}

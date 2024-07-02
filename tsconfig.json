@@ -7,6 +7,16 @@
     /* Modules */
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["./typings/*"],
+      "@components/*": ["./src/components/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@features/*": ["./src/features/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@ts/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
+    },
 
     /* Bundler mode */
     "allowImportingTsExtensions": true,
@@ -38,14 +48,14 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
     "exactOptionalPropertyTypes": true,
+    "noPropertyAccessFromIndexSignature": false,
 
     /* Completeness */
     "skipLibCheck": true,
 
     "types": ["vitest/globals"]
   },
-  "include": ["src"],
+  "include": ["src", "tests"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

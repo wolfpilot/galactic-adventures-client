@@ -1,0 +1,10 @@
+:root {
+  /* Border */
+  --border-radius-default: 10px;
+
+  /* Spacing */
+  --spacing-default: 20px;
+  --spacing-small: 10px;
+  --spacing-medium: 20px;
+  --spacing-large: 40px;
+}

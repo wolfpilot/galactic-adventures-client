@@ -1,0 +1,4 @@
+.fieldWrapper {
+  display: flex;
+  gap: var(--spacing-small);
+}
