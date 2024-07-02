@@ -5,6 +5,9 @@ import { useStripe, useElements } from "@stripe/react-stripe-js"
 // Types
 import { ProductType } from "@ts/products/products.types"
 
+// Constants
+import { BASE_ROUTE, routes } from "@constants/routes.constants"
+
 // Data
 import { wizardStep2Data } from "./data/wizardStep2Data"
 
@@ -18,9 +21,6 @@ import styles from "./WizardStep2Payment.module.css"
 import Head from "@components/layout/Head/Head"
 import WizardHeader from "@components/form/wizard/WizardHeader/WizardHeader"
 import PaymentForm from "./components/form/PaymentForm/PaymentForm"
-
-// Setup
-const { VITE_CLIENT_URL = "" } = import.meta.env
 
 const WizardStep2Payment = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>()
@@ -91,7 +91,7 @@ const WizardStep2Payment = () => {
       clientSecret: clientSecretData,
       confirmParams: {
         // URL to redirect the user to if no error occurs
-        return_url: `${VITE_CLIENT_URL}/?step=3&destinationId=${destinationIdParam}`,
+        return_url: `${BASE_ROUTE}${routes.order.url}?destinationId=${destinationIdParam}`,
       },
     })
 

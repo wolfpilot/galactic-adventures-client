@@ -5,10 +5,8 @@ import { useMutation } from "@tanstack/react-query"
 import { ProductType } from "@ts/products/products.types"
 import { ApiBaseResponse } from "@ts/api.types"
 
-export interface Props {
-  productType: ProductType
-  productId: number
-}
+// Constants
+import { apiRoutes } from "@constants/api.constants"
 
 export type PostPaymentIntentResponse = ApiBaseResponse<{
   clientSecret: string
@@ -19,11 +17,13 @@ export type PostPaymentIntent = ({
   productId,
 }: Props) => Promise<PostPaymentIntentResponse>
 
-// Setup
-const { VITE_SERVER_URL = "" } = import.meta.env
+export interface Props {
+  productType: ProductType | null
+  productId: number | null
+}
 
 const postPaymentIntent: PostPaymentIntent = ({ productType, productId }) =>
-  fetch(`${VITE_SERVER_URL}/payment`, {
+  fetch(apiRoutes.payment, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,6 +46,7 @@ export const useClientSecret = ({ productType, productId }: Props) => {
     error,
     data: clientSecretData,
   } = useMutation({
+    mutationKey: ["clientSecret", productType, productId],
     mutationFn: () => postPaymentIntent(options),
   })
 
@@ -59,7 +60,7 @@ export const useClientSecret = ({ productType, productId }: Props) => {
     }
 
     mutate()
-  }, [mutate, productId, productType])
+  }, [productType, productId, mutate])
 
   if (error) {
     console.log("Could not fetch client secret", error)

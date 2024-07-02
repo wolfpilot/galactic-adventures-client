@@ -4,6 +4,9 @@ import { useQuery } from "@tanstack/react-query"
 import { ApiBaseResponse } from "@ts/api.types"
 import { type Destination } from "@ts/products/adventures.types"
 
+// Constants
+import { apiRoutes } from "@constants/api.constants"
+
 export type GetDestinationByIdResponse = ApiBaseResponse<{
   destination: Destination | null
 }>
@@ -12,13 +15,8 @@ export interface Props {
   id: number
 }
 
-// Setup
-const { VITE_SERVER_URL = "" } = import.meta.env
-
 const getDestinationById = (id: number): Promise<GetDestinationByIdResponse> =>
-  fetch(`${VITE_SERVER_URL}/products/adventures/${id}`).then((res) =>
-    res.json()
-  )
+  fetch(`${apiRoutes.products.adventures}/${id}`).then((res) => res.json())
 
 export const useGetDestinationById = ({ id }: Props) => {
   const {

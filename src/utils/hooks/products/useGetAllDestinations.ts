@@ -4,15 +4,15 @@ import { useQuery } from "@tanstack/react-query"
 import { ApiBaseResponse } from "@ts/api.types"
 import { type Destination } from "@ts/products/adventures.types"
 
+// Constants
+import { apiRoutes } from "@constants/api.constants"
+
 export type GetAllDestinationsResponse = ApiBaseResponse<{
   destinations: Destination[] | null
 }>
 
-// Setup
-const { VITE_SERVER_URL = "" } = import.meta.env
-
 const getAllDestinations: Promise<GetAllDestinationsResponse> = fetch(
-  `${VITE_SERVER_URL}/products/adventures`
+  apiRoutes.products.adventures
 ).then((res) => res.json())
 
 export const useGetAllDestinations = () => {
@@ -22,7 +22,6 @@ export const useGetAllDestinations = () => {
     error,
     data: allDestinationsData,
   } = useQuery({
-    // TODO: [`allDestinations-${galaxy / whatever}`] so it can be cached and not overwritten
     queryKey: ["allDestinations"],
     queryFn: () => getAllDestinations,
   })
