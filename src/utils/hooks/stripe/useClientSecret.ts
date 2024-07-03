@@ -1,88 +1,57 @@
 import { useEffect } from "react"
 import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
 
 // Types
 import { ProductType } from "@ts/products/products.types"
-import { ApiBaseResponse } from "@ts/api.types"
+import { ApiResponse, ApiError } from "@ts/api.types"
 
 // Constants
 import { apiRoutes } from "@constants/api.constants"
 
-export type PostPaymentIntentResponse = ApiBaseResponse<{
+export interface ApiData {
   clientSecret: string
-}>
-
-export type PostPaymentIntent = ({
-  productType,
-  productId,
-}: Props) => Promise<PostPaymentIntentResponse>
+}
 
 export interface Props {
   productType: ProductType | null
-  productId: number | null
+  productId: string | null
 }
 
-const postPaymentIntent: PostPaymentIntent = ({ productType, productId }) =>
-  fetch(apiRoutes.payment, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      productType,
-      productId,
-    }),
-  }).then((res) => res.json())
-
 export const useClientSecret = ({ productType, productId }: Props) => {
-  const options = {
-    productType,
-    productId,
-  }
+  const shouldMutate = Boolean(
+    productId && productType && Object.values(ProductType).includes(productType)
+  )
 
   const {
     mutate,
     isPending,
     error,
-    data: clientSecretData,
-  } = useMutation({
+    data: res,
+  } = useMutation<ApiResponse<ApiData>, ApiError>({
     mutationKey: ["clientSecret", productType, productId],
-    mutationFn: () => postPaymentIntent(options),
+    // This fn only gets called if the initial check passes,
+    // therefore we can safely assert that the params are not null.
+    mutationFn: () =>
+      axios.post(apiRoutes.payment, {
+        productType: productType!,
+        productId: productId!,
+      }),
   })
 
   useEffect(() => {
-    if (
-      !productId ||
-      !productType ||
-      !Object.values(ProductType).includes(productType)
-    ) {
-      return
-    }
+    if (!shouldMutate) return
 
     mutate()
-  }, [productType, productId, mutate])
+  }, [shouldMutate, mutate])
 
-  // Check for network errors
   if (error) {
-    return {
-      isPending,
-      error,
-      data: "",
-    }
-  }
-
-  // Check for HTTP errors
-  if (!clientSecretData?.ok) {
-    return {
-      isPending: false,
-      error: new Error(clientSecretData?.message),
-      data: "",
-    }
+    console.error("Could not fetch client secret", error)
   }
 
   return {
     isPending,
     error,
-    data: clientSecretData.data.clientSecret,
+    data: res?.data.data.clientSecret || null,
   }
 }
