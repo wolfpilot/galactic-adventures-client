@@ -13,7 +13,7 @@ export const useRetrievePaymentIntent = ({ stripe, clientSecret }: Props) => {
     data: paymentIntentData,
   } = useQuery({
     enabled: !!stripe && !!clientSecret,
-    queryKey: ["paymentIntent"],
+    queryKey: ["paymentIntent", clientSecret],
     queryFn: () => stripe!.retrievePaymentIntent(clientSecret!),
   })
 

@@ -62,13 +62,27 @@ export const useClientSecret = ({ productType, productId }: Props) => {
     mutate()
   }, [productType, productId, mutate])
 
+  // Check for network errors
   if (error) {
-    console.log("Could not fetch client secret", error)
+    return {
+      isPending,
+      error,
+      data: "",
+    }
+  }
+
+  // Check for HTTP errors
+  if (!clientSecretData?.ok) {
+    return {
+      isPending: false,
+      error: new Error(clientSecretData?.message),
+      data: "",
+    }
   }
 
   return {
     isPending,
     error,
-    data: clientSecretData?.data.clientSecret || "",
+    data: clientSecretData.data.clientSecret,
   }
 }

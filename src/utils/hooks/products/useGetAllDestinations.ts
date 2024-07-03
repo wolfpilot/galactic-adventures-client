@@ -17,7 +17,6 @@ const getAllDestinations: Promise<GetAllDestinationsResponse> = fetch(
 
 export const useGetAllDestinations = () => {
   const {
-    status,
     isPending,
     error,
     data: allDestinationsData,
@@ -30,10 +29,27 @@ export const useGetAllDestinations = () => {
     console.log("Could not fetch all destinations", error)
   }
 
+  // Check for network errors
+  if (error) {
+    return {
+      isPending,
+      error,
+      data: [],
+    }
+  }
+
+  // Check for HTTP errors
+  if (!allDestinationsData?.ok) {
+    return {
+      isPending: false,
+      error: new Error(allDestinationsData?.message),
+      data: [],
+    }
+  }
+
   return {
-    status,
     isPending,
     error,
-    data: allDestinationsData?.data.destinations || [],
+    data: allDestinationsData.data.destinations,
   }
 }

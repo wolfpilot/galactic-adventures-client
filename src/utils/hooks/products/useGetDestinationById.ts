@@ -20,7 +20,6 @@ const getDestinationById = (id: number): Promise<GetDestinationByIdResponse> =>
 
 export const useGetDestinationById = ({ id }: Props) => {
   const {
-    status,
     isPending,
     error,
     data: destinationData,
@@ -33,10 +32,27 @@ export const useGetDestinationById = ({ id }: Props) => {
     console.log("Could not fetch all destinations", error)
   }
 
+  // Check for network errors
+  if (error) {
+    return {
+      isPending,
+      error,
+      data: null,
+    }
+  }
+
+  // Check for HTTP errors
+  if (!destinationData?.ok) {
+    return {
+      isPending: false,
+      error: new Error(destinationData?.message),
+      data: null,
+    }
+  }
+
   return {
-    status,
     isPending,
     error,
-    data: destinationData?.data.destination || null,
+    data: destinationData.data.destination,
   }
 }

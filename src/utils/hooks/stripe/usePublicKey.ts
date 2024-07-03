@@ -28,9 +28,27 @@ export const usePublicKey = () => {
     console.log("Could not fetch public key", error)
   }
 
+  // Check for network errors
+  if (error) {
+    return {
+      isPending,
+      error,
+      data: "",
+    }
+  }
+
+  // Check for HTTP errors
+  if (!publicKeyData?.ok) {
+    return {
+      isPending: false,
+      error: new Error(publicKeyData?.message),
+      data: "",
+    }
+  }
+
   return {
     isPending,
     error,
-    data: publicKeyData?.data.publishableKey || "",
+    data: publicKeyData.data.publishableKey,
   }
 }
