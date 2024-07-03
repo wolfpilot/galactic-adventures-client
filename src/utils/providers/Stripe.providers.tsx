@@ -30,17 +30,17 @@ const StripeProvider = ({ children }: Props) => {
   }
 
   return (
-    stripe && (
-      <Elements stripe={stripe} options={options}>
-        {isPending ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>Oops, something went wrong</p>
-        ) : data ? (
-          children
-        ) : null}
-      </Elements>
-    )
+    <>
+      {error && <p>Oops, something went wrong</p>}
+
+      {isPending && <p>Loading...</p>}
+
+      {stripe && (
+        <Elements stripe={stripe} options={options}>
+          {children}
+        </Elements>
+      )}
+    </>
   )
 }
 
