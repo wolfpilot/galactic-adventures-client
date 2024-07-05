@@ -5,7 +5,7 @@ import { metadata } from "@constants/metadata.constants"
 
 // Components
 import Head from "@components/layout/Head/Head.tsx"
-import App from "@components/layout/App/App.tsx"
+import PageWrapper from "@components/layout/PageWrapper/PageWrapper"
 
 // Styles
 import "@styles/index.css"
@@ -19,7 +19,7 @@ const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
 const Root = () => (
   <>
     <Head {...metadata} />
-    <App />
+    <PageWrapper />
 
     {enableDebugReactQuery && <ReactQueryDevtools />}
   </>

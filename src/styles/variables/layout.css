@@ -1,6 +1,9 @@
 :root {
   /* Border */
   --border-radius-default: 10px;
+  --border-radius-small: 10px;
+  --border-radius-medium: 20px;
+  --border-radius-large: 30px;
 
   /* Spacing */
   --spacing-default: 20px;

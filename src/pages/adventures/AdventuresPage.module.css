@@ -1,0 +1,16 @@
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.subtitle {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.detailsWrapper {
+  margin: var(--spacing-large);
+  padding: var(--spacing-default);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--c-shadow-neon);
+}
