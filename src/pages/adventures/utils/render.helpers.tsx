@@ -1,6 +1,9 @@
 // Types
 import { Waypoint } from "@ts/waypoints/waypoint.types"
 
+// Utils
+import { assertExhaustiveGuard } from "@utils/helpers/typeGuard.helpers"
+
 // Components
 import {
   SuperclusterDetails,
@@ -36,6 +39,6 @@ export const renderDetailsByCategory = (waypoint: Waypoint) => {
     case "Satellite":
       return <SatelliteDetails {...waypoint.details} />
     default:
-      return null
+      return assertExhaustiveGuard(cat)
   }
 }
