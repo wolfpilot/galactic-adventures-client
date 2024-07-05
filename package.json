@@ -10,6 +10,7 @@
   "scripts": {
     "prepare": "husky install",
     "start:dev": "vite",
+    "start:host": "vite --host",
     "start:prod": "vite preview",
     "build": "tsc && vite build",
     "format": "prettier src/**/*.ts --write",
