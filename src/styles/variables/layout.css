@@ -1,13 +1,99 @@
 :root {
-  /* Border */
-  --border-radius-default: 10px;
-  --border-radius-small: 10px;
-  --border-radius-medium: 20px;
-  --border-radius-large: 30px;
+  /* Breakpoints */
+  /*
+   * Just for reference. Unfortunately CSS media queries don't support dynamic var values.
+   *
+   * @see https://stackoverflow.com/questions/40722882/css-native-variables-not-working-in-media-queries
+   */
+  --breakpoint-XXS: 320px;
+  --breakpoint-XS: 375px;
+  --breakpoint-S: 425px;
+  --breakpoint-M: 768px;
+  --breakpoint-L: 1024px;
+  --breakpoint-XL: 1440px;
+  --breakpoint-XXL: 1920px;
+
+  /* Limits */
+  --max-content-width: 1440px;
+
+  /* Grid */
+  --grid-columns-count-XS: 3;
+  --grid-columns-count-S: 3;
+  --grid-columns-count-M: 6;
+  --grid-columns-count-L: 12;
+  --grid-columns-count-XL: 12;
+
+  --grid-offset-size-XS: 10px;
+  --grid-offset-size-S: 10px;
+  --grid-offset-size-M: 10px;
+  --grid-offset-size-L: 20px;
+  --grid-offset-size-XL: 20px;
+
+  --grid-gutter-size-XS: 10px;
+  --grid-gutter-size-S: 10px;
+  --grid-gutter-size-M: 10px;
+  --grid-gutter-size-L: 20px;
+  --grid-gutter-size-XL: 20px;
 
   /* Spacing */
   --spacing-default: 20px;
   --spacing-small: 10px;
   --spacing-medium: 20px;
   --spacing-large: 40px;
+
+  /* Border */
+  --border-radius-default: 10px;
+  --border-radius-small: 10px;
+  --border-radius-medium: 20px;
+  --border-radius-large: 30px;
+
+  /* Responsive vars */
+  --grid-columns-count: var(--grid-columns-count-XS);
+  --grid-offset-size: var(--grid-offset-size-XS);
+  --grid-gutter-size: var(--grid-gutter-size-XS);
+
+  /**
+    * To calculate the column size:
+    * - Take the total width of the screen
+    * - Subtract the scrollbar
+    * - Subtract the two offsets
+    * - Subtract the gaps
+    * - Divide the result by the number of columns
+    */
+  --grid-column-size: calc(
+    (
+        100vw - (2 * var(--grid-offset-size)) -
+          ((var(--grid-columns-count) - 1) * var(--grid-gutter-size))
+      ) / var(--grid-columns-count)
+  );
+
+  @media only screen and (min-width: 425px) {
+    --grid-columns-count: var(--grid-columns-count-S);
+    --grid-offset-size: var(--grid-offset-size-S);
+    --grid-gutter-size: var(--grid-gutter-size-S);
+  }
+
+  @media only screen and (min-width: 768px) {
+    --grid-columns-count: var(--grid-columns-count-M);
+    --grid-offset-size: var(--grid-offset-size-M);
+    --grid-gutter-size: var(--grid-gutter-size-M);
+  }
+
+  @media only screen and (min-width: 1024px) {
+    --grid-columns-count: var(--grid-columns-count-L);
+    --grid-offset-size: var(--grid-offset-size-L);
+    --grid-gutter-size: var(--grid-gutter-size-L);
+  }
+
+  @media only screen and (min-width: 1440px) {
+    --grid-columns-count: var(--grid-columns-count-XL);
+    --grid-offset-size: var(--grid-offset-size-XL);
+    --grid-gutter-size: var(--grid-gutter-size-XL);
+    --grid-column-size: calc(
+      (
+          1440 - (2 * var(--grid-offset-size)) -
+            ((var(--grid-columns) - 1) * var(--grid-gutter-size))
+        ) / var(--grid-columns)
+    );
+  }
 }
