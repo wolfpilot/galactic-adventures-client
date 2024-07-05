@@ -2,11 +2,11 @@
  * Here we're keeping both hex and RGB versions just to be able to see the swatch colour.
  */
 :root {
-  --c-abs-black: #000000;
-  --c-abs-black-rgb: 0, 0, 0;
+  --c-pure-black: #000000;
+  --c-pure-black-rgb: 0, 0, 0;
 
-  --c-abs-white: #ffffff;
-  --c-abs-white-rgb: 255, 255, 255;
+  --c-pure-white: #ffffff;
+  --c-pure-white-rgb: 255, 255, 255;
 
   --c-black: #1a171f;
   --c-black-rgb: 26, 23, 31;
