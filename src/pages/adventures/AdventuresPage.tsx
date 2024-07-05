@@ -15,6 +15,8 @@ import styles from "./AdventuresPage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
+import Container from "@components/layout/Container/Container"
+import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
 import WaypointMain from "./components/WaypointMain/WaypointMain"
 import WaypointList from "./components/WaypointList/WaypointList"
 
@@ -49,21 +51,22 @@ const AdventuresPage = () => {
 
       {data && (
         <div className={styles.content}>
-          <WaypointMain data={data} />
+          <WaypointMain waypoint={data} />
 
           {data.children.length > 0 && (
             <div className={styles.waypointListWrapper}>
-              <WaypointList data={data.children} />
+              <WaypointList waypoints={data.children} />
             </div>
           )}
 
-          {/* <div className={styles.dataSheet}> */}
           {data.details && (
-            <div className={styles.detailsWrapper}>
-              <h2 className={styles.subtitle}>About</h2>
+            <Container>
+              <ContentBlock kind="secondary">
+                <h2 className={styles.subtitle}>About</h2>
 
-              {renderDetailsByCategory(data)}
-            </div>
+                {renderDetailsByCategory(data)}
+              </ContentBlock>
+            </Container>
           )}
         </div>
       )}

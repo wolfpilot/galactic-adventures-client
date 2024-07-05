@@ -14,12 +14,11 @@ import { pageData } from "./data/paymentPage.data"
 // Utils
 import { useClientSecret, useRetrievePaymentIntent } from "@utils/hooks/stripe"
 
-// Styles
-import styles from "./PaymentPage.module.css"
-
 // Components
 import Head from "@components/layout/Head/Head"
 import PageHeader from "@components/layout/PageHeader/PageHeader"
+import Container from "@components/layout/Container/Container"
+import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
 import PaymentForm from "./components/form/PaymentForm/PaymentForm"
 
 const PaymentPage = () => {
@@ -127,14 +126,16 @@ const PaymentPage = () => {
       {isPending && <p>Loading...</p>}
 
       {hasData && (
-        <div className={styles.formWrapper}>
-          <PaymentForm
-            isProcessing={isProcessing}
-            currency={paymentIntentData.currency}
-            amount={paymentIntentData.amount / 100}
-            submitHandler={submitHandler}
-          />
-        </div>
+        <Container>
+          <ContentBlock>
+            <PaymentForm
+              isProcessing={isProcessing}
+              currency={paymentIntentData.currency}
+              amount={paymentIntentData.amount / 100}
+              submitHandler={submitHandler}
+            />
+          </ContentBlock>
+        </Container>
       )}
 
       {error && <p>{error}</p>}

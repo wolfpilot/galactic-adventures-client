@@ -1,0 +1,16 @@
+.wrapper {
+  margin: var(--spacing-large);
+  padding: var(--spacing-default);
+}
+
+.wrapperPrimary {
+  composes: wrapper;
+  border-radius: var(--border-radius-medium);
+  border: 2px solid var(--c-accent3);
+}
+
+.wrapperSecondary {
+  composes: wrapper;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--c-shadow-neon);
+}

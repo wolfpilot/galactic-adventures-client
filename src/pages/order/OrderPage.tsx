@@ -18,6 +18,8 @@ import { useGetProduct } from "@utils/hooks/products"
 // Components
 import Head from "@components/layout/Head/Head"
 import PageHeader from "@components/layout/PageHeader/PageHeader"
+import Container from "@components/layout/Container/Container"
+import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
 
 const OrderPage = () => {
   const stripe = useStripe()
@@ -62,11 +64,11 @@ const OrderPage = () => {
 
       <PageHeader {...orderPageData.headerData} />
 
-      <div>
-        {isPending && <p>Loading...</p>}
+      {isPending && <p>Loading...</p>}
 
-        {hasData && (
-          <>
+      {hasData && (
+        <Container>
+          <ContentBlock>
             <p>{orderStatusText}</p>
             <br />
             <p>Order ID: {paymentIntentData.id.toUpperCase()}</p>
@@ -78,11 +80,11 @@ const OrderPage = () => {
                 amount: paymentIntentData.amount / 100,
               })}
             </p>
-          </>
-        )}
+          </ContentBlock>
+        </Container>
+      )}
 
-        {error && <p>{error}</p>}
-      </div>
+      {error && <p>{error}</p>}
     </>
   )
 }
