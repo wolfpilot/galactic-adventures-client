@@ -12,7 +12,7 @@ export type SatelliteSize = "Small" | "Medium" | "Large"
 export interface SatelliteDetails {
   size: SatelliteSize
   composition: SurfaceComposition
-  geological_activity: GeologicalActivity
+  geological_activity: GeologicalActivity[] | null
   diameter_km: number
   surface_temp_avg_k: number
   day_length_h: number
@@ -21,8 +21,8 @@ export interface SatelliteDetails {
   wind_speed_avg_kmh: number
   wind_gust_max_kmh: number
   precipitation_level: PrecipitationLevel
-  precipitation_types: string[]
-  weather_alerts: string[]
+  precipitation_types: string[] | null
+  weather_alerts: string[] | null
   atmosphere: Atmosphere | null
 }
 
