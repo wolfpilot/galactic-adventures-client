@@ -5,7 +5,7 @@ import type {
   SurfaceComposition,
   GeologicalActivity,
   PrecipitationLevel,
-} from "@ts/waypoints/enums.types.js"
+} from "@ts/waypoints/common.types.js"
 
 export type SatelliteSize = "Small" | "Medium" | "Large"
 

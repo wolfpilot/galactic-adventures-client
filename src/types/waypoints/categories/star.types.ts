@@ -20,15 +20,15 @@ export type StarSpectralClass = "O" | "B" | "A" | "F" | "G" | "K" | "M"
 export interface SpectralClass {
   class: StarSpectralClass
   chromacity: string
-  temperature_min_k: number
-  temperature_max_k: number
+  temperature_min_k: number | null
+  temperature_max_k: number | null
 }
 
 export interface StarDetails {
   life_cycle: StarLifeCycle
   mass: StarMass
   spectral_class: SpectralClass
-  atmosphere: Atmosphere
+  atmosphere: Atmosphere | null
 }
 
 export interface Star extends WaypointBase {

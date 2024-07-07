@@ -1,5 +1,5 @@
 // Types
-import { WaypointCategory } from "@ts/waypoints/enums.types"
+import { WaypointCategory } from "@ts/waypoints/waypoint.types"
 
 // Setup
 const { VITE_ASSETS_URL = "" } = import.meta.env
