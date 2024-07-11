@@ -1,5 +1,5 @@
 // Types
-import { WaypointChildPartial } from "@ts/waypoints/waypoint.types"
+import { Props } from "./types"
 
 // Constants
 import { routes } from "@constants/routes.constants"
@@ -11,14 +11,11 @@ import { categoryToFolderName } from "@utils/helpers/asset.helpers"
 import styles from "./WaypointList.module.css"
 
 // Components
+import Scroller from "@components/sliders/Scroller/Scroller"
 import { ProgressiveImage } from "@components/images"
 
-export interface Props {
-  waypoints: WaypointChildPartial[]
-}
-
 const WaypointList = ({ waypoints }: Props) => (
-  <div className={styles.wrapper}>
+  <Scroller className={styles.wrapper!}>
     <ul className={styles.list}>
       {waypoints.map((item) => {
         const { id, category, code, name, adventure } = item
@@ -48,7 +45,7 @@ const WaypointList = ({ waypoints }: Props) => (
         )
       })}
     </ul>
-  </div>
+  </Scroller>
 )
 
 export default WaypointList

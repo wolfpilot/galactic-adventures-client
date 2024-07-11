@@ -8,8 +8,7 @@
   --badge-lrg-size: 40px;
 
   /* Other styles */
-  overflow-x: auto;
-  padding: var(--spacing-default);
+  margin-bottom: var(--spacing-small);
 }
 
 .list {
@@ -22,12 +21,25 @@
   justify-content: safe center;
   gap: var(--spacing-default);
   list-style: none;
-  margin: 0 0 var(--spacing-small);
-  padding: 0;
+  margin: 0;
+  padding: var(--spacing-default) 0;
 }
 
+/**
+  * Fix CSS bug where padding doesn't apply to last item if styling the container itself.
+  *
+  * @see https://stackoverflow.com/a/42281956
+  */
 .item {
   flex: none;
+
+  &:first-child {
+    padding-left: var(--spacing-default);
+  }
+
+  &:last-child {
+    padding-right: var(--spacing-default);
+  }
 }
 
 .itemLink {

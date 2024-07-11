@@ -1,5 +1,5 @@
 // Types
-import { Waypoint } from "@ts/waypoints/waypoint.types"
+import { Props } from "./types"
 
 // Utils
 import { categoryToFolderName } from "@utils/helpers/asset.helpers"
@@ -10,10 +10,6 @@ import styles from "./WaypointMain.module.css"
 // Components
 import Container from "@components/layout/Container/Container"
 import { Image } from "@components/images"
-
-export interface Props {
-  waypoint: Waypoint
-}
 
 const WaypointMain = ({ waypoint }: Props) => {
   const { name, code, category } = waypoint
