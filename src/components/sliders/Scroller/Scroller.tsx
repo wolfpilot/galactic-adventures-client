@@ -5,17 +5,20 @@ import ScrollContainer, {
 
 // Utils
 import { isElemScrollable } from "@utils/helpers/dom.helpers"
+import { useWindowSize } from "@utils/hooks/dom/useWindowSize"
 
 const Scroller = ({ children, className = "" }: ScrollContainerProps) => {
   const ref = useRef<HTMLElement | null>(null)
 
   const [isScrollable, setIsScrollable] = useState(false)
 
+  const windowSize = useWindowSize()
+
   useEffect(() => {
     if (!ref.current) return
 
     setIsScrollable(isElemScrollable(ref.current))
-  }, [ref])
+  }, [ref, windowSize.width, windowSize.height])
 
   return (
     <ScrollContainer
