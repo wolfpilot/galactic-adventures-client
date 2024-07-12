@@ -57,3 +57,12 @@ a,
 button {
   cursor: pointer;
 }
+
+/* Global modifiers */
+.IS_GRABBABLE {
+  cursor: grab;
+}
+
+.IS_GRABBING {
+  cursor: grabbing;
+}

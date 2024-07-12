@@ -1,47 +1,62 @@
 // Types
-import { WaypointChildPartial } from "@ts/waypoints/waypoint.types"
+import { Props } from "./types"
 
 // Constants
 import { routes } from "@constants/routes.constants"
 
 // Utils
-import { getImagePath } from "@utils/helpers/asset.helpers"
+import { categoryToFolderName } from "@utils/helpers/asset.helpers"
 
 // Styles
 import styles from "./WaypointList.module.css"
 
-export interface Props {
-  waypoints: WaypointChildPartial[]
-}
+// Components
+import Scroller from "@components/sliders/Scroller/Scroller"
+import { ProgressiveImage } from "@components/images"
+import Icon from "@components/icons/Icon"
 
 const WaypointList = ({ waypoints }: Props) => (
   <div className={styles.wrapper}>
-    <ul className={styles.list}>
-      {waypoints.map((item) => {
-        const { id, category, code, name, adventure } = item
+    <Scroller className={styles.scroller!}>
+      <ul className={styles.list}>
+        {waypoints.map((item) => {
+          const { id, category, code, name, adventure } = item
 
-        return (
-          <li key={id} className={styles.item}>
-            <a
-              className={styles.itemLink}
-              href={`${routes.adventures.url}?waypointId=${id}`}
-            >
-              <div className={styles.itemImageWrapper}>
-                <img
-                  className={styles.itemImage}
-                  src={`${getImagePath(category)}/${code}-thumb.webp`}
-                  alt={`Thumbnail image of ${category} ${name}.`}
-                />
+          const imgPath = `${categoryToFolderName[category]}/${code}-thumb.webp`
 
-                {adventure?.id && <div className={styles.itemBadge}>{`⚑`}</div>}
-              </div>
+          return (
+            <li key={id} className={styles.item}>
+              <a
+                className={styles.itemLink}
+                href={`${routes.adventures.url}?waypointId=${id}`}
+              >
+                <div className={styles.itemImageWrapper}>
+                  <ProgressiveImage
+                    className={styles.itemImage}
+                    path={imgPath}
+                    placeholderSizePx={4}
+                    alt={`Thumbnail image of ${category} ${name}.`}
+                  />
 
-              {name && <h3 className={styles.itemName}>{name}</h3>}
-            </a>
-          </li>
-        )
-      })}
-    </ul>
+                  {adventure?.id && (
+                    <div className={styles.itemBadge}>
+                      <Icon
+                        className={styles.itemBadgeIcon}
+                        type="SpaceFlight"
+                        width={32}
+                        height={32}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {name && <h3 className={styles.itemName}>{name}</h3>}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </Scroller>
   </div>
 )
 

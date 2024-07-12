@@ -1,28 +1,28 @@
 // Types
-import { Waypoint } from "@ts/waypoints/waypoint.types"
+import { Props } from "./types"
 
 // Utils
-import { getImagePath } from "@utils/helpers/asset.helpers"
+import { categoryToFolderName } from "@utils/helpers/asset.helpers"
 
 // Styles
 import styles from "./WaypointMain.module.css"
 
 // Components
 import Container from "@components/layout/Container/Container"
-
-export interface Props {
-  waypoint: Waypoint
-}
+import { Image } from "@components/images"
 
 const WaypointMain = ({ waypoint }: Props) => {
   const { name, code, category } = waypoint
 
+  const imgPath = `${categoryToFolderName[category]}/${code}.webp`
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.imageWrapper}>
-        <img
+        <Image
           className={styles.image}
-          src={`${getImagePath(category)}/${code}.webp`}
+          path={imgPath}
+          alt={`Featured image of ${category} ${name}.`}
         />
       </div>
 
