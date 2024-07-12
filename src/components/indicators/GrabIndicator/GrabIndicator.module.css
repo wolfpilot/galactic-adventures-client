@@ -1,0 +1,21 @@
+@import "./animation.css";
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconGrab {
+  animation: 2.5s linear infinite both grabAnim;
+}
+
+.iconLeft {
+  margin-right: var(--spacing-large);
+  opacity: 0.25;
+}
+
+.iconRight {
+  margin-left: var(--spacing-large);
+  opacity: 0.25;
+}

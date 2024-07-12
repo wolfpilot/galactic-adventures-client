@@ -1,0 +1,54 @@
+.wrapper {
+  position: relative;
+
+  &:hover,
+  &:focus-within {
+    .scroller {
+      opacity: 1;
+      filter: grayscale(0);
+    }
+
+    .indicator {
+      opacity: 0;
+    }
+  }
+}
+
+.scroller {
+  transition:
+    opacity var(--anim-duration-medium) var(--anim-ease-cubic),
+    filter var(--anim-duration-medium) var(--anim-ease-cubic);
+}
+
+.scroller__isScrollable {
+  @media (hover: hover) {
+    opacity: 0.15;
+    filter: grayscale(1);
+  }
+}
+
+.scroller__hasInteracted {
+  opacity: 1;
+  filter: none;
+}
+
+.indicator {
+  pointer-events: none;
+  transition:
+    visibility var(--anim-duration-medium) var(--anim-ease-cubic),
+    opacity var(--anim-duration-medium) var(--anim-ease-cubic);
+
+  @media (hover: hover) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+}
+
+.indicator__hasInteracted {
+  visibility: hidden;
+  opacity: 0;
+}

@@ -7,29 +7,66 @@ import ScrollContainer, {
 import { isElemScrollable } from "@utils/helpers/dom.helpers"
 import { useWindowSize } from "@utils/hooks/dom/useWindowSize"
 
+// Styles
+import styles from "./Scroller.module.css"
+
+// Components
+import { GrabIndicator } from "@components/indicators"
+
 const Scroller = ({ children, className = "" }: ScrollContainerProps) => {
   const ref = useRef<HTMLElement | null>(null)
 
+  const [hasInteracted, setHasInteracted] = useState(false)
   const [isScrollable, setIsScrollable] = useState(false)
 
   const windowSize = useWindowSize()
 
+  // Hooks
   useEffect(() => {
     if (!ref.current) return
 
     setIsScrollable(isElemScrollable(ref.current))
   }, [ref, windowSize.width, windowSize.height])
 
+  // Handlers
+  const handleOnInteract = () => {
+    if (hasInteracted) return
+
+    setHasInteracted(true)
+  }
+
   return (
-    <ScrollContainer
-      className={`${className} ${isScrollable && "IS_GRABBABLE"}`}
-      vertical={false}
-      hideScrollbars={false}
-      draggingClassName="IS_GRABBING"
-      innerRef={ref}
+    <div
+      className={`
+        ${styles.wrapper}
+        ${className}
+      `}
     >
-      {children}
-    </ScrollContainer>
+      <ScrollContainer
+        className={`
+          ${styles.scroller}
+          ${isScrollable ? "IS_GRABBABLE" : ""}
+          ${isScrollable ? styles.scroller__isScrollable : ""}
+          ${hasInteracted ? styles.scroller__hasInteracted : ""}
+        `}
+        vertical={false}
+        draggingClassName="IS_GRABBING"
+        innerRef={ref}
+        onClick={handleOnInteract}
+        onStartScroll={handleOnInteract}
+      >
+        {children}
+      </ScrollContainer>
+
+      {isScrollable && (
+        <GrabIndicator
+          className={`
+            ${styles.indicator}
+            ${hasInteracted ? styles.indicator__hasInteracted : ""}
+          `}
+        />
+      )}
+    </div>
   )
 }
 
