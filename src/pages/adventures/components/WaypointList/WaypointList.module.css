@@ -1,16 +1,29 @@
+.wrapper {
+  /* Declare local variables */
+  --img-size: 10vw;
+  --img-min-size: 60px;
+  --img-max-size: 120px;
+
+  --badge-sml-size: 30px;
+  --badge-lrg-size: 40px;
+
+  /* Other styles */
+  overflow-x: auto;
+  padding: var(--spacing-default);
+}
+
 .list {
   display: flex;
   /**
-    * Fix overflow-x cutting elements off-screen.
+    * Fix overflow-x cutting elements off-screen using the new "safe" property.
     *
     * @see https://stackoverflow.com/questions/33454533/cant-scroll-to-top-of-flex-item-that-is-overflowing-container
     */
   justify-content: safe center;
   gap: var(--spacing-default);
   list-style: none;
-  overflow-x: auto;
   margin: 0 0 var(--spacing-small);
-  padding: var(--spacing-default);
+  padding: 0;
 }
 
 .item {
@@ -38,16 +51,16 @@
 
 .itemImageWrapper {
   position: relative;
-  width: 10vw;
-  height: 10vw;
-  min-width: 60px;
-  min-height: 60px;
-  max-width: 120px;
-  max-height: 120px;
+  width: var(--img-size);
+  height: var(--img-size);
+  min-width: var(--img-min-size);
+  min-height: var(--img-min-size);
+  max-width: var(--img-max-size);
+  max-height: var(--img-max-size);
   margin-bottom: var(--spacing-small);
   outline: 2px solid transparent;
   border-radius: 50%;
-  background-color: var(--c-abs-black);
+  background-color: var(--c-pure-black);
   transition: outline-color var(--anim-duration-medium) var(--anim-ease-cubic);
 }
 
@@ -63,22 +76,22 @@
   width: 100%;
 }
 
-.itemAdventure {
+.itemBadge {
   position: absolute;
   top: 0;
   right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: var(--badge-sml-size);
+  height: var(--badge-sml-size);
   border-radius: 50%;
   background-color: rgba(var(--c-lGrey-rgb), 0.8);
   transform: translate(25%, -25%);
 
   @media only screen and (min-width: 768px) {
-    width: 40px;
-    height: 40px;
+    width: var(--badge-lrg-size);
+    height: var(--badge-lrg-size);
   }
 }
 
@@ -86,6 +99,5 @@
   margin-bottom: 0;
   color: var(--c-lGrey);
   text-align: center;
-  font-size: 16px;
   transition: color var(--anim-duration-medium) var(--anim-ease-cubic);
 }

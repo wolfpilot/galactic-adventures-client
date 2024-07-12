@@ -1,5 +1,4 @@
 // Types
-import type { WaypointCategory } from "@ts/waypoints/enums.types.js"
 import type { AdventureBase } from "@ts/products/adventures.types.js"
 
 import type {
@@ -16,6 +15,16 @@ import type {
   Satellite,
   SatelliteDetails,
 } from "./categories/satellite.types.js"
+
+export type WaypointCategory =
+  | "Star"
+  | "Supercluster"
+  | "Cluster"
+  | "Galaxy"
+  | "Nebula"
+  | "System"
+  | "Planet"
+  | "Satellite"
 
 export interface WaypointBase {
   id: number
