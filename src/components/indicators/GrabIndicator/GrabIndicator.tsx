@@ -14,21 +14,21 @@ const GrabIndicator = ({ className }: Props) => (
   <div className={`${className} ${styles.wrapper}`}>
     <Icon
       className={styles.iconLeft}
-      type="chevronLeft"
+      type="ChevronLeft"
       width={DEFAULT_ICON_SIZE}
       height={DEFAULT_ICON_SIZE}
       stroke="none"
     />
     <Icon
       className={styles.iconGrab}
-      type="grab"
+      type="Grab"
       width={DEFAULT_ICON_SIZE}
       height={DEFAULT_ICON_SIZE}
       stroke="none"
     />
     <Icon
       className={styles.iconRight}
-      type="chevronRight"
+      type="ChevronRight"
       width={DEFAULT_ICON_SIZE}
       height={DEFAULT_ICON_SIZE}
       stroke="none"

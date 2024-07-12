@@ -102,13 +102,18 @@
   width: var(--badge-sml-size);
   height: var(--badge-sml-size);
   border-radius: 50%;
-  background-color: rgba(var(--c-lGrey-rgb), 0.8);
+  background-color: rgba(var(--c-lGrey-rgb), 0.75);
   transform: translate(25%, -25%);
 
   @media only screen and (min-width: 768px) {
     width: var(--badge-lrg-size);
     height: var(--badge-lrg-size);
   }
+}
+
+.itemBadgeIcon {
+  stroke: var(--c-black);
+  stroke-width: 12px;
 }
 
 .itemName {

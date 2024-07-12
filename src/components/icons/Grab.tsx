@@ -5,7 +5,7 @@ const Grab = ({
   width = 32,
   height = 32,
   fill = "#ffffff",
-  stroke = "#ffffff",
+  stroke = "none",
 }: Props) => (
   <svg
     className={className}

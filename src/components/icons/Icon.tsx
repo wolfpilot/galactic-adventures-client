@@ -1,23 +1,34 @@
 // Types
-import { Icons, Props } from "./types"
+import { Icons, Props as IconProps } from "./types"
+
+// Utils
+import { assertExhaustiveGuard } from "@utils/helpers/typeGuard.helpers"
 
 // SVGs
 import ChevronLeft from "./ChevronLeft"
 import ChevronRight from "./ChevronRight"
 import Grab from "./Grab"
 
+import SpaceFlight from "./SpaceFlight"
+
+export interface Props extends IconProps {
+  type: keyof typeof Icons
+}
+
 const Icon = ({ type, ...props }: Props) => {
   switch (type) {
     // Interaction
-    case Icons.ChevronLeft:
+    case "ChevronLeft":
       return <ChevronLeft {...props} />
-    case Icons.ChevronRight:
+    case "ChevronRight":
       return <ChevronRight {...props} />
-    case Icons.Grab:
+    case "Grab":
       return <Grab {...props} />
-
+    // Objects
+    case "SpaceFlight":
+      return <SpaceFlight {...props} />
     default:
-      throw new Error(`Icon type ${type} not found.`)
+      return assertExhaustiveGuard(type)
   }
 }
 

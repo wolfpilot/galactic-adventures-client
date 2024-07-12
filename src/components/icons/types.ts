@@ -1,8 +1,10 @@
 export enum Icons {
   // Interaction
-  ChevronLeft = "chevronLeft",
-  ChevronRight = "chevronRight",
-  Grab = "grab",
+  ChevronLeft = "ChevronLeft",
+  ChevronRight = "ChevronRight",
+  Grab = "Grab",
+  // Objects
+  SpaceFlight = "SpaceFlight",
 }
 
 export interface Props extends React.SVGAttributes<SVGElement> {
