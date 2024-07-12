@@ -1,5 +1,11 @@
 import { useQuery } from "@tanstack/react-query"
-import { type Stripe } from "@stripe/stripe-js"
+
+// Types
+import type {
+  Stripe,
+  PaymentIntentResult,
+  StripeError,
+} from "@stripe/stripe-js"
 
 export interface Props {
   stripe: Stripe | null
@@ -7,26 +13,27 @@ export interface Props {
 }
 
 export const useRetrievePaymentIntent = ({ stripe, clientSecret }: Props) => {
+  const isEnabled = Boolean(stripe && clientSecret)
+
   const {
     isPending,
     error,
-    data: paymentIntentData,
-  } = useQuery({
-    enabled: !!stripe && !!clientSecret,
-    queryKey: ["paymentIntent"],
+    data: res,
+  } = useQuery<PaymentIntentResult, StripeError>({
+    enabled: isEnabled,
+    queryKey: ["paymentIntent", clientSecret],
+    // This fn only gets called if the initial check passes,
+    // therefore we can safely assert that the params are not null.
     queryFn: () => stripe!.retrievePaymentIntent(clientSecret!),
   })
 
-  if (error || paymentIntentData?.error) {
-    console.log(
-      "Could not fetch payment intent",
-      error || paymentIntentData.error
-    )
+  if (error) {
+    console.error("Could not fetch payment intent", error)
   }
 
   return {
     isPending,
     error,
-    data: paymentIntentData?.paymentIntent || null,
+    data: res?.paymentIntent || null,
   }
 }

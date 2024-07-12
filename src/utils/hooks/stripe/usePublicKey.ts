@@ -1,36 +1,33 @@
 import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
 
 // Types
-import { ApiBaseResponse } from "@ts/api.types"
+import { ApiResponse, ApiError } from "@ts/api.types"
 
-export type GetPublicKeyResponse = ApiBaseResponse<{
+// Constants
+import { apiRoutes } from "@constants/api.constants"
+
+export interface ApiData {
   publishableKey: string
-}>
-
-// Setup
-const { VITE_SERVER_URL = "" } = import.meta.env
-
-const getPublicKey: Promise<GetPublicKeyResponse> = fetch(
-  `${VITE_SERVER_URL}/payment`
-).then((res) => res.json())
+}
 
 export const usePublicKey = () => {
   const {
     isPending,
     error,
-    data: publicKeyData,
-  } = useQuery({
+    data: res,
+  } = useQuery<ApiResponse<ApiData>, ApiError>({
     queryKey: ["publicKey"],
-    queryFn: () => getPublicKey,
+    queryFn: () => axios.get(apiRoutes.payment),
   })
 
   if (error) {
-    console.log("Could not fetch public key", error)
+    console.error("Could not fetch public key", error)
   }
 
   return {
     isPending,
     error,
-    data: publicKeyData?.data.publishableKey || "",
+    data: res?.data.data.publishableKey || null,
   }
 }

@@ -1,8 +1,41 @@
+/**
+ * Here we're keeping both hex and RGB versions just to be able to see the swatch colour.
+ */
 :root {
+  --c-abs-black: #000000;
+  --c-abs-black-rgb: 0, 0, 0;
+
+  --c-abs-white: #ffffff;
+  --c-abs-white-rgb: 255, 255, 255;
+
   --c-black: #1a171f;
+  --c-black-rgb: 26, 23, 31;
+
   --c-white: #fdfdfd;
+  --c-white-rgb: 253, 253, 253;
+
   --c-lGrey: #d3d3d3;
-  --c-dGrey: #696969;
-  --c-accentPrimary: #1e90ff;
-  --c-accentSecondary: #0a6bc9;
+  --c-lGrey-rgb: 211, 211, 211;
+
+  --c-grey: #696969;
+  --c-grey-rgb: 105, 105, 105;
+
+  --c-dGrey: #1e1e27;
+  --c-dGrey-rgb: 30, 30, 39;
+
+  --c-accent1: #1e90ff;
+  --c-accent1-rgb: 30, 144, 255;
+
+  --c-accent2: #0a6bc9;
+  --c-accent2-rgb: 10, 107, 201;
+
+  --c-accent3: #db5baa;
+  --c-accent3-rgb: 219, 91, 170;
+
+  --c-accent4: #7026b1;
+  --c-accent4-rgb: 112, 38, 177;
+
+  --c-shadow-neon: var(--c-white) 0 -1px 4px, var(--c-accent1) 0 -2px 10px,
+    var(--c-accent2) 0 -8px 20px, var(--c-accent3) 0 -16px 40px,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
 }

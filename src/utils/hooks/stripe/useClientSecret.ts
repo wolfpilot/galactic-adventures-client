@@ -1,73 +1,57 @@
 import { useEffect } from "react"
 import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
 
 // Types
 import { ProductType } from "@ts/products/products.types"
-import { ApiBaseResponse } from "@ts/api.types"
+import { ApiResponse, ApiError } from "@ts/api.types"
 
-export interface Props {
-  productType: ProductType
-  productId: number
+// Constants
+import { apiRoutes } from "@constants/api.constants"
+
+export interface ApiData {
+  clientSecret: string
 }
 
-export type PostPaymentIntentResponse = ApiBaseResponse<{
-  clientSecret: string
-}>
-
-export type PostPaymentIntent = ({
-  productType,
-  productId,
-}: Props) => Promise<PostPaymentIntentResponse>
-
-// Setup
-const { VITE_SERVER_URL = "" } = import.meta.env
-
-const postPaymentIntent: PostPaymentIntent = ({ productType, productId }) =>
-  fetch(`${VITE_SERVER_URL}/payment`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      productType,
-      productId,
-    }),
-  }).then((res) => res.json())
+export interface Props {
+  productType: ProductType | null
+  productId: string | null
+}
 
 export const useClientSecret = ({ productType, productId }: Props) => {
-  const options = {
-    productType,
-    productId,
-  }
+  const shouldMutate = Boolean(
+    productId && productType && Object.values(ProductType).includes(productType)
+  )
 
   const {
     mutate,
     isPending,
     error,
-    data: clientSecretData,
-  } = useMutation({
-    mutationFn: () => postPaymentIntent(options),
+    data: res,
+  } = useMutation<ApiResponse<ApiData>, ApiError>({
+    mutationKey: ["clientSecret", productType, productId],
+    // This fn only gets called if the initial check passes,
+    // therefore we can safely assert that the params are not null.
+    mutationFn: () =>
+      axios.post(apiRoutes.payment, {
+        productType: productType!,
+        productId: productId!,
+      }),
   })
 
   useEffect(() => {
-    if (
-      !productId ||
-      !productType ||
-      !Object.values(ProductType).includes(productType)
-    ) {
-      return
-    }
+    if (!shouldMutate) return
 
     mutate()
-  }, [mutate, productId, productType])
+  }, [shouldMutate, mutate])
 
   if (error) {
-    console.log("Could not fetch client secret", error)
+    console.error("Could not fetch client secret", error)
   }
 
   return {
     isPending,
     error,
-    data: clientSecretData?.data.clientSecret || "",
+    data: res?.data.data.clientSecret || null,
   }
 }

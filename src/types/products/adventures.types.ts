@@ -1,18 +1,12 @@
-export enum DestinationCategory {
-  "planet",
-  "satellite",
-  "asteroid",
-  "comet",
-  "ring",
-  "station",
+// Types
+import type { WaypointBase } from "@ts/waypoints/waypoint.types"
+
+export interface AdventureBase {
+  id: number
+  description: string
+  price_sb: number
 }
 
-export interface Destination {
-  id: number
-  name: string
-  code: string
-  category: DestinationCategory
-  description: string
-  price: number
-  isDefault: boolean
+export type Adventure = AdventureBase & {
+  waypoint: WaypointBase | null
 }
