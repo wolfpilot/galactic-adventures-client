@@ -12,5 +12,5 @@
 .wrapperSecondary {
   composes: wrapper;
   border-radius: var(--border-radius-large);
-  box-shadow: var(--c-shadow-neon);
+  box-shadow: var(--s-neon-glow);
 }
