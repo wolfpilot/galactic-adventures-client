@@ -84,7 +84,6 @@
   margin-bottom: var(--spacing-small);
   outline: 2px solid transparent;
   border-radius: 50%;
-  background-color: var(--c-pure-black);
   transition: outline-color var(--anim-duration-medium) var(--anim-ease-cubic);
 }
 

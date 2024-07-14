@@ -1,21 +1,6 @@
 .wrapper {
-  position: relative;
-  overflow: hidden;
   width: 100%;
   height: 100%;
-  border-radius: inherit;
-}
-
-.placeholder {
-  filter: blur(8px);
-  transition:
-    opacity var(--anim-ease-cubic) var(--anim-duration-slow),
-    filter var(--anim-ease-cubic) var(--anim-duration-slow);
-}
-
-.placeholder__isLoaded {
-  opacity: 0;
-  filter: blur(0);
 }
 
 .image {
