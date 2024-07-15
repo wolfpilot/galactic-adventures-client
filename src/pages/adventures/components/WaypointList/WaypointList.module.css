@@ -64,7 +64,10 @@
 
     .itemBadge {
       background-color: var(--c-accent1);
-      transform: translate(25%, -25%) rotate3d(0, 0, 1, 22.5deg);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transform: translate(25%, -25%) rotate3d(0, 0, 1, 22.5deg);
+      }
     }
 
     .itemName {
@@ -110,11 +113,15 @@
   height: var(--badge-sml-size);
   border-radius: 50%;
   background-color: rgba(var(--c-lGrey-rgb), 0.75);
-  transform: translate(25%, -25%) rotate3d(0, 0, 1, 67.5deg);
+  transform: translate(25%, -25%);
   transform-origin: center center;
   transition:
     background-color var(--anim-duration-medium) var(--anim-ease-cubic),
     transform var(--anim-duration-medium) var(--anim-ease-elastic);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transform: translate(25%, -25%) rotate3d(0, 0, 1, 67.5deg);
+  }
 
   @media only screen and (min-width: 768px) {
     width: var(--badge-lrg-size);

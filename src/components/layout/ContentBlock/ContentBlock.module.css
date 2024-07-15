@@ -15,5 +15,8 @@
   composes: wrapper;
   border-radius: var(--border-radius-large);
   box-shadow: var(--s-neon-glow);
-  animation: glowAnim 10s linear infinite both;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: glowAnim 10s linear infinite both;
+  }
 }

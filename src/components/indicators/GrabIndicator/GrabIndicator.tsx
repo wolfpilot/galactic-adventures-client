@@ -12,27 +12,31 @@ const DEFAULT_ICON_SIZE = 32
 
 const GrabIndicator = ({ className }: Props) => (
   <div className={`${className} ${styles.wrapper}`}>
-    <Icon
-      className={styles.iconLeft}
-      type="ChevronLeft"
-      width={DEFAULT_ICON_SIZE}
-      height={DEFAULT_ICON_SIZE}
-      stroke="none"
-    />
-    <Icon
-      className={styles.iconGrab}
-      type="Grab"
-      width={DEFAULT_ICON_SIZE}
-      height={DEFAULT_ICON_SIZE}
-      stroke="none"
-    />
-    <Icon
-      className={styles.iconRight}
-      type="ChevronRight"
-      width={DEFAULT_ICON_SIZE}
-      height={DEFAULT_ICON_SIZE}
-      stroke="none"
-    />
+    <div className={styles.iconGroup}>
+      <Icon
+        className={styles.iconLeft}
+        type="ChevronLeft"
+        width={DEFAULT_ICON_SIZE}
+        height={DEFAULT_ICON_SIZE}
+        stroke="none"
+      />
+      <Icon
+        className={styles.iconGrab}
+        type="Grab"
+        width={DEFAULT_ICON_SIZE}
+        height={DEFAULT_ICON_SIZE}
+        stroke="none"
+      />
+      <Icon
+        className={styles.iconRight}
+        type="ChevronRight"
+        width={DEFAULT_ICON_SIZE}
+        height={DEFAULT_ICON_SIZE}
+        stroke="none"
+      />
+    </div>
+
+    <span className={styles.text}>Click & Drag</span>
   </div>
 )
 
