@@ -1,3 +1,5 @@
+@import "./animation.css";
+
 .wrapper {
   margin: var(--spacing-large);
   padding: var(--spacing-default);
@@ -12,5 +14,9 @@
 .wrapperSecondary {
   composes: wrapper;
   border-radius: var(--border-radius-large);
-  box-shadow: var(--c-shadow-neon);
+  box-shadow: var(--s-neon-glow);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: glowAnim 10s linear infinite both;
+  }
 }

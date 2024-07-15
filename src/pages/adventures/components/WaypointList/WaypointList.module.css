@@ -54,9 +54,20 @@
   text-decoration: none;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus-within {
+    outline: none;
+
     .itemImageWrapper {
       outline-color: var(--c-accent1);
+    }
+
+    .itemBadge {
+      background-color: var(--c-accent1);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transform: translate(25%, -25%) rotate3d(0, 0, 1, 22.5deg);
+      }
     }
 
     .itemName {
@@ -76,7 +87,6 @@
   margin-bottom: var(--spacing-small);
   outline: 2px solid transparent;
   border-radius: 50%;
-  background-color: var(--c-pure-black);
   transition: outline-color var(--anim-duration-medium) var(--anim-ease-cubic);
 }
 
@@ -104,6 +114,14 @@
   border-radius: 50%;
   background-color: rgba(var(--c-lGrey-rgb), 0.75);
   transform: translate(25%, -25%);
+  transform-origin: center center;
+  transition:
+    background-color var(--anim-duration-medium) var(--anim-ease-cubic),
+    transform var(--anim-duration-medium) var(--anim-ease-elastic);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transform: translate(25%, -25%) rotate3d(0, 0, 1, 67.5deg);
+  }
 
   @media only screen and (min-width: 768px) {
     width: var(--badge-lrg-size);
