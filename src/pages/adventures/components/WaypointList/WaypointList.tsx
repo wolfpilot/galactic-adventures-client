@@ -14,7 +14,7 @@ import styles from "./WaypointList.module.css"
 
 // Components
 import Scroller from "@components/sliders/Scroller/Scroller"
-import { ProgressiveImage } from "@components/images"
+import { CustomImage } from "@components/images"
 import Icon from "@components/icons/Icon"
 
 // Setup
@@ -40,7 +40,7 @@ const WaypointList = ({ waypoints }: Props) => (
                 href={`${routes.adventures.url}?waypointId=${id}`}
               >
                 <div className={styles.itemImageWrapper}>
-                  <ProgressiveImage
+                  <CustomImage
                     className={styles.itemImage}
                     path={imgPath}
                     fallbackImg={fallbackImg}
