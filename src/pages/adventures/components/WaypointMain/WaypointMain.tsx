@@ -14,35 +14,31 @@ import styles from "./WaypointMain.module.css"
 import Container from "@components/layout/Container/Container"
 import { CustomImage } from "@components/images"
 
+// Setup
+const srcSetBreakpoints = [
+  BREAKPOINTS_PX.XXS,
+  BREAKPOINTS_PX.XS,
+  BREAKPOINTS_PX.S,
+  BREAKPOINTS_PX.M,
+  BREAKPOINTS_PX.L,
+  BREAKPOINTS_PX.XL,
+  BREAKPOINTS_PX.XXL,
+]
+
 const WaypointMain = ({ waypoint }: Props) => {
   const { name, code, category } = waypoint
 
-  // TODO: Add back link / upper link for parent_id? Or in the page?
-
   const imgPath = `${categoryToFolderName[category]}/${code}.webp`
-
-  const plugins = {
-    responsive: {
-      steps: [
-        BREAKPOINTS_PX.XXS,
-        BREAKPOINTS_PX.XS,
-        BREAKPOINTS_PX.S,
-        BREAKPOINTS_PX.M,
-        BREAKPOINTS_PX.L,
-        BREAKPOINTS_PX.XL,
-        BREAKPOINTS_PX.XXL,
-      ],
-    },
-  }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.imageWrapper}>
         <CustomImage
           className={styles.image}
-          path={imgPath}
+          imgPath={imgPath}
+          srcSetBreakpoints={srcSetBreakpoints}
+          sizes="100vw"
           alt={`Featured image of ${category} ${name}.`}
-          plugins={plugins}
         />
       </div>
 

@@ -7,7 +7,6 @@ import { WAYPOINT_FALLBACK_THUMB_IMG } from "@constants/assets.constants"
 
 // Utils
 import { categoryToFolderName } from "@utils/helpers/asset.helpers"
-import { cld } from "@utils/helpers/asset.helpers"
 
 // Styles
 import styles from "./WaypointList.module.css"
@@ -16,13 +15,6 @@ import styles from "./WaypointList.module.css"
 import Scroller from "@components/sliders/Scroller/Scroller"
 import { CustomImage } from "@components/images"
 import Icon from "@components/icons/Icon"
-
-// Setup
-const { VITE_CLOUDINARY_ASSETS_PATH = "" } = import.meta.env
-
-const fallbackImg = cld.image(
-  `${VITE_CLOUDINARY_ASSETS_PATH}/${WAYPOINT_FALLBACK_THUMB_IMG}`
-)
 
 const WaypointList = ({ waypoints }: Props) => (
   <div className={styles.wrapper}>
@@ -42,8 +34,8 @@ const WaypointList = ({ waypoints }: Props) => (
                 <div className={styles.itemImageWrapper}>
                   <CustomImage
                     className={styles.itemImage}
-                    path={imgPath}
-                    fallbackImg={fallbackImg}
+                    imgPath={imgPath}
+                    fallbackImgPath={WAYPOINT_FALLBACK_THUMB_IMG}
                     alt={`Thumbnail image of ${category} ${name}.`}
                   />
 

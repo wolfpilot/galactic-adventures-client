@@ -1,106 +1,106 @@
 import { useState } from "react"
-import {
-  AdvancedImage,
-  lazyload,
-  accessibility,
-  responsive,
-  placeholder,
-} from "@cloudinary/react"
 
 // Types
-import type {
-  PluginLazyloadProps,
-  PluginResponsiveProps,
-  PluginAccessibilityProps,
-  PluginPlaceholderProps,
-} from "@ts/lib/cloudinary.types"
-import type { Props } from "./types"
+import { Props } from "./types"
 
 // Utils
-import { cld } from "@utils/helpers/asset.helpers"
-import { cleanEmpty } from "@utils/helpers/object.helpers"
+import { generateImgSrc, generateImgSrcSet } from "./helpers"
 
 // Styles
 import styles from "./CustomImage.module.css"
 
-// Setup
-const { VITE_CLOUDINARY_ASSETS_PATH = "" } = import.meta.env
-
-const defaultPluginConfig = {
-  lazyload: null,
-  responsive: null,
-  accessibility: null,
-  placeholder: {
-    mode: "pixelate",
-  },
-}
-
+/**
+ * TL;DR: Made my own image consumer.
+ *
+ * One might wonder, why not just use Cloudinary's own React library? Quite honestly, because it sucks.
+ * Cloudinary exports the AdvancedImage React component which comes with quite a few drawbacks, namely:
+ *
+ * 1. It doesn't support the native "srcset" HTML attribute.
+ *
+ * Even though technically any additional props can be passed and spread, passing "srcset" breaks plugins
+ * such as the Placeholder with its pixelation effect. Not only that, but "src" is set dynamically regardless
+ * of "srcset", which triggers both image downloads at the same time.
+ *
+ * @see https://github.com/cloudinary/frontend-frameworks/blob/master/packages/html/src/layers/htmlImageLayer.ts#L41
+ *
+ * 2. It implements responsiveness via JS logic.
+ *
+ * It's not clear why this is even necessary, however having a new event listener for every single responsive image
+ * where each of them is debounced by 100ms is clearly not scalable for performance.
+ *
+ * @see https://github.com/cloudinary/frontend-frameworks/blob/master/packages/html/src/plugins/responsive.ts#L61
+ *
+ * 3. It's programmed following OOP practices where objects are mutated on each transform.
+ *
+ * This has caused numerous headaches where passing a CloudinaryImage object as a prop and reusing it for both
+ * placeholder and image applies the same transforms multiple times because under the hood they all mutate the
+ * same object.
+ *
+ * @see https://github.com/cloudinary/frontend-frameworks/blob/master/packages/html/src/plugins/placeholder.ts#L44
+ *
+ */
 const CustomImage = ({
   className,
-  path,
-  fallbackImg,
-  plugins = {},
+  imgPath,
+  fallbackImgPath,
+  srcSetBreakpoints = [],
+  srcSetScale = false,
+  srcSetCrop = true,
+  format = "auto",
+  quality = 70,
   ...rest
 }: Props) => {
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isPlaceholderLoaded, setIsPlaceholderLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
 
-  const img = cld.image(`${VITE_CLOUDINARY_ASSETS_PATH}/${path}`)
+  const activeImgPath = isError ? fallbackImgPath : imgPath
 
-  const activeImg = isError ? fallbackImg : img
-
-  /**
-   * Plugin loading order matters
-   *
-   * i.e. [lazyload(), responsive(), accessibility(), placeholder()])
-   *
-   * @see https://cloudinary.com/documentation/react_image_transformations#plugin_order
-   */
-  const pluginConfig = cleanEmpty({
-    ...defaultPluginConfig,
-    ...plugins,
-  })
-
-  const activePlugins = [
-    ...(pluginConfig.lazyload
-      ? [lazyload(pluginConfig.lazyload as PluginLazyloadProps)]
-      : []),
-    ...(pluginConfig.responsive
-      ? [responsive(pluginConfig.responsive as PluginResponsiveProps)]
-      : []),
-    ...(pluginConfig.accessibility
-      ? [accessibility(pluginConfig.accessibility as PluginAccessibilityProps)]
-      : []),
-    ...(pluginConfig.placeholder
-      ? [placeholder(pluginConfig.placeholder as PluginPlaceholderProps)]
-      : []),
-  ]
+  if (!activeImgPath) return null
 
   // Handlers
   const handleOnLoad = () => {
-    setIsLoaded(true)
+    if (isPlaceholderLoaded) return
+
+    setIsPlaceholderLoaded(true)
   }
 
   const handleOnError = () => {
     setIsError(true)
   }
 
+  // Generate image properties
+  const src = generateImgSrc({
+    imgPath: activeImgPath,
+    isPlaceholderLoaded,
+    format,
+    quality,
+  })
+  const srcSet = generateImgSrcSet({
+    imgPath: activeImgPath,
+    srcSetBreakpoints,
+    srcSetScale,
+    srcSetCrop,
+    isPlaceholderLoaded,
+    format,
+    quality,
+  })
+
+  if (!src) return null
+
   return (
     <div className={styles.wrapper}>
-      {activeImg && (
-        <AdvancedImage
-          className={`
-            ${styles.image}
-            ${isLoaded && styles.image__isLoaded}
-            ${className}
-          `}
-          cldImg={activeImg}
-          plugins={activePlugins}
-          onLoad={handleOnLoad}
-          onError={handleOnError}
-          {...rest}
-        />
-      )}
+      <img
+        className={`
+          ${styles.image}
+          ${isPlaceholderLoaded && styles.image__isPlaceholderLoaded}
+          ${className}
+        `}
+        src={src}
+        srcSet={srcSet}
+        onLoad={handleOnLoad}
+        onError={handleOnError}
+        {...rest}
+      />
     </div>
   )
 }

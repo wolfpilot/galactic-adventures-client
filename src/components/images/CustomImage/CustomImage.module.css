@@ -8,6 +8,6 @@
   transition: opacity var(--anim-ease-cubic) var(--anim-duration-slow);
 }
 
-.image__isLoaded {
+.image__isPlaceholderLoaded {
   opacity: 1;
 }

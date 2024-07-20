@@ -1,40 +1,24 @@
 /**
- * Typed from @cloudinary/html because no one thought it would be a good idea to export these.
+ * Typed from the official docs because no one thought it would be a good idea to export these.
  *
- * @see https://www.npmjs.com/package/@cloudinary/html
+ * @see https://cloudinary.com/documentation/image_optimization#how_to_optimize_image_format
  */
+export type ImageFormats =
+  | "auto"
+  | "AVIF"
+  | "GIF"
+  | "JPEG"
+  | "JPEG XL"
+  | "JPEG XR"
+  | "PNG"
+  | "WebP"
 
-export type PluginAccessibilityModes =
-  | "darkmode"
-  | "brightmode"
-  | "monochrome"
-  | "colorblind"
-
-export type PluginPlaceholderModes =
-  | "vectorize"
-  | "pixelate"
-  | "blur"
-  | "predominant-color"
-
-export interface PluginLazyloadProps {
-  rootMargin?: string
-  threshold?: number
-}
-
-export interface PluginResponsiveProps {
-  steps?: number | number[]
-}
-
-export interface PluginAccessibilityProps {
-  mode?: PluginAccessibilityModes
-}
-
-export interface PluginPlaceholderProps {
-  mode?: PluginPlaceholderModes
-}
-
-export type PluginProps =
-  | PluginLazyloadProps
-  | PluginResponsiveProps
-  | PluginAccessibilityProps
-  | PluginPlaceholderProps
+/**
+ * @see https://cloudinary.com/documentation/image_optimization#automatic_quality_selection_q_auto
+ */
+export type ImageQualities =
+  | "auto"
+  | "auto:best"
+  | "auto:good"
+  | "auto:eco"
+  | "auto:low"
