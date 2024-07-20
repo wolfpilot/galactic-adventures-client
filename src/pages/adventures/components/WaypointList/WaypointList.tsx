@@ -31,27 +31,33 @@ const WaypointList = ({ waypoints }: Props) => (
                 className={styles.itemLink}
                 href={`${routes.adventures.url}?waypointId=${id}`}
               >
-                <div className={styles.itemImageWrapper}>
-                  <CustomImage
-                    className={styles.itemImage}
-                    imgPath={imgPath}
-                    fallbackImgPath={WAYPOINT_FALLBACK_THUMB_IMG}
-                    alt={`Thumbnail image of ${category} ${name}.`}
-                  />
+                <figure className={styles.itemFigure}>
+                  <div className={styles.itemImageWrapper}>
+                    <CustomImage
+                      className={styles.itemImage}
+                      imgPath={imgPath}
+                      fallbackImgPath={WAYPOINT_FALLBACK_THUMB_IMG}
+                      alt={`Thumbnail image of ${category} ${name}.`}
+                    />
 
-                  {adventure?.id && (
-                    <div className={styles.itemBadge}>
-                      <Icon
-                        className={styles.itemBadgeIcon}
-                        type="SpaceFlight"
-                        width={32}
-                        height={32}
-                      />
-                    </div>
+                    {adventure?.id && (
+                      <div className={styles.itemBadge}>
+                        <Icon
+                          className={styles.itemBadgeIcon}
+                          type="SpaceFlight"
+                          width={32}
+                          height={32}
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {name && (
+                    <figcaption className={styles.itemFigCaption}>
+                      {name}
+                    </figcaption>
                   )}
-                </div>
-
-                {name && <h3 className={styles.itemName}>{name}</h3>}
+                </figure>
               </a>
             </li>
           )
