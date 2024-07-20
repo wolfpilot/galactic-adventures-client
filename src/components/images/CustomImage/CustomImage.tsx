@@ -88,18 +88,22 @@ const CustomImage = ({
   if (!src) return null
 
   return (
-    <img
-      className={`
+    <picture
+      className={styles.wrapper}
+      onLoad={handleOnLoad}
+      onError={handleOnError}
+    >
+      {srcSet && <source sizes="100vw" srcSet={srcSet} />}
+      <img
+        className={`
         ${styles.image}
         ${isPlaceholderLoaded && styles.image__isPlaceholderLoaded}
         ${className}
-      `}
-      src={src}
-      srcSet={srcSet}
-      onLoad={handleOnLoad}
-      onError={handleOnError}
-      {...rest}
-    />
+        `}
+        src={src}
+        {...rest}
+      />
+    </picture>
   )
 }
 
