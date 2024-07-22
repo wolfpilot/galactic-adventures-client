@@ -13,6 +13,7 @@
       "@components/*": ["./src/components/*"],
       "@constants/*": ["./src/constants/*"],
       "@features/*": ["./src/features/*"],
+      "@pages/*": ["./src/pages/*"],
       "@styles/*": ["./src/styles/*"],
       "@ts/*": ["./src/types/*"],
       "@utils/*": ["./src/utils/*"]

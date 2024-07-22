@@ -10,6 +10,7 @@
   "scripts": {
     "prepare": "husky install",
     "start:dev": "vite",
+    "start:host": "vite --host",
     "start:prod": "vite preview",
     "build": "tsc && vite build",
     "format": "prettier src/**/*.ts --write",
@@ -23,14 +24,18 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.19.0",
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.4.1",
     "@tanstack/react-query": "^5.40.0",
     "@tanstack/react-query-devtools": "^5.40.0",
+    "axios": "^1.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.5",
+    "react-indiana-drag-scroll": "^2.2.0",
     "react-router-dom": "^6.23.1",
     "sanitize.css": "^13.0.0"
   },

@@ -1,0 +1,38 @@
+@import "./animation.css";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconGroup {
+  margin-bottom: var(--spacing-small);
+
+  @media (prefers-reduced-motion: no-preference) {
+    margin-bottom: 0;
+  }
+}
+
+.iconGrab {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: 2.5s linear infinite both grabAnim;
+  }
+}
+
+.iconLeft {
+  margin-right: var(--spacing-large);
+  opacity: 0.25;
+}
+
+.iconRight {
+  margin-left: var(--spacing-large);
+  opacity: 0.25;
+}
+
+.text {
+  @media (prefers-reduced-motion: no-preference) {
+    display: none;
+  }
+}

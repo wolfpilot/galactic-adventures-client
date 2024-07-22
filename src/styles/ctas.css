@@ -1,0 +1,19 @@
+.cta {
+  --ctaHeight: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--ctaHeight);
+  padding: 0 var(--spacing-default);
+  background-color: var(--c-dGrey);
+  color: var(--c-white);
+  border: 1px solid var(--c-white);
+  border-radius: calc(var(--ctaHeight) / 2);
+  outline: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--anim-ease-default)
+    var(--anim-duration-fast);
+}

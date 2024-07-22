@@ -1,4 +1,3 @@
-import { useGetAllDestinations } from "./useGetAllDestinations"
-import { useGetDestinationById } from "./useGetDestinationById"
+import { useGetProduct } from "./useGetProduct"
 
-export { useGetAllDestinations, useGetDestinationById }
+export { useGetProduct }

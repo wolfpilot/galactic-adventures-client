@@ -1,0 +1,19 @@
+:root {
+  /* Fonts */
+  --font-family-primary: "Space Mono", monospace;
+  --font-family-secondary: "Orbitron", sans-serif;
+
+  /* Regular text */
+  --text-default-font-size: 16px;
+  --text-default-line-height: 1.5;
+
+  /* Paragraphs */
+  --copy-s-font-size: 13px;
+  --copy-m-font-size: 16px;
+  --copy-l-font-size: 18px;
+
+  /* Titles and subtitles */
+  --heading-s-font-size: 24px;
+  --heading-m-font-size: 48px;
+  --heading-l-font-size: 80px;
+}
