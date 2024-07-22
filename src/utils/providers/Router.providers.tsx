@@ -4,7 +4,12 @@ import {
 } from "react-router-dom"
 
 // Pages
-import { AdventuresPage, PaymentPage, OrderPage } from "@pages/index"
+import {
+  AdventuresPage,
+  AdventuresDetailsPage,
+  PaymentPage,
+  OrderPage,
+} from "@pages/index"
 
 // Components
 import Root from "@components/layout/Root/Root"
@@ -18,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "adventures",
         element: <AdventuresPage />,
+      },
+      {
+        path: "adventures/:id",
+        element: <AdventuresDetailsPage />,
       },
       {
         path: "payment",

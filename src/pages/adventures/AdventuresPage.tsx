@@ -3,6 +3,9 @@ import { useSearchParams } from "react-router-dom"
 // Data
 import { adventuresPageData as pageData } from "./data/adventuresPage.data"
 
+// Constants
+import { routes } from "@constants/routes.constants"
+
 // Hooks
 import { useGetWaypointById } from "@utils/hooks/waypoints"
 
@@ -57,6 +60,19 @@ const AdventuresPage = () => {
             <div className={styles.waypointListWrapper}>
               <WaypointList waypoints={data.children} />
             </div>
+          )}
+
+          {data.adventure && (
+            <Container>
+              <div className={styles.ctaWrapper}>
+                <a
+                  className={styles.ctaAdventure}
+                  href={`${routes.adventures.url}/${data.adventure.id}`}
+                >
+                  Book now
+                </a>
+              </div>
+            </Container>
           )}
 
           {data.details && (

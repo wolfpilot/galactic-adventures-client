@@ -12,4 +12,5 @@
 
 /* Components */
 @import "./buttons.css";
+@import "./ctas.css";
 @import "./scrollbar.css";
