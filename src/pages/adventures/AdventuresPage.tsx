@@ -19,7 +19,8 @@ import styles from "./AdventuresPage.module.css"
 // Components
 import Head from "@components/layout/Head/Head"
 import Container from "@components/layout/Container/Container"
-import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
+import Section from "@components/layout/Section/Section"
+import { Cta } from "@components/ctas"
 import WaypointMain from "./components/WaypointMain/WaypointMain"
 import WaypointList from "./components/WaypointList/WaypointList"
 
@@ -62,28 +63,26 @@ const AdventuresPage = () => {
             </div>
           )}
 
-          {data.adventure && (
-            <Container>
+          <Container>
+            {data.adventure && (
               <div className={styles.ctaWrapper}>
-                <a
-                  className={styles.ctaAdventure}
+                <Cta
+                  as="anchor"
                   href={`${routes.adventures.url}/${data.adventure.id}`}
                 >
                   Book now
-                </a>
+                </Cta>
               </div>
-            </Container>
-          )}
+            )}
 
-          {data.details && (
-            <Container>
-              <ContentBlock kind="secondary">
+            {data.details && (
+              <Section>
                 <h2 className={styles.subtitle}>About</h2>
 
                 {renderDetailsByCategory(data)}
-              </ContentBlock>
-            </Container>
-          )}
+              </Section>
+            )}
+          </Container>
         </div>
       )}
     </>

@@ -11,8 +11,5 @@
 .ctaWrapper {
   display: flex;
   justify-content: center;
-}
-
-.ctaAdventure {
-  composes: cta from "@styles/ctas.css";
+  padding: var(--spacing-default) 0;
 }

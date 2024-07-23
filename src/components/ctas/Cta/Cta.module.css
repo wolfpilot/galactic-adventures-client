@@ -1,0 +1,58 @@
+@import "../../../styles/animation.css";
+
+.wrapper {
+  --ctaHeight: 40px;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--ctaHeight);
+  padding: 0 var(--spacing-large);
+  background-color: var(--c-white);
+  color: var(--c-black);
+  border: 1px solid var(--c-lGrey);
+  border-radius: calc(var(--ctaHeight) / 2);
+  outline: none;
+  font-family: var(--font-family-secondary);
+  font-size: var(--copy-s-font-size);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: var(--s-neon-glow);
+  transition:
+    border-color var(--anim-ease-default) var(--anim-duration-fast)
+      var(--anim-duration-fast),
+    color var(--anim-ease-default) var(--anim-duration-fast)
+      var(--anim-duration-fast);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: glowAnim 10s linear infinite both;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: inherit;
+    transition: box-shadow var(--anim-ease-cubic) var(--anim-duration-slow);
+  }
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--c-black);
+    color: var(--c-white);
+
+    &::before {
+      box-shadow: inset 0 0 0 calc(var(--ctaHeight) / 2) var(--c-black);
+    }
+  }
+}
+
+.content {
+  position: relative;
+}

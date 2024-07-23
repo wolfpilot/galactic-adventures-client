@@ -21,7 +21,8 @@ import styles from "./AdventuresDetailsPage.module.css"
 // Components
 import Head from "@components/layout/Head/Head"
 import Container from "@components/layout/Container/Container"
-import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
+import Section from "@components/layout/Section/Section"
+import { Cta } from "@components/ctas"
 import WaypointMain from "./components/WaypointMain/WaypointMain"
 
 const AdventuresDetailsPage = () => {
@@ -40,11 +41,6 @@ const AdventuresDetailsPage = () => {
     metadata: pageData.metadata,
   })
 
-  console.log("data", data)
-
-  // TODO: Move WaypointMain to PageHero? Either that or make another full-height version
-  // TODO: and transition to it, but it seems like too much of a headache.
-
   return (
     <>
       <Head {...parsedMetadata} />
@@ -62,26 +58,24 @@ const AdventuresDetailsPage = () => {
         <div className={styles.content}>
           {data.waypoint && <WaypointMain waypoint={data.waypoint} />}
 
-          {data.id && (
-            <Container>
+          <Container>
+            {data.id && (
               <div className={styles.ctaWrapper}>
-                <a
-                  className={styles.ctaAdventure}
+                <Cta
+                  as="anchor"
                   href={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
                 >
-                  Pay
-                </a>
+                  Continue
+                </Cta>
               </div>
-            </Container>
-          )}
+            )}
 
-          <Container>
-            <ContentBlock kind="secondary">
+            <Section>
               <h2 className={styles.subtitle}>About</h2>
 
               {data.description && <p>{data.description}</p>}
               {data.price_sb && <p>Price: {data.price_sb}</p>}
-            </ContentBlock>
+            </Section>
           </Container>
         </div>
       )}

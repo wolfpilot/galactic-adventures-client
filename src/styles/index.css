@@ -11,6 +11,6 @@
 @import "./base.css";
 
 /* Components */
+@import "./animation.css";
 @import "./buttons.css";
-@import "./ctas.css";
 @import "./scrollbar.css";

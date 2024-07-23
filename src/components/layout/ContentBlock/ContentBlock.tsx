@@ -4,11 +4,12 @@ import { Props } from "./types"
 // Styles
 import styles from "./ContentBlock.module.css"
 
-const ContentBlock = ({ children, kind = "primary" }: Props) => (
+const ContentBlock = ({ children, className = "" }: Props) => (
   <div
-    className={
-      kind === "primary" ? styles.wrapperPrimary : styles.wrapperSecondary
-    }
+    className={`
+      ${styles.wrapper}
+      ${className}
+    `}
   >
     {children}
   </div>

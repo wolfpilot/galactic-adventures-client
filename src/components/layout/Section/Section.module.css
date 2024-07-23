@@ -1,0 +1,10 @@
+.wrapper {
+  margin-top: var(--spacing-default);
+  margin-bottom: var(--spacing-default);
+  padding-top: var(--spacing-default);
+  padding-bottom: var(--spacing-default);
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--c-grey);
+  }
+}
