@@ -29,7 +29,7 @@ html {
 }
 
 body {
-  background-color: var(--c-dGrey);
+  background-color: var(--c-black);
   color: var(--c-white);
   font-family: var(--font-family-primary);
   font-weight: 400;
