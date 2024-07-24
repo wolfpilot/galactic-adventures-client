@@ -53,7 +53,7 @@ export const formatAtmosphere: FormatAtmosphere = (atmosphereElements) => {
     (acc, val) => acc + val,
     0
   )
-  const otherPct = 100 - totalPct
+  const otherPct = +(100 - totalPct).toFixed(1)
 
   return {
     elements,
