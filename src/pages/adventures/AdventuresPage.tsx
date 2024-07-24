@@ -1,5 +1,9 @@
 import { useSearchParams } from "react-router-dom"
 
+// Types
+import type { Props as PageHeaderProps } from "@components/layout/PageHeader/types"
+import type { Waypoint } from "@ts/waypoints/waypoint.types"
+
 // Data
 import { adventuresPageData as pageData } from "./data/adventuresPage.data"
 
@@ -12,16 +16,17 @@ import { useGetWaypointById } from "@utils/hooks/waypoints"
 // Helpers
 import { generateMetadata } from "./utils/seo.helpers"
 import { renderDetailsByCategory } from "./utils/render.helpers"
+import { categoryToFolderName } from "@utils/helpers/asset.helpers"
 
 // Styles
 import styles from "./AdventuresPage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
+import PageHeader from "@components/layout/PageHeader/PageHeader"
 import Container from "@components/layout/Container/Container"
 import Section from "@components/layout/Section/Section"
 import { Cta } from "@components/ctas"
-import WaypointMain from "./components/WaypointMain/WaypointMain"
 import WaypointList from "./components/WaypointList/WaypointList"
 
 const AdventuresPage = () => {
@@ -32,6 +37,19 @@ const AdventuresPage = () => {
 
   const { isPending, error, data } = useGetWaypointById({
     id: waypointId,
+  })
+
+  // Utils
+  const getPageHeaderProps = (data: Waypoint): PageHeaderProps => ({
+    title: data.name,
+    subtitle: data.category,
+    media: {
+      type: "image",
+      image: {
+        imgPath: `${categoryToFolderName[data.category]}/${data.code}.webp`,
+        alt: `Featured image of ${data.category} ${data.name}.`,
+      },
+    },
   })
 
   // Parse data
@@ -55,7 +73,7 @@ const AdventuresPage = () => {
 
       {data && (
         <div className={styles.content}>
-          <WaypointMain waypoint={data} />
+          <PageHeader {...getPageHeaderProps(data)} />
 
           {data.children.length > 0 && (
             <div className={styles.waypointListWrapper}>

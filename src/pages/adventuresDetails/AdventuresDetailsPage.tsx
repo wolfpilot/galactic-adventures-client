@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom"
 
 // Types
+import type { Props as PageHeaderProps } from "@components/layout/PageHeader/types"
+import type { WaypointBase } from "@ts/waypoints/waypoint.types"
 import { ProductType } from "@ts/products/products.types"
 
 // Data
@@ -14,16 +16,17 @@ import { useGetProduct } from "@utils/hooks/products"
 
 // Helpers
 import { generateMetadata } from "./utils/seo.helpers"
+import { categoryToFolderName } from "@utils/helpers/asset.helpers"
 
 // Styles
 import styles from "./AdventuresDetailsPage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
+import PageHeader from "@components/layout/PageHeader/PageHeader"
 import Container from "@components/layout/Container/Container"
 import Section from "@components/layout/Section/Section"
 import { Cta } from "@components/ctas"
-import WaypointMain from "./components/WaypointMain/WaypointMain"
 
 const AdventuresDetailsPage = () => {
   const { id } = useParams()
@@ -33,6 +36,19 @@ const AdventuresDetailsPage = () => {
   const { isPending, error, data } = useGetProduct({
     type: ProductType.adventure,
     id: productId,
+  })
+
+  // Utils
+  const getPageHeaderProps = (data: WaypointBase): PageHeaderProps => ({
+    title: data.name,
+    subtitle: data.category,
+    media: {
+      type: "image",
+      image: {
+        imgPath: `${categoryToFolderName[data.category]}/${data.code}.webp`,
+        alt: `Featured image of ${data.category} ${data.name}.`,
+      },
+    },
   })
 
   // Parse data
@@ -56,7 +72,9 @@ const AdventuresDetailsPage = () => {
 
       {data && (
         <div className={styles.content}>
-          {data.waypoint && <WaypointMain waypoint={data.waypoint} />}
+          {data.waypoint && (
+            <PageHeader {...getPageHeaderProps(data.waypoint)} />
+          )}
 
           <Container>
             {data.id && (
