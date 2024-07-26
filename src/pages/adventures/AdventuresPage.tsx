@@ -12,7 +12,6 @@ import { useGetWaypointById } from "@utils/hooks/waypoints"
 // Helpers
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
-import { renderDetailsByCategory } from "./utils/render.helpers"
 
 // Styles
 import styles from "./AdventuresPage.module.css"
@@ -24,6 +23,7 @@ import Container from "@components/layout/Container/Container"
 import Section from "@components/layout/Section/Section"
 import { Cta } from "@components/ctas"
 import WaypointList from "./components/WaypointList/WaypointList"
+import WaypointDetails from "./components/WaypointDetails/WaypointDetails"
 
 const AdventuresPage = () => {
   const [searchParams] = useSearchParams()
@@ -82,7 +82,7 @@ const AdventuresPage = () => {
               <Section>
                 <h2 className={styles.subtitle}>About</h2>
 
-                {renderDetailsByCategory(data)}
+                <WaypointDetails waypoint={data} />
               </Section>
             )}
           </Container>
