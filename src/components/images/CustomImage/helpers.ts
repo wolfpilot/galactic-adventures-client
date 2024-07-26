@@ -2,7 +2,8 @@ import { pixelate } from "@cloudinary/url-gen/actions/effect"
 import { crop, scale } from "@cloudinary/url-gen/actions/resize"
 
 // Types
-import { ImageFormats, ImageQualities } from "@ts/lib/cloudinary.types"
+// import { ImageFormats, ImageQualities } from "@ts/lib/cloudinary.types"
+import { Props } from "./types"
 
 // Utils
 import { cld } from "@utils/helpers/asset.helpers"
@@ -15,17 +16,28 @@ const { VITE_CLOUDINARY_ASSETS_PATH = "" } = import.meta.env
  *
  * @see https://cloudinary.com/documentation
  */
+
+export type GenerateImgSrcProps = Pick<
+  Props,
+  "imgPath" | "transforms" | "format" | "quality"
+> & {
+  isPlaceholderLoaded: boolean
+}
+
+export type GenerateImgSrcSetProps = Pick<
+  Props,
+  "imgPath" | "imgSet" | "format" | "quality"
+> & {
+  isPlaceholderLoaded: boolean
+}
+
 export const generateImgSrc = ({
   imgPath,
   isPlaceholderLoaded,
+  transforms,
   format,
   quality,
-}: {
-  imgPath: string
-  isPlaceholderLoaded: boolean
-  format: ImageFormats
-  quality: ImageQualities | number
-}): string => {
+}: GenerateImgSrcProps): string => {
   if (!imgPath) return ""
 
   const img = cld.image(`${VITE_CLOUDINARY_ASSETS_PATH}/${imgPath}`)
@@ -34,50 +46,53 @@ export const generateImgSrc = ({
     img.effect(pixelate())
   }
 
-  img.format(format).quality(quality)
+  if (transforms?.scale) {
+    img.resize(scale(transforms.scale.width, transforms.scale.height))
+  }
+
+  if (transforms?.crop) {
+    img.resize(crop(transforms.crop.width, transforms.crop.height))
+  }
+
+  if (format) {
+    img.format(format)
+  }
+
+  if (quality) {
+    img.quality(quality)
+  }
 
   return img.toURL()
 }
 
 export const generateImgSrcSet = ({
-  imgPath,
-  srcSetBreakpoints,
-  srcSetScale,
-  srcSetCrop,
-  isPlaceholderLoaded,
-  format,
-  quality,
-}: {
-  imgPath: string
-  srcSetBreakpoints: number[]
-  srcSetScale: boolean
-  srcSetCrop: boolean
-  isPlaceholderLoaded: boolean
-  format: ImageFormats
-  quality: ImageQualities | number
-}): string => {
-  if (!srcSetBreakpoints.length) return ""
+  imgSet,
+  ...rest
+}: GenerateImgSrcSetProps): string => {
+  if (!imgSet?.breakpoints.length) return ""
 
-  return srcSetBreakpoints
+  return imgSet.breakpoints
     .map((breakpoint) => {
-      const img = cld.image(`${VITE_CLOUDINARY_ASSETS_PATH}/${imgPath}`)
-
-      if (srcSetScale) {
-        img.resize(scale(breakpoint))
+      const transforms = {
+        ...(imgSet.autoScale && {
+          scale: {
+            width: breakpoint,
+          },
+        }),
+        ...(imgSet.autoCrop && {
+          crop: {
+            width: breakpoint,
+            height: "ih",
+          },
+        }),
       }
 
-      if (srcSetCrop) {
-        // Crop horizontally, keeping the initial height
-        img.resize(crop().width(breakpoint).height("ih"))
-      }
+      const imgUrl = generateImgSrc({
+        ...rest,
+        transforms,
+      })
 
-      if (!isPlaceholderLoaded) {
-        img.effect(pixelate())
-      }
-
-      img.format(format).quality(quality)
-
-      return `${img.toURL()} ${breakpoint}w`
+      return `${imgUrl} ${breakpoint}w`
     })
     .join(",")
 }

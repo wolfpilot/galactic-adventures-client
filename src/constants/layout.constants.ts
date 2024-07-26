@@ -7,3 +7,5 @@ export const BREAKPOINTS_PX = {
   XL: 1440,
   XXL: 1920,
 }
+
+export const breakpoints = Object.values(BREAKPOINTS_PX)

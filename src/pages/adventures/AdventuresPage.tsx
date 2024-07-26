@@ -1,9 +1,5 @@
 import { useSearchParams } from "react-router-dom"
 
-// Types
-import type { Props as PageHeaderProps } from "@components/layout/PageHeader/types"
-import type { Waypoint } from "@ts/waypoints/waypoint.types"
-
 // Data
 import { adventuresPageData as pageData } from "./data/adventuresPage.data"
 
@@ -15,8 +11,8 @@ import { useGetWaypointById } from "@utils/hooks/waypoints"
 
 // Helpers
 import { generateMetadata } from "./utils/seo.helpers"
+import { getPageHeaderProps } from "./utils/data.helpers"
 import { renderDetailsByCategory } from "./utils/render.helpers"
-import { categoryToFolderName } from "@utils/helpers/asset.helpers"
 
 // Styles
 import styles from "./AdventuresPage.module.css"
@@ -39,24 +35,13 @@ const AdventuresPage = () => {
     id: waypointId,
   })
 
-  // Utils
-  const getPageHeaderProps = (data: Waypoint): PageHeaderProps => ({
-    title: data.name,
-    subtitle: data.category,
-    media: {
-      type: "image",
-      image: {
-        imgPath: `${categoryToFolderName[data.category]}/${data.code}.webp`,
-        alt: `Featured image of ${data.category} ${data.name}.`,
-      },
-    },
-  })
-
   // Parse data
   const parsedMetadata = generateMetadata({
     name: data?.name,
     metadata: pageData.metadata,
   })
+
+  const headerProps = getPageHeaderProps(data)
 
   return (
     <>
@@ -73,7 +58,7 @@ const AdventuresPage = () => {
 
       {data && (
         <div className={styles.content}>
-          <PageHeader {...getPageHeaderProps(data)} />
+          {headerProps && <PageHeader {...headerProps} />}
 
           {data.children.length > 0 && (
             <div className={styles.waypointListWrapper}>

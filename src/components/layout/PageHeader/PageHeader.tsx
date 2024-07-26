@@ -1,9 +1,6 @@
 // Types
 import { type Props } from "./types"
 
-// Constants
-import { BREAKPOINTS_PX } from "@constants/layout.constants"
-
 // Styles
 import styles from "./PageHeader.module.css"
 
@@ -11,24 +8,33 @@ import styles from "./PageHeader.module.css"
 import Container from "../Container/Container"
 import { CustomImage } from "@components/images"
 
-const PageHeader = ({ media, title, subtitle, description }: Props) => (
-  <header className={styles.wrapper}>
+const PageHeader = ({
+  className = "",
+  media,
+  title,
+  subtitle,
+  description,
+}: Props) => (
+  <header
+    className={`
+      ${styles.wrapper}
+      ${className}
+    `}
+  >
     {media && (
-      <div className={styles.media}>
-        {media.image && (
+      <div
+        className={`
+          ${styles.media}
+          ${media.isContained ? styles.media__isContained : ""}
+        `}
+      >
+        {media.type === "image" && (
           <CustomImage
-            className={styles.image}
-            imgPath={media.image.imgPath}
-            srcSetBreakpoints={[
-              BREAKPOINTS_PX.XXS,
-              BREAKPOINTS_PX.XS,
-              BREAKPOINTS_PX.S,
-              BREAKPOINTS_PX.M,
-              BREAKPOINTS_PX.L,
-              BREAKPOINTS_PX.XL,
-              BREAKPOINTS_PX.XXL,
-            ]}
-            sizes="100vw"
+            className={`
+                ${styles.image}
+                ${media.isContained ? styles.image__isContained : ""}
+              `}
+            {...media.image}
           />
         )}
       </div>
