@@ -66,6 +66,17 @@ button {
   cursor: pointer;
 }
 
+a {
+  outline: none;
+}
+
+button {
+  padding: 0;
+  background: none;
+  outline: none;
+  border: none;
+}
+
 figcaption {
   font-family: var(--font-family-secondary);
 }
