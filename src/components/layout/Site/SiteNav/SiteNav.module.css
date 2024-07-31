@@ -1,4 +1,6 @@
 .wrapper {
+  --linkImgSize: 40px;
+
   position: absolute;
   top: 0;
   right: 0;
@@ -44,9 +46,35 @@
 }
 
 .link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--c-white);
   font-family: var(--font-family-secondary);
   font-size: var(--site-nav-link);
   text-decoration: none;
   text-transform: uppercase;
+
+  &:hover,
+  &:focus-within {
+    @media screen and (hover: hover) {
+      .linkImg {
+        display: block;
+      }
+    }
+  }
+}
+
+.linkImg {
+  display: none;
+  width: var(--linkImgSize);
+  height: var(--linkImgSize);
+
+  &:first-of-type {
+    margin-right: var(--spacing-small);
+  }
+
+  &:last-of-type {
+    margin-left: var(--spacing-small);
+  }
 }

@@ -1,3 +1,6 @@
+// Assets
+import LinkImgSrc from "/media/images/planet-orbit.gif"
+
 // Constants
 import { routes } from "@constants/routes.constants"
 
@@ -27,7 +30,19 @@ const SiteNav = () => {
           {navRoutes.map((route, index) => (
             <li key={index} className={styles.listItem}>
               <a className={styles.link} href={route.url}>
-                {route.label}
+                <img
+                  className={styles.linkImg}
+                  src={LinkImgSrc}
+                  width={50}
+                  height={50}
+                />
+                <span>{route.label}</span>
+                <img
+                  className={styles.linkImg}
+                  src={LinkImgSrc}
+                  width={50}
+                  height={50}
+                />
               </a>
             </li>
           ))}
