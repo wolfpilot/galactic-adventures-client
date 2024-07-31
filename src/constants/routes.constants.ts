@@ -12,6 +12,14 @@ export const routes = {
     label: "Adventures",
     url: "/adventures",
   },
+  tours: {
+    label: "Tours",
+    url: "/tours",
+  },
+  merch: {
+    label: "Merchandise",
+    url: "/merch",
+  },
   payment: {
     label: "Payment",
     url: "/payment",
