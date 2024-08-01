@@ -5,18 +5,29 @@ const Menu = ({
   width = 24,
   height = 24,
   fill = "#ffffff",
-  stroke = "none",
+  stroke = "#ffffff",
 }: Props) => (
   <svg
     className={className}
     width={width}
     height={height}
-    viewBox="0 0 24 24"
+    viewBox="0 0 500 500"
     fill={fill}
     stroke={stroke}
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M7 3H3v4h4V3zm0 14H3v4h4v-4zM17 3h4v4h-4V3zm4 14h-4v4h4v-4zM8 8h2v2H8V8zm4 2h-2v4H8v2h2v-2h4v2h2v-2h-2v-4h2V8h-2v2h-2z" />
+    <path
+      d="M231 66V55H269V66V71H274H285V109H274H269V114V125H231V114V109H226H215V71H226H231V66Z"
+      strokeWidth="10"
+    />
+    <path
+      d="M231 226V215H269V226V231H274H285V269H274H269V274V285H231V274V269H226H215V231H226H231V226Z"
+      strokeWidth="10"
+    />
+    <path
+      d="M231 386V375H269V386V391H274H285V429H274H269V434V445H231V434V429H226H215V391H226H231V386Z"
+      strokeWidth="10"
+    />
   </svg>
 )
 

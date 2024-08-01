@@ -18,8 +18,11 @@ const LOGO_SIZE = 24
 const SiteHeader = () => {
   const location = useLocation()
 
+  const isNavOpen = useBoundStore((state) => state.isNavOpen)
   const closeNav = useBoundStore((state) => state.closeNav)
   const toggleNav = useBoundStore((state) => state.toggleNav)
+
+  const isHomepage = location.pathname === "/"
 
   const handleOnMenuClick = () => {
     toggleNav()
@@ -34,11 +37,23 @@ const SiteHeader = () => {
       <div className={styles.navbar}>
         <Container>
           <div className={styles.content}>
-            <a className={styles.logoLink} href="/">
+            <a
+              className={`
+                ${styles.logoLink}
+                ${isHomepage ? styles.logoLink__isActive : ""}
+              `}
+              href="/"
+            >
               <span>GA</span>
             </a>
 
-            <button className={styles.menuBtn} onClick={handleOnMenuClick}>
+            <button
+              className={`
+                ${styles.menuBtn}
+                ${isNavOpen ? styles.menuBtn__isActive : ""}
+              `}
+              onClick={handleOnMenuClick}
+            >
               <span>
                 <Icon type="Menu" width={LOGO_SIZE} height={LOGO_SIZE} />
               </span>
