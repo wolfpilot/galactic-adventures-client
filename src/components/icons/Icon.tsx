@@ -8,6 +8,7 @@ import { assertExhaustiveGuard } from "@utils/helpers/typeGuard.helpers"
 import ChevronLeft from "./ChevronLeft"
 import ChevronRight from "./ChevronRight"
 import Grab from "./Grab"
+import Menu from "./Menu"
 
 import SpaceFlight from "./SpaceFlight"
 
@@ -24,6 +25,8 @@ const Icon = ({ type, ...props }: Props) => {
       return <ChevronRight {...props} />
     case "Grab":
       return <Grab {...props} />
+    case "Menu":
+      return <Menu {...props} />
     // Objects
     case "SpaceFlight":
       return <SpaceFlight {...props} />

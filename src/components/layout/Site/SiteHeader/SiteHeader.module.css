@@ -1,0 +1,119 @@
+.wrapper {
+  --siteHeaderHeight: 54px;
+
+  position: fixed;
+  z-index: var(--z-siteHeader);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.navbar {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(var(--c-black-rgb), 0.5);
+  backdrop-filter: blur(8px);
+  pointer-events: initial;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  height: var(--siteHeaderHeight);
+  padding-right: var(--spacing-default);
+  padding-left: var(--spacing-default);
+}
+
+.logoLink,
+.menuBtn {
+  padding-right: var(--spacing-small);
+  padding-left: var(--spacing-small);
+
+  span {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+    transition: border-color var(--anim-ease-cubic) var(--anim-duration-medium);
+  }
+
+  &:hover,
+  &:focus-within {
+    span {
+      border-bottom-color: var(--c-white);
+    }
+  }
+}
+
+.logoLink {
+  font-family: var(--font-family-secondary);
+  font-size: var(--site-header-logo);
+  text-transform: uppercase;
+  text-decoration: none;
+
+  &:visited {
+    color: var(--c-white);
+  }
+}
+
+.menuBtn {
+  svg {
+    overflow: visible;
+
+    /**
+     * Yes, magic numbers.
+     *
+     * Unfortunately, there's only so much you can do without guesstimating
+     * how each origin and rotation will affect the final position of the
+     * dots.
+     *
+     * To fix that, we add a little translate at the end.
+     */
+    path {
+      transform: rotate(0);
+      transition: transform var(--anim-ease-cubic) var(--anim-duration-verySlow);
+      transform-box: fill-box;
+
+      &:nth-child(1) {
+        transform-origin: 300% 200%;
+        transform: rotate(460deg) translate(0, 200%);
+      }
+
+      &:nth-child(2) {
+        transform-origin: 50% 100%;
+        transform: rotate(345deg) translate(-100%, -100%);
+        transition-delay: var(--anim-duration-veryFast);
+      }
+
+      &:nth-child(3) {
+        transform-origin: 200% 200%;
+        transform: rotate(-270deg) translate(0, 50%);
+        transition-delay: calc(2 * var(--anim-duration-veryFast));
+      }
+    }
+  }
+}
+
+.logoLink__isActive,
+.menuBtn__isActive {
+  span {
+    border-bottom-color: var(--c-white);
+  }
+}
+
+.menuBtn__isActive {
+  svg {
+    path {
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3) {
+        transform: none;
+      }
+    }
+  }
+}

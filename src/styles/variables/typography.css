@@ -21,4 +21,8 @@
   --heading-s-font-size: 24px;
   --heading-m-font-size: 48px;
   --heading-l-font-size: 80px;
+
+  /* Misc */
+  --site-header-logo: 20px;
+  --site-nav-link: 32px;
 }

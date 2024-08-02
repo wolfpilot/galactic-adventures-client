@@ -13,7 +13,7 @@
 /* Generic element styling */
 html,
 body {
-  max-width: 100vw;
+  max-width: 100%;
   min-height: 100%;
   overflow-x: hidden;
   font-size: var(--text-default-font-size);
@@ -29,11 +29,19 @@ html {
 }
 
 body {
+  /* Fix #root not displaying as full height */
+  display: flex;
   background-color: var(--c-black);
   color: var(--c-white);
   font-family: var(--font-family-primary);
   font-weight: 400;
   font-style: normal;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 h1,
@@ -56,6 +64,17 @@ p {
 a,
 button {
   cursor: pointer;
+}
+
+a {
+  outline: none;
+}
+
+button {
+  padding: 0;
+  background: none;
+  outline: none;
+  border: none;
 }
 
 figcaption {
