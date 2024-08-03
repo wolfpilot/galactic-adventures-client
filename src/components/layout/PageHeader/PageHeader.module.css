@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.wrapper__isSpaced {
+  padding-top: var(--size-siteHeaderHeight);
+}
+
 .media {
   position: relative;
   width: 100%;

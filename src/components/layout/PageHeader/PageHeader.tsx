@@ -18,6 +18,7 @@ const PageHeader = ({
   <header
     className={`
       ${styles.wrapper}
+      ${!media ? styles.wrapper__isSpaced : ""}
       ${className}
     `}
   >

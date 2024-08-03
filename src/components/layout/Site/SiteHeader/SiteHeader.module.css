@@ -1,6 +1,4 @@
 .wrapper {
-  --siteHeaderHeight: 54px;
-
   position: fixed;
   z-index: var(--z-siteHeader);
   top: 0;
@@ -24,7 +22,7 @@
 .content {
   display: flex;
   justify-content: space-between;
-  height: var(--siteHeaderHeight);
+  height: var(--size-siteHeaderHeight);
   padding-right: var(--spacing-default);
   padding-left: var(--spacing-default);
 }
