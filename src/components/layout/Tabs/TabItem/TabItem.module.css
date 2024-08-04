@@ -1,0 +1,16 @@
+.wrapper {
+  ul {
+    list-style-type: circle;
+  }
+
+  p,
+  li {
+    font-size: var(--copy-s-font-size);
+  }
+
+  p {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

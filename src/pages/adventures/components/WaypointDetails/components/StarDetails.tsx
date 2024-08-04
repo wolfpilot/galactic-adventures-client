@@ -7,6 +7,9 @@ import {
   formatAtmosphere,
 } from "@utils/helpers/formatter.helpers"
 
+// Components
+import { TabList, TabItem } from "@components/layout/Tabs"
+
 const StarDetails = ({
   life_cycle,
   mass,
@@ -23,40 +26,38 @@ const StarDetails = ({
   const formattedAtmosphere = formatAtmosphere(otherAtmosphereProps)
 
   return (
-    <>
-      {life_cycle && <p>Life Cycle Stage: {life_cycle}</p>}
-      {mass && <p>Mass: {mass}</p>}
+    <TabList>
+      <TabItem label="Overview">
+        {life_cycle && <p>Life Cycle Stage: {life_cycle}</p>}
+        {mass && <p>Mass: {mass}</p>}
 
-      {spectral_class && (
-        <div>
-          <h3>Spectral Classification</h3>
+        {spectral_class && (
+          <div>
+            <h3>Spectral Classification</h3>
 
-          {spectral_class.class && <p>Class: {spectral_class.class}</p>}
-          {spectral_class.chromacity && (
-            <p>Chromacity: {spectral_class.chromacity}</p>
-          )}
-          {formattedTemp && <p>Temperature: {formattedTemp}</p>}
-        </div>
-      )}
+            {spectral_class.class && <p>Class: {spectral_class.class}</p>}
+            {spectral_class.chromacity && (
+              <p>Chromacity: {spectral_class.chromacity}</p>
+            )}
+            {formattedTemp && <p>Temperature: {formattedTemp}</p>}
+          </div>
+        )}
+      </TabItem>
 
-      {atmosphere && (
-        <div>
-          <h3>Atmosphere</h3>
+      <TabItem label="Atmosphere">
+        {atmosphereType && <p>Type: {atmosphereType}</p>}
 
-          {atmosphereType && <p>Type: {atmosphereType}</p>}
+        {formattedAtmosphere.elements.map(({ symbol, name, pct }) => (
+          <p key={symbol}>
+            {name}: {pct}%
+          </p>
+        ))}
 
-          {formattedAtmosphere.elements.map(({ symbol, name, pct }) => (
-            <p key={symbol}>
-              {name}: {pct}%
-            </p>
-          ))}
-
-          {!!formattedAtmosphere.otherPct && (
-            <p>Others: {formattedAtmosphere.otherPct}%</p>
-          )}
-        </div>
-      )}
-    </>
+        {!!formattedAtmosphere.otherPct && (
+          <p>Others: {formattedAtmosphere.otherPct}%</p>
+        )}
+      </TabItem>
+    </TabList>
   )
 }
 
