@@ -12,6 +12,7 @@
   --breakpoint-L: 1024px;
   --breakpoint-XL: 1440px;
   --breakpoint-XXL: 1920px;
+  --breakpoint-XXXL: 2560px;
 
   /* Limits */
   --max-content-width: 1440px;
