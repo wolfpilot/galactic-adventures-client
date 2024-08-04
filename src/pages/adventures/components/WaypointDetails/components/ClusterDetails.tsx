@@ -1,12 +1,17 @@
 // Types
 import { ClusterDetails as Props } from "@ts/waypoints/categories/cluster.types"
 
+// Components
+import { TabList, TabItem } from "@components/layout/Tabs"
+
 const ClusterDetails = ({ constellations }: Props) => (
-  <>
-    {constellations?.length && (
-      <p>Constellations: {constellations.join(", ")}</p>
-    )}
-  </>
+  <TabList>
+    <TabItem label="Overview">
+      {constellations?.length && (
+        <p>Constellations: {constellations.join(", ")}</p>
+      )}
+    </TabItem>
+  </TabList>
 )
 
 export default ClusterDetails
