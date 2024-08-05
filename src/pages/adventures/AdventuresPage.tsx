@@ -20,7 +20,7 @@ import styles from "./AdventuresPage.module.css"
 import Head from "@components/layout/Head/Head"
 import PageHeader from "@components/layout/PageHeader/PageHeader"
 import Container from "@components/layout/Container/Container"
-import Section from "@components/layout/Section/Section"
+import ContentRow from "@components/layout/ContentRow/ContentRow"
 import { Cta } from "@components/ctas"
 import WaypointList from "./components/WaypointList/WaypointList"
 import WaypointDetails from "./components/WaypointDetails/WaypointDetails"
@@ -57,36 +57,36 @@ const AdventuresPage = () => {
       )}
 
       {data && (
-        <div className={styles.content}>
+        <>
           {headerProps && <PageHeader {...headerProps} />}
 
           {data.children.length > 0 && (
-            <div className={styles.waypointListWrapper}>
+            <ContentRow isPadded={false}>
               <WaypointList waypoints={data.children} />
-            </div>
+            </ContentRow>
           )}
 
           <Container>
             {data.adventure && (
-              <div className={styles.ctaWrapper}>
-                <Cta
-                  as="anchor"
-                  href={`${routes.adventures.url}/${data.adventure.id}`}
-                >
-                  Book now
-                </Cta>
-              </div>
+              <ContentRow>
+                <div className={styles.ctaWrapper}>
+                  <Cta
+                    as="anchor"
+                    href={`${routes.adventures.url}/${data.adventure.id}`}
+                  >
+                    Book now
+                  </Cta>
+                </div>
+              </ContentRow>
             )}
 
             {data.details && (
-              <Section>
-                <h2 className={styles.subtitle}>About</h2>
-
+              <ContentRow>
                 <WaypointDetails waypoint={data} />
-              </Section>
+              </ContentRow>
             )}
           </Container>
-        </div>
+        </>
       )}
     </>
   )

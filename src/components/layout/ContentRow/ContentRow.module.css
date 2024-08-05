@@ -1,0 +1,10 @@
+.wrapper {
+  &:not(:last-child) {
+    margin-bottom: var(--spacing-default);
+  }
+}
+
+.wrapper__isPadded {
+  padding-right: var(--spacing-large);
+  padding-left: var(--spacing-large);
+}

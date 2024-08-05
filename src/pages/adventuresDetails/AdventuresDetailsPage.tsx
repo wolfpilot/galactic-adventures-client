@@ -23,7 +23,8 @@ import styles from "./AdventuresDetailsPage.module.css"
 import Head from "@components/layout/Head/Head"
 import PageHeader from "@components/layout/PageHeader/PageHeader"
 import Container from "@components/layout/Container/Container"
-import Section from "@components/layout/Section/Section"
+import ContentRow from "@components/layout/ContentRow/ContentRow"
+import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
 import { Cta } from "@components/ctas"
 
 const AdventuresDetailsPage = () => {
@@ -58,7 +59,7 @@ const AdventuresDetailsPage = () => {
       )}
 
       {data && (
-        <div className={styles.content}>
+        <>
           {headerProps && <PageHeader {...headerProps} />}
 
           <Container>
@@ -73,14 +74,14 @@ const AdventuresDetailsPage = () => {
               </div>
             )}
 
-            <Section>
-              <h2 className={styles.subtitle}>About</h2>
-
-              {data.description && <p>{data.description}</p>}
-              {data.price_sb && <p>Price: {data.price_sb}</p>}
-            </Section>
+            <ContentRow>
+              <ContentBlock>
+                {data.description && <p>{data.description}</p>}
+                {data.price_sb && <p>Price: {data.price_sb}</p>}
+              </ContentBlock>
+            </ContentRow>
           </Container>
-        </div>
+        </>
       )}
     </>
   )
