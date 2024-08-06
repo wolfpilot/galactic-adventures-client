@@ -18,9 +18,9 @@ import styles from "./AdventuresPage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import PageHeader from "@components/layout/PageHeader/PageHeader"
+import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import ContentRow from "@components/layout/ContentRow/ContentRow"
+import { ContentRow } from "@components/layout/Content"
 import { Cta } from "@components/ctas"
 import WaypointList from "./components/WaypointList/WaypointList"
 import WaypointDetails from "./components/WaypointDetails/WaypointDetails"

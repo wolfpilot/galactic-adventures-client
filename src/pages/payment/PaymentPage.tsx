@@ -16,9 +16,9 @@ import { useClientSecret, useRetrievePaymentIntent } from "@utils/hooks/stripe"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import PageHeader from "@components/layout/PageHeader/PageHeader"
+import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
+import ContentBlock from "@components/layout/Content/ContentBlock/ContentBlock"
 import PaymentForm from "./components/form/PaymentForm/PaymentForm"
 
 const PaymentPage = () => {

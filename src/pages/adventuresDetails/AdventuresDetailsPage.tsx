@@ -21,10 +21,9 @@ import styles from "./AdventuresDetailsPage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import PageHeader from "@components/layout/PageHeader/PageHeader"
+import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import ContentRow from "@components/layout/ContentRow/ContentRow"
-import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
+import { ContentBlock, ContentRow } from "@components/layout/Content"
 import { Cta } from "@components/ctas"
 
 const AdventuresDetailsPage = () => {

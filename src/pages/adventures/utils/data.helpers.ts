@@ -1,5 +1,5 @@
 // Types
-import type { Props as PageHeaderProps } from "@components/layout/PageHeader/types"
+import type { Props as PageHeaderProps } from "@components/layout/Page/PageHeader/types"
 import type { Waypoint } from "@ts/waypoints/waypoint.types"
 
 // Constants

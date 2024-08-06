@@ -10,7 +10,7 @@ import styles from "./SiteHeader.module.css"
 // Components
 import Container from "@components/layout/Container/Container"
 import Icon from "@components/icons/Icon"
-import SiteNav from "@components/layout/Site/SiteNav/SiteNav"
+import { SiteNav } from "@components/layout/Site"
 
 // Setup
 const LOGO_SIZE = 24

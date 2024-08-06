@@ -17,9 +17,9 @@ import { useGetProduct } from "@utils/hooks/products"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import PageHeader from "@components/layout/PageHeader/PageHeader"
+import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
+import ContentBlock from "@components/layout/Content/ContentBlock/ContentBlock"
 
 const OrderPage = () => {
   const stripe = useStripe()

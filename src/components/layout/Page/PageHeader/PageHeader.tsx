@@ -5,7 +5,7 @@ import { type Props } from "./types"
 import styles from "./PageHeader.module.css"
 
 // Components
-import Container from "../Container/Container"
+import Container from "@components/layout/Container/Container"
 import { CustomImage } from "@components/images"
 
 const PageHeader = ({
