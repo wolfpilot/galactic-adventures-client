@@ -23,7 +23,7 @@ import styles from "./AdventuresDetailsPage.module.css"
 import Head from "@components/layout/Head/Head"
 import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import { ContentBlock, ContentRow } from "@components/layout/Content"
+import { ContentRow, ContentBlock } from "@components/layout/Content"
 import { Cta } from "@components/ctas"
 
 const AdventuresDetailsPage = () => {
@@ -63,14 +63,16 @@ const AdventuresDetailsPage = () => {
 
           <Container>
             {data.id && (
-              <div className={styles.ctaWrapper}>
-                <Cta
-                  as="anchor"
-                  href={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
-                >
-                  Continue
-                </Cta>
-              </div>
+              <ContentRow>
+                <div className={styles.ctaWrapper}>
+                  <Cta
+                    as="anchor"
+                    href={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
+                  >
+                    Continue
+                  </Cta>
+                </div>
+              </ContentRow>
             )}
 
             <ContentRow>

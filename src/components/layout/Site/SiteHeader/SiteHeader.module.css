@@ -23,8 +23,6 @@
   display: flex;
   justify-content: space-between;
   height: var(--size-siteHeaderHeight);
-  padding-right: var(--spacing-default);
-  padding-left: var(--spacing-default);
 }
 
 .logoLink,
@@ -49,6 +47,8 @@
 }
 
 .logoLink {
+  position: relative;
+  left: calc(-1 * var(--spacing-small));
   font-family: var(--font-family-secondary);
   font-size: var(--site-header-logo);
   text-transform: uppercase;
@@ -60,6 +60,9 @@
 }
 
 .menuBtn {
+  position: relative;
+  right: calc(-1 * var(--spacing-small));
+
   svg {
     overflow: visible;
 

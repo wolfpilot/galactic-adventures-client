@@ -11,6 +11,7 @@
   width: 100%;
   height: 450px;
   background-color: var(--c-pure-black);
+  margin: 0 auto;
 
   &::after {
     content: "";
@@ -24,10 +25,14 @@
 }
 
 .media__isContained {
-  padding: var(--spacing-default) var(--spacing-default) 0;
+  padding: var(--grid-offset-size) var(--grid-offset-size) 0;
 
-  @media screen and (min-width: 725px) {
-    padding: 0 var(--spacing-large);
+  @media screen and (min-width: 768px) {
+    padding: 0
+      calc(
+        var(--grid-offset-size) + var(--grid-column-size) +
+          var(--grid-gutter-size)
+      );
   }
 }
 
@@ -42,7 +47,7 @@
     max-width: 900px;
     object-fit: contain;
 
-    @media screen and (min-width: 725px) {
+    @media screen and (min-width: 768px) {
       object-fit: cover;
     }
   }

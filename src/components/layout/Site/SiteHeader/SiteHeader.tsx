@@ -41,7 +41,7 @@ const SiteHeader = () => {
               className={`
                 ${styles.logoLink}
                 ${isHomepage ? styles.logoLink__isActive : ""}
-              `}
+                `}
               href="/"
             >
               <span>GA</span>
@@ -51,7 +51,7 @@ const SiteHeader = () => {
               className={`
                 ${styles.menuBtn}
                 ${isNavOpen ? styles.menuBtn__isActive : ""}
-              `}
+                `}
               onClick={handleOnMenuClick}
             >
               <span>

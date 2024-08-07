@@ -10,10 +10,8 @@ const SiteFooter = () => {
   return (
     <footer className={styles.wrapper}>
       <Container>
-        <div className={styles.contentWrapper}>
-          <div className={styles.content}>
-            © Copyright {date} Galactic Adventures Ltd. All Rights Reserved.
-          </div>
+        <div className={styles.content}>
+          © Copyright {date} Galactic Adventures Ltd. All Rights Reserved.
         </div>
       </Container>
     </footer>
