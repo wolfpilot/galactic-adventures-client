@@ -19,7 +19,7 @@ import { useGetProduct } from "@utils/hooks/products"
 import Head from "@components/layout/Head/Head"
 import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import ContentBlock from "@components/layout/Content/ContentBlock/ContentBlock"
+import { ContentRow, ContentBlock } from "@components/layout/Content"
 
 const OrderPage = () => {
   const stripe = useStripe()
@@ -68,19 +68,21 @@ const OrderPage = () => {
 
       {hasData && (
         <Container>
-          <ContentBlock>
-            <p>{orderStatusText}</p>
-            <br />
-            <p>Order ID: {paymentIntentData.id.toUpperCase()}</p>
-            <p>Product: {productData.waypoint?.name}</p>
-            <p>
-              Amount:{" "}
-              {getFormattedPrice({
-                currency: paymentIntentData.currency,
-                amount: paymentIntentData.amount / 100,
-              })}
-            </p>
-          </ContentBlock>
+          <ContentRow>
+            <ContentBlock>
+              <p>{orderStatusText}</p>
+              <br />
+              <p>Order ID: {paymentIntentData.id.toUpperCase()}</p>
+              <p>Product: {productData.waypoint?.name}</p>
+              <p>
+                Amount:{" "}
+                {getFormattedPrice({
+                  currency: paymentIntentData.currency,
+                  amount: paymentIntentData.amount / 100,
+                })}
+              </p>
+            </ContentBlock>
+          </ContentRow>
         </Container>
       )}
 
