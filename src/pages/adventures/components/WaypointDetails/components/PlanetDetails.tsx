@@ -3,6 +3,7 @@ import { PlanetDetails as Props } from "@ts/waypoints/categories/planet.types"
 
 // Utils
 import { formatAtmosphere } from "@utils/helpers/formatter.helpers"
+import { isNullish } from "@utils/helpers/comparison.helpers"
 
 // Components
 import { TabList, TabItem } from "@components/layout/Tabs"
@@ -36,12 +37,12 @@ const PlanetDetails = ({
         {diameter_km && <p>Diameter: {diameter_km}km</p>}
         {day_length_h && <p>Day Length: {day_length_h}h</p>}
         {orbital_period_d && <p>Orbital Period: {orbital_period_d}d</p>}
-        {gravity_n && <p>Gravity: {gravity_n}N</p>}
+        {!isNullish(gravity_n) && <p>Gravity: {gravity_n}N</p>}
         {composition && <p>Composition: {composition}</p>}
         {geological_activity?.length && (
           <p>Geological Activity: {geological_activity.join(", ")}</p>
         )}
-        {surface_temp_avg_k && (
+        {!isNullish(surface_temp_avg_k) && (
           <p>Surface Temperature: {surface_temp_avg_k}K</p>
         )}
       </TabItem>
@@ -64,8 +65,12 @@ const PlanetDetails = ({
             </ul>
           </>
         )}
-        {wind_speed_avg_kmh && <p>Wind Speed: {wind_speed_avg_kmh}km/h</p>}
-        {wind_gust_max_kmh && <p>Wind Gusts: {wind_gust_max_kmh}km/h</p>}
+        {!isNullish(wind_speed_avg_kmh) && (
+          <p>Wind Speed: {wind_speed_avg_kmh}km/h</p>
+        )}
+        {!isNullish(wind_gust_max_kmh) && (
+          <p>Wind Gusts: {wind_gust_max_kmh}km/h</p>
+        )}
         {precipitation_level && <p>Precipitation: {precipitation_level}</p>}
         {precipitation_types && (
           <p>Precipitation types: {precipitation_types.join(", ")}</p>
