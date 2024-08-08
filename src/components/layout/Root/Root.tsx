@@ -5,7 +5,9 @@ import { metadata } from "@constants/metadata.constants"
 
 // Components
 import Head from "@components/layout/Head/Head.tsx"
-import PageWrapper from "@components/layout/PageWrapper/PageWrapper"
+import { SiteHeader, SiteFooter } from "@components/layout/Site"
+import { PageWrapper } from "@components/layout/Page"
+import DebugGrid from "@components/utils/DebugGrid/DebugGrid"
 
 // Styles
 import "@styles/index.css"
@@ -19,7 +21,12 @@ const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
 const Root = () => (
   <>
     <Head {...metadata} />
+
+    <DebugGrid />
+
+    <SiteHeader />
     <PageWrapper />
+    <SiteFooter />
 
     {enableDebugReactQuery && <ReactQueryDevtools />}
   </>

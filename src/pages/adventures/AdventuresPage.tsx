@@ -11,17 +11,19 @@ import { useGetWaypointById } from "@utils/hooks/waypoints"
 
 // Helpers
 import { generateMetadata } from "./utils/seo.helpers"
-import { renderDetailsByCategory } from "./utils/render.helpers"
+import { getPageHeaderProps } from "./utils/data.helpers"
 
 // Styles
 import styles from "./AdventuresPage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
+import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
-import WaypointMain from "./components/WaypointMain/WaypointMain"
+import { ContentRow } from "@components/layout/Content"
+import { Cta } from "@components/ctas"
 import WaypointList from "./components/WaypointList/WaypointList"
+import WaypointDetails from "./components/WaypointDetails/WaypointDetails"
 
 const AdventuresPage = () => {
   const [searchParams] = useSearchParams()
@@ -39,6 +41,8 @@ const AdventuresPage = () => {
     metadata: pageData.metadata,
   })
 
+  const headerProps = getPageHeaderProps(data)
+
   return (
     <>
       <Head {...parsedMetadata} />
@@ -53,38 +57,36 @@ const AdventuresPage = () => {
       )}
 
       {data && (
-        <div className={styles.content}>
-          <WaypointMain waypoint={data} />
+        <>
+          {headerProps && <PageHeader {...headerProps} />}
 
           {data.children.length > 0 && (
-            <div className={styles.waypointListWrapper}>
+            <ContentRow isPadded={false}>
               <WaypointList waypoints={data.children} />
-            </div>
+            </ContentRow>
           )}
 
-          {data.adventure && (
-            <Container>
-              <div className={styles.ctaWrapper}>
-                <a
-                  className={styles.ctaAdventure}
-                  href={`${routes.adventures.url}/${data.adventure.id}`}
-                >
-                  Book now
-                </a>
-              </div>
-            </Container>
-          )}
+          <Container>
+            {data.adventure && (
+              <ContentRow>
+                <div className={styles.ctaWrapper}>
+                  <Cta
+                    as="anchor"
+                    href={`${routes.adventures.url}/${data.adventure.id}`}
+                  >
+                    Book now
+                  </Cta>
+                </div>
+              </ContentRow>
+            )}
 
-          {data.details && (
-            <Container>
-              <ContentBlock kind="secondary">
-                <h2 className={styles.subtitle}>About</h2>
-
-                {renderDetailsByCategory(data)}
-              </ContentBlock>
-            </Container>
-          )}
-        </div>
+            {data.details && (
+              <ContentRow>
+                <WaypointDetails waypoint={data} />
+              </ContentRow>
+            )}
+          </Container>
+        </>
       )}
     </>
   )

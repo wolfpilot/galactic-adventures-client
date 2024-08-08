@@ -3,6 +3,7 @@ export enum Icons {
   ChevronLeft = "ChevronLeft",
   ChevronRight = "ChevronRight",
   Grab = "Grab",
+  Menu = "Menu",
   // Objects
   SpaceFlight = "SpaceFlight",
 }

@@ -10,7 +10,7 @@ import styles from "./Image.module.css"
 // Setup
 const { VITE_CLOUDINARY_ASSETS_PATH = "" } = import.meta.env
 
-const Image = ({ className, path, ...rest }: Props) => {
+const Image = ({ className = "", path, ...rest }: Props) => {
   const img = cld.image(`${VITE_CLOUDINARY_ASSETS_PATH}/${path}`)
 
   const imageUrl = img.toURL()

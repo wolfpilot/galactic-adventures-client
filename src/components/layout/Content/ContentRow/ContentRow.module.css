@@ -1,0 +1,12 @@
+.wrapper {
+  &:not(:last-child) {
+    margin-bottom: var(--spacing-default);
+  }
+}
+
+.wrapper__isPadded {
+  @media screen and (min-width: 1024px) {
+    padding-right: calc(var(--grid-column-size) + var(--grid-gutter-size));
+    padding-left: calc(var(--grid-column-size) + var(--grid-gutter-size));
+  }
+}

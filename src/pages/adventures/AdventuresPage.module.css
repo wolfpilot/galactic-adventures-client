@@ -1,18 +1,5 @@
-.content {
-  display: flex;
-  flex-direction: column;
-}
-
-.subtitle {
-  text-align: center;
-  text-transform: uppercase;
-}
-
 .ctaWrapper {
   display: flex;
   justify-content: center;
-}
-
-.ctaAdventure {
-  composes: cta from "@styles/ctas.css";
+  padding-top: var(--spacing-default);
 }

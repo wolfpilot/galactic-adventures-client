@@ -40,12 +40,11 @@ import styles from "./CustomImage.module.css"
  *
  */
 const CustomImage = ({
-  className,
+  className = "",
   imgPath,
   fallbackImgPath,
-  srcSetBreakpoints = [],
-  srcSetScale = false,
-  srcSetCrop = true,
+  transforms,
+  imgSet,
   format = "auto",
   quality = 70,
   ...rest
@@ -72,14 +71,13 @@ const CustomImage = ({
   const src = generateImgSrc({
     imgPath: activeImgPath,
     isPlaceholderLoaded,
+    transforms,
     format,
     quality,
   })
   const srcSet = generateImgSrcSet({
     imgPath: activeImgPath,
-    srcSetBreakpoints,
-    srcSetScale,
-    srcSetCrop,
+    imgSet,
     isPlaceholderLoaded,
     format,
     quality,
@@ -89,16 +87,18 @@ const CustomImage = ({
 
   return (
     <picture
-      className={styles.wrapper}
+      className={`
+        ${styles.wrapper}
+        ${className}
+      `}
       onLoad={handleOnLoad}
       onError={handleOnError}
     >
       {srcSet && <source sizes="100vw" srcSet={srcSet} />}
       <img
         className={`
-        ${styles.image}
-        ${isPlaceholderLoaded && styles.image__isPlaceholderLoaded}
-        ${className}
+          ${styles.image}
+          ${isPlaceholderLoaded && styles.image__isPlaceholderLoaded}
         `}
         src={src}
         {...rest}

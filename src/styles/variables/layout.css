@@ -12,6 +12,7 @@
   --breakpoint-L: 1024px;
   --breakpoint-XL: 1440px;
   --breakpoint-XXL: 1920px;
+  --breakpoint-XXXL: 2560px;
 
   /* Limits */
   --max-content-width: 1440px;
@@ -23,11 +24,11 @@
   --grid-columns-count-L: 12;
   --grid-columns-count-XL: 12;
 
-  --grid-offset-size-XS: 10px;
-  --grid-offset-size-S: 10px;
-  --grid-offset-size-M: 10px;
-  --grid-offset-size-L: 20px;
-  --grid-offset-size-XL: 20px;
+  --grid-offset-size-XS: 20px;
+  --grid-offset-size-S: 20px;
+  --grid-offset-size-M: 20px;
+  --grid-offset-size-L: 40px;
+  --grid-offset-size-XL: 40px;
 
   --grid-gutter-size-XS: 10px;
   --grid-gutter-size-S: 10px;

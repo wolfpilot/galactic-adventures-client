@@ -5,12 +5,14 @@
 @import "./variables/colors.css";
 @import "./variables/layout.css";
 @import "./variables/animation.css";
+@import "./variables/sizes.css";
 @import "./variables/typography.css";
+@import "./variables/zIndices.css";
 
 /* Global */
 @import "./base.css";
 
 /* Components */
+@import "./animation.css";
 @import "./buttons.css";
-@import "./ctas.css";
 @import "./scrollbar.css";

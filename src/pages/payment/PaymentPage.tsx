@@ -16,9 +16,9 @@ import { useClientSecret, useRetrievePaymentIntent } from "@utils/hooks/stripe"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import PageHeader from "@components/layout/PageHeader/PageHeader"
+import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
+import { ContentRow, ContentBlock } from "@components/layout/Content"
 import PaymentForm from "./components/form/PaymentForm/PaymentForm"
 
 const PaymentPage = () => {
@@ -127,14 +127,16 @@ const PaymentPage = () => {
 
       {hasData && (
         <Container>
-          <ContentBlock>
-            <PaymentForm
-              isProcessing={isProcessing}
-              currency={paymentIntentData.currency}
-              amount={paymentIntentData.amount / 100}
-              submitHandler={submitHandler}
-            />
-          </ContentBlock>
+          <ContentRow>
+            <ContentBlock>
+              <PaymentForm
+                isProcessing={isProcessing}
+                currency={paymentIntentData.currency}
+                amount={paymentIntentData.amount / 100}
+                submitHandler={submitHandler}
+              />
+            </ContentBlock>
+          </ContentRow>
         </Container>
       )}
 

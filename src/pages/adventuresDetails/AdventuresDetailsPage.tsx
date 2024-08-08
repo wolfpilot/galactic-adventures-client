@@ -14,15 +14,17 @@ import { useGetProduct } from "@utils/hooks/products"
 
 // Helpers
 import { generateMetadata } from "./utils/seo.helpers"
+import { getPageHeaderProps } from "./utils/data.helpers"
 
 // Styles
 import styles from "./AdventuresDetailsPage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
+import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
-import ContentBlock from "@components/layout/ContentBlock/ContentBlock"
-import WaypointMain from "./components/WaypointMain/WaypointMain"
+import { ContentRow, ContentBlock } from "@components/layout/Content"
+import { Cta } from "@components/ctas"
 
 const AdventuresDetailsPage = () => {
   const { id } = useParams()
@@ -40,10 +42,7 @@ const AdventuresDetailsPage = () => {
     metadata: pageData.metadata,
   })
 
-  console.log("data", data)
-
-  // TODO: Move WaypointMain to PageHero? Either that or make another full-height version
-  // TODO: and transition to it, but it seems like too much of a headache.
+  const headerProps = getPageHeaderProps(data)
 
   return (
     <>
@@ -59,31 +58,31 @@ const AdventuresDetailsPage = () => {
       )}
 
       {data && (
-        <div className={styles.content}>
-          {data.waypoint && <WaypointMain waypoint={data.waypoint} />}
-
-          {data.id && (
-            <Container>
-              <div className={styles.ctaWrapper}>
-                <a
-                  className={styles.ctaAdventure}
-                  href={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
-                >
-                  Pay
-                </a>
-              </div>
-            </Container>
-          )}
+        <>
+          {headerProps && <PageHeader {...headerProps} />}
 
           <Container>
-            <ContentBlock kind="secondary">
-              <h2 className={styles.subtitle}>About</h2>
+            {data.id && (
+              <ContentRow>
+                <div className={styles.ctaWrapper}>
+                  <Cta
+                    as="anchor"
+                    href={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
+                  >
+                    Continue
+                  </Cta>
+                </div>
+              </ContentRow>
+            )}
 
-              {data.description && <p>{data.description}</p>}
-              {data.price_sb && <p>Price: {data.price_sb}</p>}
-            </ContentBlock>
+            <ContentRow>
+              <ContentBlock>
+                {data.description && <p>{data.description}</p>}
+                {data.price_sb && <p>Price: {data.price_sb}</p>}
+              </ContentBlock>
+            </ContentRow>
           </Container>
-        </div>
+        </>
       )}
     </>
   )

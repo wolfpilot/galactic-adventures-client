@@ -1,0 +1,34 @@
+.wrapper {
+  --gradient-size: 40px;
+  --gradient-bg-color: var(--c-black);
+  --gradient-color: var(--c-dGrey);
+  --border-radius: var(--border-radius-default);
+  --border-width: 2px;
+
+  position: relative;
+  padding: var(--spacing-default);
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background:
+      linear-gradient(var(--gradient-bg-color), var(--gradient-bg-color))
+        padding-box,
+      linear-gradient(var(--gradient-color), var(--gradient-color)) top left /
+        var(--gradient-size) var(--gradient-size) border-box,
+      linear-gradient(var(--gradient-color), var(--gradient-color)) top right /
+        var(--gradient-size) var(--gradient-size) border-box,
+      linear-gradient(var(--gradient-color), var(--gradient-color)) bottom left /
+        var(--gradient-size) var(--gradient-size) border-box,
+      linear-gradient(var(--gradient-color), var(--gradient-color)) bottom right /
+        var(--gradient-size) var(--gradient-size) border-box;
+    background-repeat: no-repeat;
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid transparent;
+  }
+}
