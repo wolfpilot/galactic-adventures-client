@@ -4,6 +4,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 // Constants
 import { metadata } from "@constants/metadata.constants"
 
+// Utils
+import { useBoundStore } from "@utils/stores/store"
+
 // Components
 import Head from "@components/layout/Head/Head.tsx"
 import {
@@ -27,13 +30,15 @@ const Root = () => {
   const debugReactQueryParam = params.get("debugReactQuery")
   const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
 
+  const siteBannerData = useBoundStore((state) => state.bannerData)
+
   return (
     <>
       <Head {...metadata} />
 
       <DebugGrid />
 
-      {isHomepage && <SiteBanner />}
+      {isHomepage && siteBannerData && <SiteBanner {...siteBannerData} />}
       <SiteHeader />
       <SiteNav />
       <PageWrapper />

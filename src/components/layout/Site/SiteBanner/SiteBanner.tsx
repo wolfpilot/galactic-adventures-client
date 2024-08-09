@@ -1,8 +1,5 @@
-// Data
-import { siteBannerData } from "./data/siteBanner.data"
-
-// Utils
-import { getRandomItem } from "@utils/helpers/array.helpers"
+// Types
+import { Props } from "./types"
 
 // Styles
 import styles from "./SiteBanner.module.css"
@@ -10,13 +7,14 @@ import styles from "./SiteBanner.module.css"
 // Components
 import { Marquee } from "@components/banners"
 
-// Setup
-const latestNews = getRandomItem(siteBannerData)
-
-const SiteBanner = () => (
-  <aside className={styles.wrapper}>
-    {latestNews && <Marquee>{latestNews}</Marquee>}
-  </aside>
+const SiteBanner = ({ text }: Props) => (
+  <>
+    {text && (
+      <aside className={styles.wrapper}>
+        <Marquee>{text}</Marquee>
+      </aside>
+    )}
+  </>
 )
 
 export default SiteBanner
