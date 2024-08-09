@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 // Constants
@@ -5,31 +6,42 @@ import { metadata } from "@constants/metadata.constants"
 
 // Components
 import Head from "@components/layout/Head/Head.tsx"
-import { SiteHeader, SiteFooter } from "@components/layout/Site"
+import {
+  SiteHeader,
+  SiteNav,
+  SiteFooter,
+  SiteBanner,
+} from "@components/layout/Site"
 import { PageWrapper } from "@components/layout/Page"
 import DebugGrid from "@components/utils/DebugGrid/DebugGrid"
 
 // Styles
 import "@styles/index.css"
 
-const search = window.location.search
-const params = new URLSearchParams(search)
+const Root = () => {
+  const location = useLocation()
 
-const debugReactQueryParam = params.get("debugReactQuery")
-const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
+  const isHomepage = location.pathname === "/"
+  const params = new URLSearchParams(location.search)
 
-const Root = () => (
-  <>
-    <Head {...metadata} />
+  const debugReactQueryParam = params.get("debugReactQuery")
+  const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
 
-    <DebugGrid />
+  return (
+    <>
+      <Head {...metadata} />
 
-    <SiteHeader />
-    <PageWrapper />
-    <SiteFooter />
+      <DebugGrid />
 
-    {enableDebugReactQuery && <ReactQueryDevtools />}
-  </>
-)
+      {isHomepage && <SiteBanner />}
+      <SiteHeader />
+      <SiteNav />
+      <PageWrapper />
+      <SiteFooter />
+
+      {enableDebugReactQuery && <ReactQueryDevtools />}
+    </>
+  )
+}
 
 export default Root
