@@ -29,3 +29,5 @@ export const routes = {
     url: "/order",
   },
 }
+
+export const navRoutes = [routes.adventures, routes.tours, routes.merch]

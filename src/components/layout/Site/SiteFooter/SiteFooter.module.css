@@ -1,6 +1,6 @@
 .wrapper {
   margin-top: auto;
-  margin-bottom: var(--spacing-default);
+  margin-bottom: var(--spacing-small);
 }
 
 .contentWrapper {

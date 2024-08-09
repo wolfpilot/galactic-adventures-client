@@ -1,9 +1,8 @@
 .wrapper {
-  position: fixed;
+  position: sticky;
   z-index: var(--z-siteHeader);
   top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
   pointer-events: none;
 }
@@ -17,6 +16,12 @@
   background-color: rgba(var(--c-black-rgb), 0.5);
   backdrop-filter: blur(8px);
   pointer-events: initial;
+  transition: background-color var(--anim-ease-cubic)
+    var(--anim-duration-medium);
+}
+
+.navbar__isActive {
+  background-color: transparent;
 }
 
 .content {
