@@ -33,7 +33,12 @@ const SiteHeader = () => {
 
   return (
     <header className={styles.wrapper}>
-      <div className={styles.navbar}>
+      <div
+        className={`
+          ${styles.navbar}
+          ${isNavOpen ? styles.navbar__isActive : ""}
+        `}
+      >
         <Container>
           <div className={styles.content}>
             <a
