@@ -1,0 +1,34 @@
+@keyframes animSlide {
+  0% {
+    transform: translateX(100vw);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.wrapper {
+  --banner-bg-color: var(--c-accent3);
+  --banner-anim-duration: 25s;
+
+  padding-top: var(--spacing-small);
+  padding-bottom: var(--spacing-small);
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: var(--banner-bg-color);
+  white-space: nowrap;
+  font-size: var(--copy-s-font-size);
+
+  &:hover,
+  &:focus-within {
+    .content {
+      animation-play-state: paused;
+    }
+  }
+}
+
+.content {
+  display: inline-block;
+  animation: animSlide var(--banner-anim-duration) linear infinite;
+}

@@ -2,7 +2,7 @@
 import LinkImgSrc from "/media/images/planet-orbit.gif"
 
 // Constants
-import { routes } from "@constants/routes.constants"
+import { navRoutes } from "@constants/routes.constants"
 
 // Utils
 import { useBoundStore } from "@utils/stores/store"
@@ -12,8 +12,6 @@ import styles from "./SiteNav.module.css"
 
 // Components
 import Container from "@components/layout/Container/Container"
-
-const navRoutes = [routes.adventures, routes.tours, routes.merch]
 
 const SiteNav = () => {
   const isNavOpen = useBoundStore((state) => state.isNavOpen)
