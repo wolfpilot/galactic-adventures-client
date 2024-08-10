@@ -13,7 +13,7 @@
   visibility: hidden;
   opacity: 0;
   background: var(--c-black);
-  background-color: rgba(var(--c-black-rgb), 0.75);
+  background-color: rgba(var(--c-black-rgb), 0.85);
   backdrop-filter: blur(8px);
   pointer-events: initial;
   transition:

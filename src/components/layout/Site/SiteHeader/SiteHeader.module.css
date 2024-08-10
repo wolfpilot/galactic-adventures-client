@@ -16,12 +16,14 @@
   background-color: rgba(var(--c-black-rgb), 0.5);
   backdrop-filter: blur(8px);
   pointer-events: initial;
-  transition: background-color var(--anim-ease-cubic)
-    var(--anim-duration-medium);
+  transition:
+    background-color var(--anim-ease-cubic) var(--anim-duration-medium),
+    backdrop-filter var(--anim-ease-cubic) var(--anim-duration-medium);
 }
 
 .navbar__isActive {
   background-color: transparent;
+  backdrop-filter: none;
 }
 
 .content {
