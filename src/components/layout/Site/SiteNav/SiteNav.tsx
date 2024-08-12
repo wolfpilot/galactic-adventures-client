@@ -20,7 +20,7 @@ const SiteNav = () => {
     <nav
       className={`
         ${styles.wrapper}
-        ${isNavOpen && styles.wrapper__isOpen}
+        ${isNavOpen ? styles.wrapper__isOpen : ""}
       `}
     >
       <Container>

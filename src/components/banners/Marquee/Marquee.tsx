@@ -20,7 +20,7 @@ const Marquee = ({ children, className = "" }: Props) => {
       <span
         className={`
           ${styles.content}
-          ${isNavOpen && styles.content__isPaused}
+          ${isNavOpen ? styles.content__isPaused : ""}
         `}
       >
         {children}

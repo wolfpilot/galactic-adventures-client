@@ -98,7 +98,7 @@ const CustomImage = ({
       <img
         className={`
           ${styles.image}
-          ${isPlaceholderLoaded && styles.image__isPlaceholderLoaded}
+          ${isPlaceholderLoaded ? styles.image__isPlaceholderLoaded : ""}
         `}
         src={src}
         {...rest}
