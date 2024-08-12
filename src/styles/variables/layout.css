@@ -92,9 +92,9 @@
     --grid-gutter-size: var(--grid-gutter-size-XL);
     --grid-column-size: calc(
       (
-          1440 - (2 * var(--grid-offset-size)) -
-            ((var(--grid-columns) - 1) * var(--grid-gutter-size))
-        ) / var(--grid-columns)
+          var(--max-content-width) - (2 * var(--grid-offset-size)) -
+            ((var(--grid-columns-count) - 1) * var(--grid-gutter-size))
+        ) / var(--grid-columns-count)
     );
   }
 }
