@@ -5,13 +5,13 @@
  */
 export type ImageFormats =
   | "auto"
-  | "AVIF"
-  | "GIF"
-  | "JPEG"
-  | "JPEG XL"
-  | "JPEG XR"
-  | "PNG"
-  | "WebP"
+  | "avif"
+  | "gif"
+  | "jpeg"
+  | "jxl"
+  | "jxr"
+  | "png"
+  | "webp"
 
 /**
  * @see https://cloudinary.com/documentation/image_optimization#automatic_quality_selection_q_auto

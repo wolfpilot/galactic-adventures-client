@@ -45,7 +45,7 @@ const CustomImage = ({
   fallbackImgPath,
   transforms,
   imgSet,
-  format = "auto",
+  format = "webp",
   quality = 70,
   ...rest
 }: Props) => {
