@@ -44,4 +44,6 @@
   --s-neon-glow: var(--c-white) 0 -1px 4px, var(--c-accent1) 0 -2px 10px,
     var(--c-accent2) 0 -8px 20px, var(--c-accent3) 0 -16px 40px,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
+
+  --t-blur-shadow: 0 0 10px rgba(var(--c-black-rgb), 0.5);
 }
