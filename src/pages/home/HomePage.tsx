@@ -18,6 +18,7 @@ import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 import { CustomImage } from "@components/images"
+import { getCtaImageProps } from "./helpers/data.helpers"
 
 const HomePage = () => {
   const updateSiteBannerData = useBoundStore((state) => state.updateBannerData)
@@ -38,17 +39,18 @@ const HomePage = () => {
         <ContentRow isPadded={false}>
           <ul className={styles.ctaList}>
             {navRoutes.map((route, index) => {
-              const imgPath = `Pages/Homepage/cta-${route.url.substring(1)}.webp`
+              const imgProps = getCtaImageProps(route)
 
               return (
                 <li key={index} className={styles.ctaItem}>
                   <ContentBlock>
                     <a href={route.url} className={styles.ctaItemLink}>
-                      <CustomImage
-                        className={styles.ctaItemImage}
-                        imgPath={imgPath}
-                        alt=""
-                      />
+                      {imgProps && (
+                        <CustomImage
+                          {...imgProps}
+                          className={styles.ctaItemImage}
+                        />
+                      )}
                       <div className={styles.ctaItemContent}>{route.label}</div>
                     </a>
                   </ContentBlock>
