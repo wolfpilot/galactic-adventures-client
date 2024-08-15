@@ -15,7 +15,7 @@ export const cld = new Cloudinary({
   },
 })
 
-export const categoryToFolderName: Record<WaypointCategory, string> = {
+export const waypointCategoryToFolderName: Record<WaypointCategory, string> = {
   Supercluster: "Superclusters",
   Cluster: "Clusters",
   Galaxy: "Galaxies",

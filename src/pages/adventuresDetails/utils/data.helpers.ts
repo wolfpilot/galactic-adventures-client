@@ -6,7 +6,7 @@ import type { Adventure } from "@ts/products/adventures.types"
 import { breakpoints } from "@constants/layout.constants"
 
 // Helpers
-import { categoryToFolderName } from "@utils/helpers/asset.helpers"
+import { waypointCategoryToFolderName } from "@utils/helpers/asset.helpers"
 
 export const getPageHeaderProps = (
   data: Adventure | null
@@ -20,7 +20,7 @@ export const getPageHeaderProps = (
     media: {
       type: "image",
       image: {
-        imgPath: `${categoryToFolderName[data.waypoint.category]}/${data.waypoint.code}.webp`,
+        imgPath: `${waypointCategoryToFolderName[data.waypoint.category]}/${data.waypoint.code}.webp`,
         alt: `Featured image of ${data.waypoint.category} ${data.waypoint.name}.`,
         sizes: "100vw",
         imgSet: {
