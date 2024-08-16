@@ -10,6 +10,7 @@ export enum RouteNames {
 export interface Route {
   label: string
   url: string
+  disabled?: boolean
 }
 
 export type Routes = Record<RouteNames, Route>
@@ -31,10 +32,12 @@ export const routes: Routes = {
   tours: {
     label: "Tours",
     url: "/tours",
+    disabled: true,
   },
   merch: {
     label: "Merchandise",
     url: "/merch",
+    disabled: true,
   },
   payment: {
     label: "Payment",

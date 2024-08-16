@@ -12,6 +12,7 @@ import styles from "./SiteNav.module.css"
 
 // Components
 import Container from "@components/layout/Container/Container"
+import { CustomLink } from "@components/links"
 
 const SiteNav = () => {
   const isNavOpen = useBoundStore((state) => state.isNavOpen)
@@ -27,7 +28,11 @@ const SiteNav = () => {
         <ul className={styles.list}>
           {navRoutes.map((route, index) => (
             <li key={index} className={styles.listItem}>
-              <a className={styles.link} href={route.url}>
+              <CustomLink
+                className={styles.link}
+                href={route.url}
+                aria-disabled={route.disabled}
+              >
                 <img
                   className={styles.linkImg}
                   src={LinkImgSrc}
@@ -41,7 +46,7 @@ const SiteNav = () => {
                   width={50}
                   height={50}
                 />
-              </a>
+              </CustomLink>
             </li>
           ))}
         </ul>

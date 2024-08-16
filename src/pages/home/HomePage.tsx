@@ -5,6 +5,7 @@ import { homePageData } from "./data/homePage.data"
 
 // Utils
 import { useBoundStore } from "@utils/stores/store"
+import { getCtaImageProps } from "./helpers/data.helpers"
 
 // Constants
 import { navRoutes } from "@constants/routes.constants"
@@ -18,7 +19,7 @@ import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 import { CustomImage } from "@components/images"
-import { getCtaImageProps } from "./helpers/data.helpers"
+import { CustomLink } from "@components/links"
 
 const HomePage = () => {
   const updateSiteBannerData = useBoundStore((state) => state.updateBannerData)
@@ -44,7 +45,11 @@ const HomePage = () => {
               return (
                 <li key={index} className={styles.ctaItem}>
                   <ContentBlock>
-                    <a href={route.url} className={styles.ctaItemLink}>
+                    <CustomLink
+                      className={styles.ctaItemLink}
+                      href={route.url}
+                      aria-disabled={route.disabled}
+                    >
                       {imgProps && (
                         <CustomImage
                           {...imgProps}
@@ -52,7 +57,7 @@ const HomePage = () => {
                         />
                       )}
                       <div className={styles.ctaItemContent}>{route.label}</div>
-                    </a>
+                    </CustomLink>
                   </ContentBlock>
                 </li>
               )
