@@ -5,6 +5,7 @@ import { homePageData } from "./data/homePage.data"
 
 // Utils
 import { useBoundStore } from "@utils/stores/store"
+import { getCtaImageProps } from "./helpers/data.helpers"
 
 // Constants
 import { navRoutes } from "@constants/routes.constants"
@@ -17,6 +18,8 @@ import Head from "@components/layout/Head/Head"
 import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
+import { CustomImage } from "@components/images"
+import { CustomLink } from "@components/links"
 
 const HomePage = () => {
   const updateSiteBannerData = useBoundStore((state) => state.updateBannerData)
@@ -34,15 +37,31 @@ const HomePage = () => {
       <PageHeader {...homePageData.headerData} />
 
       <Container>
-        <ContentRow>
+        <ContentRow isPadded={false}>
           <ul className={styles.ctaList}>
-            {navRoutes.map((route, index) => (
-              <li key={index} className={styles.ctaItem}>
-                <ContentBlock>
-                  <a href={route.url}>{route.label}</a>
-                </ContentBlock>
-              </li>
-            ))}
+            {navRoutes.map((route, index) => {
+              const imgProps = getCtaImageProps(route)
+
+              return (
+                <li key={index} className={styles.ctaItem}>
+                  <ContentBlock>
+                    <CustomLink
+                      className={styles.ctaItemLink}
+                      href={route.url}
+                      aria-disabled={route.disabled}
+                    >
+                      {imgProps && (
+                        <CustomImage
+                          {...imgProps}
+                          className={styles.ctaItemImage}
+                        />
+                      )}
+                      <div className={styles.ctaItemContent}>{route.label}</div>
+                    </CustomLink>
+                  </ContentBlock>
+                </li>
+              )
+            })}
           </ul>
         </ContentRow>
       </Container>
