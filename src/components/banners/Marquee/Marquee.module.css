@@ -12,12 +12,11 @@
   --banner-bg-color: var(--c-accent3);
   --banner-anim-duration: 25s;
 
-  padding-top: var(--spacing-small);
-  padding-bottom: var(--spacing-small);
+  padding: var(--spacing-small);
   box-sizing: border-box;
   overflow: hidden;
   background-color: var(--banner-bg-color);
-  white-space: nowrap;
+  text-align: center;
   font-size: var(--copy-s-font-size);
 
   &:hover,
@@ -26,11 +25,21 @@
       animation-play-state: paused;
     }
   }
+
+  @media (prefers-reduced-motion: no-preference) {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: left;
+    white-space: nowrap;
+  }
 }
 
 .content {
   display: inline-block;
-  animation: animSlide var(--banner-anim-duration) linear infinite;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: animSlide var(--banner-anim-duration) linear infinite;
+  }
 }
 
 .content__isPaused {
