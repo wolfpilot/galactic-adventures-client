@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
 
 // Data
@@ -26,7 +27,7 @@ import WaypointList from "./components/WaypointList/WaypointList"
 import WaypointDetails from "./components/WaypointDetails/WaypointDetails"
 
 const AdventuresPage = () => {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const waypointIdParam = searchParams.get("waypointId")
   const waypointId = waypointIdParam ?? null
@@ -34,6 +35,13 @@ const AdventuresPage = () => {
   const { isPending, error, data } = useGetWaypointById({
     id: waypointId,
   })
+
+  // Hooks
+  useEffect(() => {
+    if (!data?.id) return
+
+    setSearchParams({ waypointId: `${data.id}` }, { replace: true })
+  }, [data?.id, setSearchParams])
 
   // Parse data
   const parsedMetadata = generateMetadata({
