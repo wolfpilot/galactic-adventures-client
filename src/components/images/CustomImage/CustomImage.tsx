@@ -45,6 +45,7 @@ const CustomImage = ({
   fallbackImgPath,
   transforms,
   imgSet,
+  sizes = "100vw",
   format = "webp",
   quality = 70,
   ...rest
@@ -94,7 +95,7 @@ const CustomImage = ({
       onLoad={handleOnLoad}
       onError={handleOnError}
     >
-      {srcSet && <source sizes="100vw" srcSet={srcSet} />}
+      {srcSet && <source sizes={sizes} srcSet={srcSet} />}
       <img
         className={`
           ${styles.image}
