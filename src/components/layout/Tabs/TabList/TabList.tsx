@@ -31,7 +31,7 @@ const TabList = ({ className = "", children }: Props) => {
       `}
     >
       <nav className={styles.nav}>
-        <ul className={styles.navList} aria-orientation="horizontal">
+        <ul className={styles.navList}>
           {tabs.map((tab, index) => (
             <li key={index}>
               <button
