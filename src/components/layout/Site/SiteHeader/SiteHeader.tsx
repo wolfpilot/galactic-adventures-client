@@ -56,6 +56,7 @@ const SiteHeader = () => {
                 ${styles.menuBtn}
                 ${isNavOpen ? styles.menuBtn__isActive : ""}
                 `}
+              aria-label="Menu"
               onClick={handleOnMenuClick}
             >
               <span>
