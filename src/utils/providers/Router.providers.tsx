@@ -5,6 +5,7 @@ import {
 
 // Pages
 import {
+  ErrorPage,
   HomePage,
   AdventuresPage,
   AdventuresDetailsPage,
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
