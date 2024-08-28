@@ -1,6 +1,9 @@
 import { useLocation } from "react-router-dom"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
+// Types
+import { Props } from "./types"
+
 // Constants
 import { metadata } from "@constants/metadata.constants"
 
@@ -21,7 +24,7 @@ import DebugGrid from "@components/utils/DebugGrid/DebugGrid"
 // Styles
 import "@styles/index.css"
 
-const Root = () => {
+const Root = ({ children }: Props) => {
   const location = useLocation()
 
   const isHomepage = location.pathname === "/"
@@ -41,7 +44,9 @@ const Root = () => {
       {isHomepage && siteBannerData && <SiteBanner {...siteBannerData} />}
       <SiteHeader />
       <SiteNav />
-      <PageWrapper />
+
+      <PageWrapper>{children ?? null}</PageWrapper>
+
       <SiteFooter />
 
       {enableDebugReactQuery && <ReactQueryDevtools />}
