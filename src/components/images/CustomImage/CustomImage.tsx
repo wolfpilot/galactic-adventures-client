@@ -45,7 +45,7 @@ const CustomImage = ({
   fallbackImgPath,
   transforms,
   imgSet,
-  format = "auto",
+  format = "webp",
   quality = 70,
   ...rest
 }: Props) => {
@@ -98,7 +98,7 @@ const CustomImage = ({
       <img
         className={`
           ${styles.image}
-          ${isPlaceholderLoaded && styles.image__isPlaceholderLoaded}
+          ${isPlaceholderLoaded ? styles.image__isPlaceholderLoaded : ""}
         `}
         src={src}
         {...rest}

@@ -1,0 +1,47 @@
+@keyframes animSlide {
+  0% {
+    transform: translateX(100vw);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.wrapper {
+  --banner-bg-color: var(--c-accent3);
+  --banner-anim-duration: 25s;
+
+  padding: var(--spacing-small);
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: var(--banner-bg-color);
+  text-align: center;
+  font-size: var(--copy-s-font-size);
+
+  &:hover,
+  &:focus-within {
+    .content {
+      animation-play-state: paused;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: left;
+    white-space: nowrap;
+  }
+}
+
+.content {
+  display: inline-block;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: animSlide var(--banner-anim-duration) linear infinite;
+  }
+}
+
+.content__isPaused {
+  animation-play-state: paused;
+}

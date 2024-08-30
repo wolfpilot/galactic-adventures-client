@@ -2,7 +2,7 @@
 import LinkImgSrc from "/media/images/planet-orbit.gif"
 
 // Constants
-import { routes } from "@constants/routes.constants"
+import { navRoutes } from "@constants/routes.constants"
 
 // Utils
 import { useBoundStore } from "@utils/stores/store"
@@ -12,8 +12,7 @@ import styles from "./SiteNav.module.css"
 
 // Components
 import Container from "@components/layout/Container/Container"
-
-const navRoutes = [routes.adventures, routes.tours, routes.merch]
+import { CustomLink } from "@components/links"
 
 const SiteNav = () => {
   const isNavOpen = useBoundStore((state) => state.isNavOpen)
@@ -22,14 +21,18 @@ const SiteNav = () => {
     <nav
       className={`
         ${styles.wrapper}
-        ${isNavOpen && styles.wrapper__isOpen}
+        ${isNavOpen ? styles.wrapper__isOpen : ""}
       `}
     >
       <Container>
         <ul className={styles.list}>
           {navRoutes.map((route, index) => (
             <li key={index} className={styles.listItem}>
-              <a className={styles.link} href={route.url}>
+              <CustomLink
+                className={styles.link}
+                href={route.url}
+                aria-disabled={route.disabled}
+              >
                 <img
                   className={styles.linkImg}
                   src={LinkImgSrc}
@@ -43,7 +46,7 @@ const SiteNav = () => {
                   width={50}
                   height={50}
                 />
-              </a>
+              </CustomLink>
             </li>
           ))}
         </ul>

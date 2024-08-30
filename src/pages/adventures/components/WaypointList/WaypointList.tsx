@@ -6,7 +6,7 @@ import { routes } from "@constants/routes.constants"
 import { WAYPOINT_FALLBACK_THUMB_IMG } from "@constants/assets.constants"
 
 // Utils
-import { categoryToFolderName } from "@utils/helpers/asset.helpers"
+import { waypointCategoryToFolderName } from "@utils/helpers/asset.helpers"
 
 // Styles
 import styles from "./WaypointList.module.css"
@@ -28,7 +28,7 @@ const WaypointList = ({ waypoints }: Props) => (
           const { id, category, code, name, adventure } = item
 
           const imgProps = {
-            imgPath: `${categoryToFolderName[category]}/${code}-sq.webp`,
+            imgPath: `${waypointCategoryToFolderName[category]}/${code}-sq.webp`,
             fallbackImgPath: WAYPOINT_FALLBACK_THUMB_IMG,
             transforms: {
               scale: {

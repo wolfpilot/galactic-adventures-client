@@ -5,6 +5,7 @@ import {
 
 // Pages
 import {
+  HomePage,
   AdventuresPage,
   AdventuresDetailsPage,
   PaymentPage,
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
       {
         path: "adventures",
         element: <AdventuresPage />,
