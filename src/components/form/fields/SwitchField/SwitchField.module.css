@@ -24,7 +24,7 @@
   width: 0;
   height: 0;
 
-  &:checked + .slider {
+  &:checked + .track {
     &::before {
       transform: translate(
         calc(var(--switch-width) / 2 - var(--switch-thumb-spacing)),
@@ -33,13 +33,13 @@
     }
   }
 
-  &:hover + .slider,
-  &:focus-within + .slider {
+  &:hover + .track,
+  &:focus-within + .track {
     outline-color: var(--switch-active-color);
   }
 }
 
-.slider {
+.track {
   position: absolute;
   cursor: pointer;
   top: 0;

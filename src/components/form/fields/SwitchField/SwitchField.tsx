@@ -4,7 +4,13 @@ import { Props } from "./types"
 // Styles
 import styles from "./SwitchField.module.css"
 
-const SwitchField = ({ className = "", name, options, ...rest }: Props) => (
+const SwitchField = ({
+  className = "",
+  name,
+  options,
+  changeHandler,
+  ...rest
+}: Props) => (
   <div className={styles.wrapper}>
     <div className={styles.option}>{options[0]}</div>
 
@@ -16,6 +22,7 @@ const SwitchField = ({ className = "", name, options, ...rest }: Props) => (
         `}
         name={name}
         type="checkbox"
+        onChange={changeHandler}
         {...rest}
       />
       <span className={styles.track}></span>

@@ -2,5 +2,6 @@ export interface Props {
   className?: string | undefined
   name: string
   options: [string, string]
-  isChecked?: boolean
+  checked?: boolean
+  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
