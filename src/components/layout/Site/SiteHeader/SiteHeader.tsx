@@ -21,6 +21,7 @@ const SiteHeader = () => {
   const closeNav = useBoundStore((state) => state.closeNav)
   const toggleNav = useBoundStore((state) => state.toggleNav)
 
+  const currentUrl = location.pathname + location.search
   const isHomepage = location.pathname === "/"
 
   const handleOnMenuClick = () => {
@@ -29,7 +30,7 @@ const SiteHeader = () => {
 
   useEffect(() => {
     closeNav()
-  }, [location.pathname, closeNav])
+  }, [currentUrl, closeNav])
 
   return (
     <header className={styles.wrapper}>
