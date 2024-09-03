@@ -24,7 +24,7 @@ const ErrorPage = () => {
       <Container>
         <ContentRow isPadded={false}>
           <div className={styles.ctaWrapper}>
-            <Cta as="anchor" href={routes.home.url}>
+            <Cta as="anchor" to={routes.home.url}>
               Go back home
             </Cta>
           </div>

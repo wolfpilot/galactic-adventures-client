@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 // Types
 import { Props } from "./types"
 
@@ -9,7 +11,7 @@ const Cta = (props: Props) => {
     const { children, className = "", ...rest } = props
 
     return (
-      <a
+      <Link
         className={`
           ${styles.wrapper}
           ${className}
@@ -17,7 +19,7 @@ const Cta = (props: Props) => {
         {...rest}
       >
         <span className={styles.content}>{children}</span>
-      </a>
+      </Link>
     )
   } else {
     const { children, className = "", ...rest } = props

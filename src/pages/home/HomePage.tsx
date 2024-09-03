@@ -47,7 +47,7 @@ const HomePage = () => {
                   <ContentBlock>
                     <CustomLink
                       className={styles.ctaItemLink}
-                      href={route.url}
+                      to={route.url}
                       aria-disabled={route.disabled}
                     >
                       {imgProps && (
