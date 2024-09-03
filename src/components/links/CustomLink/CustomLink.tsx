@@ -1,10 +1,7 @@
 import React from "react"
+import { Link, type LinkProps } from "react-router-dom"
 
-const CustomLink = ({
-  children,
-  className = "",
-  ...rest
-}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+const CustomLink = ({ children, className = "", ...rest }: LinkProps) => {
   const { "aria-disabled": ariaDisabled } = rest
 
   const handleOnClick = (
@@ -16,9 +13,9 @@ const CustomLink = ({
   }
 
   return (
-    <a className={className} onClick={handleOnClick} {...rest}>
+    <Link className={className} onClick={handleOnClick} {...rest}>
       {children}
-    </a>
+    </Link>
   )
 }
 

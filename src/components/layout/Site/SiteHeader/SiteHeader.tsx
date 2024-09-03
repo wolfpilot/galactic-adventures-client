@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, Link } from "react-router-dom"
 
 // Utils
 import { useBoundStore } from "@utils/stores/store"
@@ -41,15 +41,15 @@ const SiteHeader = () => {
       >
         <Container>
           <div className={styles.content}>
-            <a
+            <Link
               className={`
                 ${styles.logoLink}
                 ${isHomepage ? styles.logoLink__isActive : ""}
                 `}
-              href="/"
+              to="/"
             >
               <span>GA</span>
-            </a>
+            </Link>
 
             <button
               className={`

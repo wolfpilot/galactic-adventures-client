@@ -30,7 +30,7 @@ const SiteNav = () => {
             <li key={index} className={styles.listItem}>
               <CustomLink
                 className={styles.link}
-                href={route.url}
+                to={route.url}
                 aria-disabled={route.disabled}
               >
                 <img
