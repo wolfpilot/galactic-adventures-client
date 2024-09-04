@@ -2,8 +2,13 @@
 import { PlanetDetails as Props } from "@ts/waypoints/categories/planet.types"
 
 // Utils
-import { formatAtmosphere } from "@utils/helpers/formatter.helpers"
+import { formatAtmosphereToPct } from "@utils/helpers/formatter.helpers"
 import { isNullish } from "@utils/helpers/comparison.helpers"
+import {
+  useFormatDistanceUnit,
+  useFormatSpeedUnit,
+  useFormatTemperatureUnit,
+} from "@utils/hooks/waypoints"
 
 // Components
 import { TabList, TabItem } from "@components/layout/Tabs"
@@ -28,13 +33,17 @@ const PlanetDetails = ({
   const { type: atmosphereType, ...otherAtmosphereProps } = atmosphere || {}
 
   // Parse data
-  const formattedAtmosphere = formatAtmosphere(otherAtmosphereProps)
+  const formattedAtmosphere = formatAtmosphereToPct(otherAtmosphereProps)
+  const formattedDiameter = useFormatDistanceUnit(diameter_km)
+  const formattedSurfaceTempAvg = useFormatTemperatureUnit(surface_temp_avg_k)
+  const formattedWindSpeedAvg = useFormatSpeedUnit(wind_speed_avg_kmh)
+  const formattedWindGustMax = useFormatSpeedUnit(wind_gust_max_kmh)
 
   return (
     <TabList>
       <TabItem label="Overview">
         {size && <p>Size: {size}</p>}
-        {diameter_km && <p>Diameter: {diameter_km}km</p>}
+        {formattedDiameter && <p>Diameter: {formattedDiameter}</p>}
         {day_length_h && <p>Day Length: {day_length_h}h</p>}
         {orbital_period_d && <p>Orbital Period: {orbital_period_d}d</p>}
         {!isNullish(gravity_n) && <p>Gravity: {gravity_n}N</p>}
@@ -42,8 +51,8 @@ const PlanetDetails = ({
         {geological_activity?.length && (
           <p>Geological Activity: {geological_activity.join(", ")}</p>
         )}
-        {!isNullish(surface_temp_avg_k) && (
-          <p>Surface Temperature: {surface_temp_avg_k}K</p>
+        {formattedSurfaceTempAvg && (
+          <p>Surface Temperature: {formattedSurfaceTempAvg}</p>
         )}
       </TabItem>
 
@@ -65,12 +74,8 @@ const PlanetDetails = ({
             </ul>
           </>
         )}
-        {!isNullish(wind_speed_avg_kmh) && (
-          <p>Wind Speed: {wind_speed_avg_kmh}km/h</p>
-        )}
-        {!isNullish(wind_gust_max_kmh) && (
-          <p>Wind Gusts: {wind_gust_max_kmh}km/h</p>
-        )}
+        {formattedWindSpeedAvg && <p>Wind Speed: {formattedWindSpeedAvg}</p>}
+        {formattedWindGustMax && <p>Wind Gusts: {formattedWindGustMax}</p>}
         {precipitation_level && <p>Precipitation: {precipitation_level}</p>}
         {precipitation_types && (
           <p>Precipitation types: {precipitation_types.join(", ")}</p>

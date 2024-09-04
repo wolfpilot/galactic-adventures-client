@@ -2,10 +2,8 @@
 import { StarDetails as Props } from "@ts/waypoints/categories/star.types"
 
 // Utils
-import {
-  formatTemperature,
-  formatAtmosphere,
-} from "@utils/helpers/formatter.helpers"
+import { formatAtmosphereToPct } from "@utils/helpers/formatter.helpers"
+import { useFormatTemperatureToRange } from "@utils/hooks/waypoints"
 
 // Components
 import { TabList, TabItem } from "@components/layout/Tabs"
@@ -19,11 +17,11 @@ const StarDetails = ({
   const { type: atmosphereType, ...otherAtmosphereProps } = atmosphere || {}
 
   // Parse data
-  const formattedTemp = formatTemperature({
-    min: spectral_class.temperature_min_k,
-    max: spectral_class.temperature_max_k,
-  })
-  const formattedAtmosphere = formatAtmosphere(otherAtmosphereProps)
+  const formattedTemp = useFormatTemperatureToRange(
+    spectral_class.temperature_min_k,
+    spectral_class.temperature_max_k
+  )
+  const formattedAtmosphere = formatAtmosphereToPct(otherAtmosphereProps)
 
   return (
     <TabList>
