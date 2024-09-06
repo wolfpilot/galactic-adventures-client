@@ -9,12 +9,14 @@ import { metadata } from "@constants/metadata.constants"
 
 // Utils
 import { useAppBoundStore } from "@utils/stores"
+
 // Components
 import Head from "@components/layout/Head/Head.tsx"
 import {
   SiteHeader,
   SiteNav,
   SiteFooter,
+  SiteBannerCookies,
   SiteBannerNews,
 } from "@components/layout/Site"
 import { PageWrapper } from "@components/layout/Page"
@@ -39,6 +41,8 @@ const Root = ({ children }: Props) => {
       <Head {...metadata} />
 
       <DebugGrid />
+
+      <SiteBannerCookies />
 
       {isHomepage && siteBannerNewsData && (
         <SiteBannerNews {...siteBannerNewsData} />
