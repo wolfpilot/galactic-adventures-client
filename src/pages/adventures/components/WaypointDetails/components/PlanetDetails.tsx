@@ -2,8 +2,10 @@
 import { PlanetDetails as Props } from "@ts/waypoints/categories/planet.types"
 
 // Utils
-import { formatAtmosphereToPct } from "@utils/helpers/formatter.helpers"
-import { isNullish } from "@utils/helpers/comparison.helpers"
+import {
+  formatNumber,
+  formatAtmosphereToPct,
+} from "@utils/helpers/formatter.helpers"
 import {
   useFormatDistanceUnit,
   useFormatSpeedUnit,
@@ -33,26 +35,35 @@ const PlanetDetails = ({
   const { type: atmosphereType, ...otherAtmosphereProps } = atmosphere || {}
 
   // Parse data
-  const formattedAtmosphere = formatAtmosphereToPct(otherAtmosphereProps)
-  const formattedDiameter = useFormatDistanceUnit(diameter_km)
-  const formattedSurfaceTempAvg = useFormatTemperatureUnit(surface_temp_avg_k)
-  const formattedWindSpeedAvg = useFormatSpeedUnit(wind_speed_avg_kmh)
-  const formattedWindGustMax = useFormatSpeedUnit(wind_gust_max_kmh)
+  const formattedData = {
+    diameter: useFormatDistanceUnit(diameter_km),
+    surfaceTempAvg: useFormatTemperatureUnit(surface_temp_avg_k),
+    windSpeedAvg: useFormatSpeedUnit(wind_speed_avg_kmh),
+    windGustMax: useFormatSpeedUnit(wind_gust_max_kmh),
+    dayLengthH: formatNumber(day_length_h),
+    orbitalPeriodD: formatNumber(orbital_period_d),
+    gravityN: formatNumber(gravity_n),
+    atmosphere: formatAtmosphereToPct(otherAtmosphereProps),
+  }
 
   return (
     <TabList>
       <TabItem label="Overview">
         {size && <p>Size: {size}</p>}
-        {formattedDiameter && <p>Diameter: {formattedDiameter}</p>}
-        {day_length_h && <p>Day Length: {day_length_h}h</p>}
-        {orbital_period_d && <p>Orbital Period: {orbital_period_d}d</p>}
-        {!isNullish(gravity_n) && <p>Gravity: {gravity_n}N</p>}
+        {formattedData.diameter && <p>Diameter: {formattedData.diameter}</p>}
+        {formattedData.dayLengthH && (
+          <p>Day Length: {formattedData.dayLengthH}h</p>
+        )}
+        {formattedData.orbitalPeriodD && (
+          <p>Orbital Period: {formattedData.orbitalPeriodD}d</p>
+        )}
+        {formattedData.gravityN && <p>Gravity: {formattedData.gravityN}N</p>}
         {composition && <p>Composition: {composition}</p>}
         {geological_activity?.length && (
           <p>Geological Activity: {geological_activity.join(", ")}</p>
         )}
-        {formattedSurfaceTempAvg && (
-          <p>Surface Temperature: {formattedSurfaceTempAvg}</p>
+        {formattedData.surfaceTempAvg && (
+          <p>Surface Temperature: {formattedData.surfaceTempAvg}</p>
         )}
       </TabItem>
 
@@ -62,20 +73,26 @@ const PlanetDetails = ({
             {atmosphereType && <p>Atmosphere: {atmosphereType}</p>}
 
             <ul>
-              {formattedAtmosphere.elements.map(({ symbol, name, pct }) => (
-                <li key={symbol}>
-                  {name}: {pct}%
-                </li>
-              ))}
+              {formattedData.atmosphere.elements.map(
+                ({ symbol, name, pct }) => (
+                  <li key={symbol}>
+                    {name}: {pct}%
+                  </li>
+                )
+              )}
 
-              {!!formattedAtmosphere.otherPct && (
-                <li>Others: {formattedAtmosphere.otherPct}%</li>
+              {!!formattedData.atmosphere.otherPct && (
+                <li>Others: {formattedData.atmosphere.otherPct}%</li>
               )}
             </ul>
           </>
         )}
-        {formattedWindSpeedAvg && <p>Wind Speed: {formattedWindSpeedAvg}</p>}
-        {formattedWindGustMax && <p>Wind Gusts: {formattedWindGustMax}</p>}
+        {formattedData.windSpeedAvg && (
+          <p>Wind Speed: {formattedData.windSpeedAvg}</p>
+        )}
+        {formattedData.windGustMax && (
+          <p>Wind Gusts: {formattedData.windGustMax}</p>
+        )}
         {precipitation_level && <p>Precipitation: {precipitation_level}</p>}
         {precipitation_types && (
           <p>Precipitation types: {precipitation_types.join(", ")}</p>

@@ -4,14 +4,11 @@ import { DistanceUnit, SpeedUnit, TemperatureUnit } from "@ts/global.types"
 // Utils
 import { useBoundStore } from "@utils/stores/store"
 import { isNullish } from "@utils/helpers/comparison.helpers"
+import { formatNumber } from "@utils/helpers/formatter.helpers"
 import {
   convertKilometresToMiles,
   convertKelvinToCelsius,
 } from "@utils/helpers/number.helpers"
-
-// Utils
-const formatValue = (value: number) =>
-  value.toLocaleString(undefined, { maximumFractionDigits: 2 })
 
 // Exports
 export const useFormatDistanceUnit = (value: number | null) => {
@@ -20,14 +17,14 @@ export const useFormatDistanceUnit = (value: number | null) => {
   if (isNullish(value)) return "N/A"
 
   if (unit === DistanceUnit.kilometres) {
-    return `${formatValue(value)}${DistanceUnit.kilometres}`
+    return `${formatNumber(value)}${DistanceUnit.kilometres}`
   }
 
   const newVal = convertKilometresToMiles(value)
 
   if (isNaN(newVal)) return "N/A"
 
-  return `${formatValue(newVal)}${DistanceUnit.miles}`
+  return `${formatNumber(newVal)}${DistanceUnit.miles}`
 }
 
 export const useFormatSpeedUnit = (value: number | null) => {
@@ -36,14 +33,14 @@ export const useFormatSpeedUnit = (value: number | null) => {
   if (isNullish(value)) return "N/A"
 
   if (unit === DistanceUnit.kilometres) {
-    return `${formatValue(value)}${SpeedUnit.kilometresPerHour}`
+    return `${formatNumber(value)}${SpeedUnit.kilometresPerHour}`
   }
 
   const newVal = convertKilometresToMiles(value)
 
   if (isNaN(newVal)) return "N/A"
 
-  return `${formatValue(newVal)}${SpeedUnit.milesPerHour}`
+  return `${formatNumber(newVal)}${SpeedUnit.milesPerHour}`
 }
 
 export const useFormatTemperatureUnit = (value: number | null) => {
@@ -52,14 +49,14 @@ export const useFormatTemperatureUnit = (value: number | null) => {
   if (isNullish(value)) return "N/A"
 
   if (unit === TemperatureUnit.kelvin) {
-    return `${formatValue(value)}${TemperatureUnit.kelvin}`
+    return `${formatNumber(value)}${TemperatureUnit.kelvin}`
   }
 
   const newVal = convertKelvinToCelsius(value)
 
   if (isNaN(newVal)) return "N/A"
 
-  return `${formatValue(newVal)}${TemperatureUnit.celsius}`
+  return `${formatNumber(newVal)}${TemperatureUnit.celsius}`
 }
 
 export const useFormatTemperatureToRange = (

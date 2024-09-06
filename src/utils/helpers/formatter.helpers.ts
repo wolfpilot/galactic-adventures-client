@@ -17,6 +17,27 @@ export type FormatAtmosphereToPct = (
   otherPct: number
 }
 
+export const formatNumber = (value: number) => {
+  if (isNaN(value)) return "N/A"
+
+  return value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+}
+
+export const formatPrice = ({
+  currency,
+  amount,
+}: {
+  currency: string
+  amount: number
+}) => {
+  if (isNaN(amount)) return "N/A"
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: currency,
+  }).format(amount)
+}
+
 export const formatAtmosphereToPct: FormatAtmosphereToPct = (
   atmosphereElements
 ) => {

@@ -9,7 +9,10 @@ import { useFormatTemperatureUnit } from "@utils/hooks/waypoints"
 import { TabList, TabItem } from "@components/layout/Tabs"
 
 const NebulaDetails = ({ type, composition, age_y, temp_avg_k }: Props) => {
-  const formattedTempAvg = useFormatTemperatureUnit(temp_avg_k)
+  // Parse data
+  const formattedData = {
+    tempAvg: useFormatTemperatureUnit(temp_avg_k),
+  }
 
   return (
     <TabList>
@@ -17,7 +20,9 @@ const NebulaDetails = ({ type, composition, age_y, temp_avg_k }: Props) => {
         {type && <p>Type: {type}</p>}
         {composition && <p>Composition: {composition}</p>}
         {!isNullish(age_y) && <p>Age: {age_y} years</p>}
-        {formattedTempAvg && <p>Average Temperature: {formattedTempAvg}</p>}
+        {formattedData.tempAvg && (
+          <p>Average Temperature: {formattedData.tempAvg}</p>
+        )}
       </TabItem>
     </TabList>
   )

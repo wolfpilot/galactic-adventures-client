@@ -1,17 +1,3 @@
-// Formatters
-export const getFormattedPrice = ({
-  currency,
-  amount,
-}: {
-  currency: string
-  amount: number
-}) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency,
-  }).format(amount)
-
-// Converters
 export const convertKilometresToMiles = (val: number) => {
   if (isNaN(val)) return NaN
 
