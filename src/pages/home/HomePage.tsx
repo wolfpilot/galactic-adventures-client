@@ -22,15 +22,15 @@ import { CustomImage } from "@components/images"
 import { CustomLink } from "@components/links"
 
 const HomePage = () => {
-  const updateSiteBannerData = useAppBoundStore(
-    (state) => state.updateBannerData
+  const updateSiteBannerNewsData = useAppBoundStore(
+    (state) => state.updateBannerNewsData
   )
 
   useEffect(() => {
-    if (!homePageData.siteBannerData) return
+    if (!homePageData.siteBannerNewsData) return
 
-    updateSiteBannerData(homePageData.siteBannerData)
-  }, [updateSiteBannerData])
+    updateSiteBannerNewsData(homePageData.siteBannerNewsData)
+  }, [updateSiteBannerNewsData])
 
   return (
     <>
