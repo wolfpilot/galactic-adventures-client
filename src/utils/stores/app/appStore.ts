@@ -2,12 +2,14 @@ import { create } from "zustand"
 import { devtools } from "zustand/middleware"
 
 // Types
-import { type AppSlice, createAppSlice } from "@utils/stores/app/appSlice"
+import { type SiteSlice, createSiteSlice } from "@utils/stores/app/siteSlice"
+import { type DebugSlice, createDebugSlice } from "@utils/stores/app/debugSlice"
 
-export type StoreState = AppSlice
+export type StoreState = DebugSlice & SiteSlice
 
 export const useAppBoundStore = create<StoreState>()(
   devtools((...args) => ({
-    ...createAppSlice(...args),
+    ...createDebugSlice(...args),
+    ...createSiteSlice(...args),
   }))
 )

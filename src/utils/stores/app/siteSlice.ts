@@ -3,14 +3,12 @@ import { type StateCreator } from "zustand"
 // Types
 import { Props as SiteBannerProps } from "@components/layout/Site/SiteBanner/types"
 
-export interface AppState {
-  showDebugGrid: boolean
+export interface SiteState {
   isNavOpen: boolean
   bannerData: SiteBannerProps | undefined
 }
 
-export interface AppSlice extends AppState {
-  updateShowDebugGrid: (val: boolean) => void
+export interface SiteSlice extends SiteState {
   openNav: () => void
   closeNav: () => void
   toggleNav: () => void
@@ -18,17 +16,15 @@ export interface AppSlice extends AppState {
 }
 
 // Setup
-const initialState: AppState = {
-  showDebugGrid: false,
+const initialState: SiteState = {
   isNavOpen: false,
   bannerData: undefined,
 }
 
-export const createAppSlice: StateCreator<AppSlice, [], [], AppSlice> = (
+export const createSiteSlice: StateCreator<SiteSlice, [], [], SiteSlice> = (
   set
 ) => ({
   ...initialState,
-  updateShowDebugGrid: (val) => set(() => ({ showDebugGrid: val })),
   openNav: () => set(() => ({ isNavOpen: true })),
   closeNav: () => set(() => ({ isNavOpen: false })),
   toggleNav: () => set(({ isNavOpen }) => ({ isNavOpen: !isNavOpen })),
