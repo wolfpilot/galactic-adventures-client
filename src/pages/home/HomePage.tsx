@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { homePageData } from "./data/homePage.data"
 
 // Utils
-import { useBoundStore } from "@utils/stores/store"
+import { useAppBoundStore } from "@utils/stores"
 import { getCtaImageProps } from "./helpers/data.helpers"
 
 // Constants
@@ -22,13 +22,15 @@ import { CustomImage } from "@components/images"
 import { CustomLink } from "@components/links"
 
 const HomePage = () => {
-  const updateSiteBannerData = useBoundStore((state) => state.updateBannerData)
+  const updateSiteBannerNewsData = useAppBoundStore(
+    (state) => state.updateBannerNewsData
+  )
 
   useEffect(() => {
-    if (!homePageData.siteBannerData) return
+    if (!homePageData.siteBannerNewsData) return
 
-    updateSiteBannerData(homePageData.siteBannerData)
-  }, [updateSiteBannerData])
+    updateSiteBannerNewsData(homePageData.siteBannerNewsData)
+  }, [updateSiteBannerNewsData])
 
   return (
     <>

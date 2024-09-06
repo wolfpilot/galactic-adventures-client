@@ -2,8 +2,7 @@ import { useEffect } from "react"
 import { useLocation, Link } from "react-router-dom"
 
 // Utils
-import { useBoundStore } from "@utils/stores/store"
-
+import { useAppBoundStore } from "@utils/stores"
 // Styles
 import styles from "./SiteHeader.module.css"
 
@@ -17,9 +16,9 @@ const LOGO_SIZE = 24
 const SiteHeader = () => {
   const location = useLocation()
 
-  const isNavOpen = useBoundStore((state) => state.isNavOpen)
-  const closeNav = useBoundStore((state) => state.closeNav)
-  const toggleNav = useBoundStore((state) => state.toggleNav)
+  const isNavOpen = useAppBoundStore((state) => state.isNavOpen)
+  const closeNav = useAppBoundStore((state) => state.closeNav)
+  const toggleNav = useAppBoundStore((state) => state.toggleNav)
 
   const currentUrl = location.pathname + location.search
   const isHomepage = location.pathname === "/"

@@ -2,8 +2,7 @@
 import { DistanceUnit, TemperatureUnit } from "@ts/global.types"
 
 // Utils
-import { useBoundStore } from "@utils/stores/store"
-
+import { usePersistBoundStore } from "@utils/stores"
 // Styles
 import styles from "./SiteFooter.module.css"
 
@@ -14,10 +13,12 @@ import { SwitchField } from "@components/form/fields"
 const SiteFooter = () => {
   const date = new Date().getFullYear()
 
-  const units = useBoundStore((state) => state.units)
+  const units = usePersistBoundStore((state) => state.units)
 
-  const updateDistanceUnit = useBoundStore((state) => state.updateDistanceUnit)
-  const updateTemperatureUnit = useBoundStore(
+  const updateDistanceUnit = usePersistBoundStore(
+    (state) => state.updateDistanceUnit
+  )
+  const updateTemperatureUnit = usePersistBoundStore(
     (state) => state.updateTemperatureUnit
   )
 
