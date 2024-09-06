@@ -67,7 +67,7 @@ const AdventuresDetailsPage = () => {
                 <div className={styles.ctaWrapper}>
                   <Cta
                     as="anchor"
-                    href={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
+                    to={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
                   >
                     Continue
                   </Cta>

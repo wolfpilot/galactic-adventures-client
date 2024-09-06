@@ -5,14 +5,14 @@ import { useState, useEffect } from "react"
 
 // Utils
 import { useWindowSize } from "@utils/hooks/dom/useWindowSize"
-import { useBoundStore } from "@utils/stores/store"
+import { useAppBoundStore } from "@utils/stores"
 
 // Styles
 import styles from "./DebugGrid.module.css"
 
 const DebugGrid: React.FC = () => {
-  const showDebugGrid = useBoundStore((state) => state.showDebugGrid)
-  const updateShowDebugGrid = useBoundStore(
+  const showDebugGrid = useAppBoundStore((state) => state.showDebugGrid)
+  const updateShowDebugGrid = useAppBoundStore(
     (state) => state.updateShowDebugGrid
   )
 

@@ -2,12 +2,12 @@
 import { Props } from "./types"
 
 // Styles
-import styles from "./SiteBanner.module.css"
+import styles from "./SiteBannerNews.module.css"
 
 // Components
 import { Marquee } from "@components/banners"
 
-const SiteBanner = ({ text }: Props) => (
+const SiteBannerNews = ({ text }: Props) => (
   <>
     {text && (
       <aside className={styles.wrapper}>
@@ -17,4 +17,4 @@ const SiteBanner = ({ text }: Props) => (
   </>
 )
 
-export default SiteBanner
+export default SiteBannerNews

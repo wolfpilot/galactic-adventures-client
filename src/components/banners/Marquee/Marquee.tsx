@@ -2,13 +2,13 @@
 import type { Props } from "./types"
 
 // Utils
-import { useBoundStore } from "@utils/stores/store"
+import { useAppBoundStore } from "@utils/stores"
 
 // Styles
 import styles from "./Marquee.module.css"
 
 const Marquee = ({ children, className = "" }: Props) => {
-  const isNavOpen = useBoundStore((state) => state.isNavOpen)
+  const isNavOpen = useAppBoundStore((state) => state.isNavOpen)
 
   return (
     <div

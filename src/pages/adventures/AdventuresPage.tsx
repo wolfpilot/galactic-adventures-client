@@ -80,7 +80,7 @@ const AdventuresPage = () => {
                 <div className={styles.ctaWrapper}>
                   <Cta
                     as="anchor"
-                    href={`${routes.adventures.url}/${data.adventure.id}`}
+                    to={`${routes.adventures.url}/${data.adventure.id}`}
                   >
                     Book now
                   </Cta>

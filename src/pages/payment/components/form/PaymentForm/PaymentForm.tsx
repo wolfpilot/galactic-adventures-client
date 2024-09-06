@@ -4,7 +4,7 @@ import { PaymentElement } from "@stripe/react-stripe-js"
 import { Props } from "./types"
 
 // Utils
-import { getFormattedPrice } from "@utils/helpers/number.helpers"
+import { formatPrice } from "@utils/helpers/formatter.helpers"
 
 // Styles
 import styles from "@components/form/form.module.css"
@@ -18,7 +18,7 @@ const PaymentPage = ({
   amount,
   submitHandler,
 }: Props) => {
-  const formattedPrice = getFormattedPrice({
+  const formattedPrice = formatPrice({
     currency,
     amount,
   })

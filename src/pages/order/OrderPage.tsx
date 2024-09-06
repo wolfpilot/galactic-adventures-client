@@ -8,7 +8,7 @@ import { ProductType } from "@ts/products/products.types"
 import { orderPageData } from "./data/orderPage.data"
 
 // Utils
-import { getFormattedPrice } from "@utils/helpers/number.helpers"
+import { formatPrice } from "@utils/helpers/formatter.helpers"
 import { getOrderStatusText } from "./utils/helpers"
 
 // Hooks
@@ -76,7 +76,7 @@ const OrderPage = () => {
               <p>Product: {productData.waypoint?.name}</p>
               <p>
                 Amount:{" "}
-                {getFormattedPrice({
+                {formatPrice({
                   currency: paymentIntentData.currency,
                   amount: paymentIntentData.amount / 100,
                 })}

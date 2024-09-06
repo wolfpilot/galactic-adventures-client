@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 // Types
 import { Props } from "./types"
 
@@ -41,9 +43,9 @@ const WaypointList = ({ waypoints }: Props) => (
 
           return (
             <li key={id} className={styles.item}>
-              <a
+              <Link
                 className={styles.itemLink}
-                href={`${routes.adventures.url}?waypointId=${id}`}
+                to={`${routes.adventures.url}?waypointId=${id}`}
               >
                 <figure className={styles.itemFigure}>
                   <div className={styles.itemImageWrapper}>
@@ -67,7 +69,7 @@ const WaypointList = ({ waypoints }: Props) => (
                     </figcaption>
                   )}
                 </figure>
-              </a>
+              </Link>
             </li>
           )
         })}
