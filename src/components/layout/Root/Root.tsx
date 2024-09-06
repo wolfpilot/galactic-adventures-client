@@ -8,8 +8,7 @@ import { Props } from "./types"
 import { metadata } from "@constants/metadata.constants"
 
 // Utils
-import { useBoundStore } from "@utils/stores/store"
-
+import { useAppBoundStore } from "@utils/stores"
 // Components
 import Head from "@components/layout/Head/Head.tsx"
 import {
@@ -33,7 +32,7 @@ const Root = ({ children }: Props) => {
   const debugReactQueryParam = params.get("debugReactQuery")
   const enableDebugReactQuery = debugReactQueryParam?.toLowerCase() === "true"
 
-  const siteBannerData = useBoundStore((state) => state.bannerData)
+  const siteBannerData = useAppBoundStore((state) => state.bannerData)
 
   return (
     <>

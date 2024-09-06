@@ -2,7 +2,7 @@
 import { DistanceUnit, SpeedUnit, TemperatureUnit } from "@ts/global.types"
 
 // Utils
-import { useBoundStore } from "@utils/stores/store"
+import { usePersistBoundStore } from "@utils/stores"
 import { isNullish } from "@utils/helpers/comparison.helpers"
 import { formatNumber } from "@utils/helpers/formatter.helpers"
 import {
@@ -12,7 +12,7 @@ import {
 
 // Exports
 export const useFormatDistanceUnit = (value: number | null) => {
-  const unit = useBoundStore((state) => state.units.distance)
+  const unit = usePersistBoundStore((state) => state.units.distance)
 
   if (isNullish(value)) return "N/A"
 
@@ -28,7 +28,7 @@ export const useFormatDistanceUnit = (value: number | null) => {
 }
 
 export const useFormatSpeedUnit = (value: number | null) => {
-  const unit = useBoundStore((state) => state.units.distance)
+  const unit = usePersistBoundStore((state) => state.units.distance)
 
   if (isNullish(value)) return "N/A"
 
@@ -44,7 +44,7 @@ export const useFormatSpeedUnit = (value: number | null) => {
 }
 
 export const useFormatTemperatureUnit = (value: number | null) => {
-  const unit = useBoundStore((state) => state.units.temperature)
+  const unit = usePersistBoundStore((state) => state.units.temperature)
 
   if (isNullish(value)) return "N/A"
 

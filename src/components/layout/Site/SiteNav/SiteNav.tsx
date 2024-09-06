@@ -5,8 +5,7 @@ import LinkImgSrc from "/media/images/planet-orbit.gif"
 import { navRoutes } from "@constants/routes.constants"
 
 // Utils
-import { useBoundStore } from "@utils/stores/store"
-
+import { useAppBoundStore } from "@utils/stores"
 // Styles
 import styles from "./SiteNav.module.css"
 
@@ -15,7 +14,7 @@ import Container from "@components/layout/Container/Container"
 import { CustomLink } from "@components/links"
 
 const SiteNav = () => {
-  const isNavOpen = useBoundStore((state) => state.isNavOpen)
+  const isNavOpen = useAppBoundStore((state) => state.isNavOpen)
 
   return (
     <nav
