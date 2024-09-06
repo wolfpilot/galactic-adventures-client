@@ -1,7 +1,8 @@
-import { useState } from "react"
-
 // Data
 import { bannerData as data } from "./data/banner.data"
+
+// Utils
+import { usePersistBoundStore } from "@utils/stores"
 
 // Styles
 import styles from "./SiteBannerCookies.module.css"
@@ -11,10 +12,14 @@ import Container from "@components/layout/Container/Container"
 import Icon from "@components/icons/Icon"
 
 const SiteBannerCookies = () => {
-  const [isClosed, setIsClosed] = useState(false)
+  const cookies = usePersistBoundStore((state) => state.cookies)
+
+  const updateShowCookiesBanner = usePersistBoundStore(
+    (state) => state.updateShowCookiesBanner
+  )
 
   const handleOnClickClose = () => {
-    setIsClosed(true)
+    updateShowCookiesBanner(false)
   }
 
   return (
@@ -23,7 +28,7 @@ const SiteBannerCookies = () => {
         <aside
           className={`
           ${styles.wrapper}
-          ${isClosed ? styles.wrapper__isClosed : ""}
+          ${cookies.showBanner ? "" : styles.wrapper__isClosed}
         `}
         >
           <Container>
