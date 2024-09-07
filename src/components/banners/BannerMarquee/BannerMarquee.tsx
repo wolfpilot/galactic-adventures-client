@@ -5,13 +5,13 @@ import type { Props } from "./types"
 import { useAppBoundStore } from "@utils/stores"
 
 // Styles
-import styles from "./Marquee.module.css"
+import styles from "./BannerMarquee.module.css"
 
-const Marquee = ({ children, className = "" }: Props) => {
+const BannerMarquee = ({ children, className = "" }: Props) => {
   const isNavOpen = useAppBoundStore((state) => state.isNavOpen)
 
   return (
-    <div
+    <aside
       className={`
         ${styles.wrapper}
         ${className}
@@ -25,8 +25,8 @@ const Marquee = ({ children, className = "" }: Props) => {
       >
         {children}
       </span>
-    </div>
+    </aside>
   )
 }
 
-export default Marquee
+export default BannerMarquee
