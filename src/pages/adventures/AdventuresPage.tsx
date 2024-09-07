@@ -14,15 +14,11 @@ import { useGetWaypointById } from "@utils/hooks/waypoints"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
 
-// Styles
-import styles from "./AdventuresPage.module.css"
-
 // Components
 import Head from "@components/layout/Head/Head"
-import { PageHeader } from "@components/layout/Page"
+import { PageHeader, PageCta } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow } from "@components/layout/Content"
-import { Cta } from "@components/ctas"
 import WaypointList from "./components/WaypointList/WaypointList"
 import WaypointDetails from "./components/WaypointDetails/WaypointDetails"
 
@@ -77,14 +73,12 @@ const AdventuresPage = () => {
           <Container>
             {data.adventure && (
               <ContentRow>
-                <div className={styles.ctaWrapper}>
-                  <Cta
-                    as="anchor"
-                    to={`${routes.adventures.url}/${data.adventure.id}`}
-                  >
-                    Book now
-                  </Cta>
-                </div>
+                <PageCta
+                  as="anchor"
+                  to={`${routes.adventures.url}/${data.adventure.id}`}
+                >
+                  Book now
+                </PageCta>
               </ContentRow>
             )}
 
