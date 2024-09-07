@@ -1,3 +1,4 @@
-import Marquee from "./Marquee/Marquee"
+import BannerInfo from "./BannerInfo/BannerInfo"
+import BannerMarquee from "./BannerMarquee/BannerMarquee"
 
-export { Marquee }
+export { BannerInfo, BannerMarquee }

@@ -7,6 +7,7 @@ import { assertExhaustiveGuard } from "@utils/helpers/typeGuard.helpers"
 // SVGs
 import ChevronLeft from "./ChevronLeft"
 import ChevronRight from "./ChevronRight"
+import Close from "./Close"
 import Grab from "./Grab"
 import Menu from "./Menu"
 
@@ -23,6 +24,8 @@ const Icon = ({ type, ...props }: Props) => {
       return <ChevronLeft {...props} />
     case "ChevronRight":
       return <ChevronRight {...props} />
+    case "Close":
+      return <Close {...props} />
     case "Grab":
       return <Grab {...props} />
     case "Menu":
