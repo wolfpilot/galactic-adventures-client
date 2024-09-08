@@ -1,5 +1,5 @@
 // Types
-import { Props as ImageProps } from "@components/images/CustomImage/types"
+import { Props as ImageProps } from "@components/media/CustomImage/types"
 import { Props as VideoProps } from "@components/media/CustomVideo/types"
 
 export interface MediaImageProps {

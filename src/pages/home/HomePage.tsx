@@ -18,7 +18,7 @@ import Head from "@components/layout/Head/Head"
 import { PageHeader } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
-import { CustomImage } from "@components/images"
+import { CustomImage } from "@components/media"
 import { CustomLink } from "@components/links"
 
 const HomePage = () => {

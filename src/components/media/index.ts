@@ -1,3 +1,4 @@
+import CustomImage from "./CustomImage/CustomImage"
 import CustomVideo from "./CustomVideo/CustomVideo"
 
-export { CustomVideo }
+export { CustomImage, CustomVideo }

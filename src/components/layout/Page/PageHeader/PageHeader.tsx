@@ -6,8 +6,7 @@ import styles from "./PageHeader.module.css"
 
 // Components
 import Container from "@components/layout/Container/Container"
-import { CustomImage } from "@components/images"
-import { CustomVideo } from "@components/media"
+import { CustomImage, CustomVideo } from "@components/media"
 
 const PageHeader = ({
   className = "",

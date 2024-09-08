@@ -10,7 +10,7 @@ import { generateVidSrc } from "./helpers"
 import styles from "./CustomVideo.module.css"
 
 // Components
-import { CustomImage } from "@components/images"
+import { CustomImage } from "@components/media"
 
 const CustomVideo = ({
   className = "",

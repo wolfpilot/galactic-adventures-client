@@ -1,6 +1,6 @@
 // Types
 import type { Route } from "@constants/routes.constants"
-import type { Props as CustomImageProps } from "@components/images/CustomImage/types"
+import type { Props as CustomImageProps } from "@components/media/CustomImage/types"
 
 // Constants
 import { breakpoints } from "@constants/layout.constants"

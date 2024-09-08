@@ -1,6 +1,6 @@
 // Types
 import { VideoFormats, MediaQualities } from "@ts/lib/cloudinary.types"
-import { Props as ImageProps } from "@components/images/CustomImage/types"
+import { Props as ImageProps } from "@components/media/CustomImage/types"
 
 export interface Props extends React.VideoHTMLAttributes<HTMLVideoElement> {
   placeholder: ImageProps
