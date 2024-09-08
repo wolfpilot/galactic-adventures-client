@@ -15,7 +15,7 @@ import styles from "./WaypointList.module.css"
 
 // Components
 import Scroller from "@components/sliders/Scroller/Scroller"
-import { CustomImage } from "@components/images"
+import { CustomImage } from "@components/media"
 import Icon from "@components/icons/Icon"
 
 // Setup

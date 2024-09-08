@@ -6,7 +6,7 @@ import styles from "./PageHeader.module.css"
 
 // Components
 import Container from "@components/layout/Container/Container"
-import { CustomImage } from "@components/images"
+import { CustomImage, CustomVideo } from "@components/media"
 
 const PageHeader = ({
   className = "",
@@ -25,16 +25,26 @@ const PageHeader = ({
     {media && (
       <div
         className={`
-          ${styles.media}
-          ${media.isContained ? styles.media__isContained : ""}
+          ${styles.mediaWrapper}
+          ${media.isContained ? styles.mediaWrapper__isContained : ""}
         `}
       >
+        {media.type === "video" && (
+          <CustomVideo
+            className={`
+              ${styles.media}
+              ${media.isContained ? styles.media__isContained : ""}
+            `}
+            {...media.video}
+          />
+        )}
+
         {media.type === "image" && (
           <CustomImage
             className={`
-                ${styles.image}
-                ${media.isContained ? styles.image__isContained : ""}
-              `}
+              ${styles.media}
+              ${media.isContained ? styles.media__isContained : ""}
+            `}
             {...media.image}
           />
         )}

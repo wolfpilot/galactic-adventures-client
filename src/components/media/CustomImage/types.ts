@@ -1,5 +1,5 @@
 // Types
-import { ImageFormats, ImageQualities } from "@ts/lib/cloudinary.types"
+import { ImageFormats, MediaQualities } from "@ts/lib/cloudinary.types"
 
 export interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   imgPath: string
@@ -24,6 +24,6 @@ export interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
       }
     | undefined
   format?: ImageFormats
-  quality?: ImageQualities | number
+  quality?: MediaQualities | number
   className?: string | undefined
 }
