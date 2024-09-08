@@ -2,7 +2,6 @@ import { pixelate } from "@cloudinary/url-gen/actions/effect"
 import { crop, scale } from "@cloudinary/url-gen/actions/resize"
 
 // Types
-// import { ImageFormats, ImageQualities } from "@ts/lib/cloudinary.types"
 import { Props } from "./types"
 
 // Utils

@@ -6,7 +6,7 @@
   padding-top: var(--size-siteHeaderHeight);
 }
 
-.media {
+.mediaWrapper {
   position: relative;
   width: 100%;
   height: 450px;
@@ -24,7 +24,7 @@
   }
 }
 
-.media__isContained {
+.mediaWrapper__isContained {
   padding: var(--grid-offset-size) var(--grid-offset-size) 0;
 
   @media screen and (min-width: 768px) {
@@ -36,14 +36,16 @@
   }
 }
 
-.image {
-  img {
+.media {
+  img,
+  video {
     object-fit: cover;
   }
 }
 
-.image__isContained {
-  img {
+.media__isContained {
+  img,
+  video {
     max-width: 900px;
     object-fit: contain;
 
