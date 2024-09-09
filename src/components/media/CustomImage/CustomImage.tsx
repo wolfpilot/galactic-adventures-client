@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 // Types
 import { Props } from "./types"
 
 // Utils
+import { usePrevious } from "@utils/hooks/generic"
 import { generateImgSrc, generateImgSrcSet } from "./helpers"
 
 // Styles
@@ -53,6 +54,22 @@ const CustomImage = ({
   const [isPlaceholderLoaded, setIsPlaceholderLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
 
+  const prevImgPath = usePrevious(imgPath)
+
+  // Hooks
+  useEffect(() => {
+    /**
+     * Reset state between source changes, such as when navigating from one page to another.
+     *
+     * Normally this wouldn't be necessary, however using React Query within loaders means that
+     * assets are cached and retrieved upon refresh or redirect, which screws things up.
+     */
+    if (!prevImgPath || imgPath === prevImgPath) return
+
+    setIsError(false)
+    setIsPlaceholderLoaded(false)
+  }, [imgPath, prevImgPath])
+
   const activeImgPath = isError ? fallbackImgPath : imgPath
 
   if (!activeImgPath) return null
@@ -76,6 +93,7 @@ const CustomImage = ({
     format,
     quality,
   })
+
   const srcSet = generateImgSrcSet({
     imgPath: activeImgPath,
     imgSet,
