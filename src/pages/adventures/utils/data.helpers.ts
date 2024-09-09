@@ -6,7 +6,7 @@ import type { Waypoint } from "@ts/waypoints/waypoint.types"
 import { breakpoints } from "@constants/layout.constants"
 
 // Helpers
-import { waypointCategoryToFolderName } from "@utils/helpers/asset.helpers"
+import { waypointCategoryToFolderName } from "@utils/mappers"
 
 export const getPageHeaderProps = (
   data: Waypoint | null

@@ -3,7 +3,7 @@ import { StarDetails as Props } from "@ts/waypoints/categories/star.types"
 
 // Utils
 import { formatAtmosphereToPct } from "@utils/helpers/formatter.helpers"
-import { useFormatTemperatureToRange } from "@utils/hooks/waypoints"
+import { useFormatTemperatureToRange } from "@utils/hooks/data"
 
 // Components
 import { TabList, TabItem } from "@components/layout/Tabs"

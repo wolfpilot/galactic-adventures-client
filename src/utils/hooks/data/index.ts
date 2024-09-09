@@ -1,4 +1,3 @@
-import { useGetWaypointById } from "./useGetWaypointById"
 import {
   useFormatDistanceUnit,
   useFormatSpeedUnit,
@@ -7,7 +6,6 @@ import {
 } from "./useFormatValueByUnit"
 
 export {
-  useGetWaypointById,
   useFormatDistanceUnit,
   useFormatSpeedUnit,
   useFormatTemperatureUnit,
