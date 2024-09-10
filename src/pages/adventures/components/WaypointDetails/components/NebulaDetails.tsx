@@ -3,7 +3,7 @@ import { NebulaDetails as Props } from "@ts/waypoints/categories/nebula.types"
 
 // Utils
 import { isNullish } from "@utils/helpers/comparison.helpers"
-import { useFormatTemperatureUnit } from "@utils/hooks/waypoints"
+import { useFormatTemperatureUnit } from "@utils/hooks/data"
 
 // Components
 import { TabList, TabItem } from "@components/layout/Tabs"

@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 // Utils
-import { useWindowSize } from "@utils/hooks/dom/useWindowSize"
+import { useWindowSize } from "@utils/hooks/dom"
 import { useAppBoundStore } from "@utils/stores"
 
 // Styles

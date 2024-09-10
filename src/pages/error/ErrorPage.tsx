@@ -1,7 +1,8 @@
 import { useRouteError, isRouteErrorResponse } from "react-router-dom"
+import { AxiosError } from "axios"
 
 // Data
-import { errorPageData } from "./data/errorPage.data"
+import { defaultError, errorPageData } from "./data/errorPage.data"
 
 // Constants
 import { routes } from "@constants/routes.constants"
@@ -18,17 +19,12 @@ const parseError = (error: unknown) => {
     case isRouteErrorResponse(error):
       return {
         title: error.status.toString(),
-        description: error.data?.message || error.statusText,
+        description: error.statusText,
       }
-    case error instanceof Error:
+    case error instanceof AxiosError:
       return {
-        title: "Oops!",
-        description: error.message,
-      }
-    case typeof error === "string":
-      return {
-        title: "Oops!",
-        description: error,
+        title: error.response?.status.toString() || defaultError.title,
+        description: error.response?.statusText || defaultError.description,
       }
     default:
       console.error(error)

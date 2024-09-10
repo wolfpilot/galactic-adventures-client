@@ -10,7 +10,7 @@ import {
   useFormatDistanceUnit,
   useFormatSpeedUnit,
   useFormatTemperatureUnit,
-} from "@utils/hooks/waypoints"
+} from "@utils/hooks/data"
 
 // Components
 import { TabList, TabItem } from "@components/layout/Tabs"

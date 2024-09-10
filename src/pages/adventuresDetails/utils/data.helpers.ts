@@ -6,7 +6,7 @@ import type { Adventure } from "@ts/products/adventures.types"
 import { breakpoints } from "@constants/layout.constants"
 
 // Helpers
-import { waypointCategoryToFolderName } from "@utils/helpers/asset.helpers"
+import { waypointCategoryToFolderName } from "@utils/mappers"
 
 export const getPageHeaderProps = (
   data: Adventure | null

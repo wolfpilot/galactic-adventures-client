@@ -5,7 +5,7 @@ import ScrollContainer, {
 
 // Utils
 import { isElemScrollable } from "@utils/helpers/dom.helpers"
-import { useWindowSize } from "@utils/hooks/dom/useWindowSize"
+import { useWindowSize } from "@utils/hooks/dom"
 
 // Styles
 import styles from "./Scroller.module.css"

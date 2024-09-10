@@ -23,8 +23,6 @@ const CustomVideo = ({
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
   const handleOnLoad = () => {
-    console.log("LOAD")
-
     setIsVideoLoaded(true)
   }
 

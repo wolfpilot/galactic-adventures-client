@@ -8,7 +8,7 @@ import { routes } from "@constants/routes.constants"
 import { WAYPOINT_FALLBACK_THUMB_IMG } from "@constants/assets.constants"
 
 // Utils
-import { waypointCategoryToFolderName } from "@utils/helpers/asset.helpers"
+import { waypointCategoryToFolderName } from "@utils/mappers"
 
 // Styles
 import styles from "./WaypointList.module.css"

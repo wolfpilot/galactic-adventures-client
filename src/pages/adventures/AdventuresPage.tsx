@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, useLoaderData } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 
 // Data
 import { adventuresPageData as pageData } from "./data/adventuresPage.data"
@@ -7,10 +8,11 @@ import { adventuresPageData as pageData } from "./data/adventuresPage.data"
 // Constants
 import { routes } from "@constants/routes.constants"
 
-// Hooks
-import { useGetWaypointById } from "@utils/hooks/waypoints"
-
-// Helpers
+// Utils
+import {
+  getWaypointByIdLoader as loader,
+  getWaypointByIdQuery as query,
+} from "@utils/loaders"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
 
@@ -28,9 +30,19 @@ const AdventuresPage = () => {
   const waypointIdParam = searchParams.get("waypointId")
   const waypointId = waypointIdParam ?? null
 
-  const { isPending, error, data } = useGetWaypointById({
-    id: waypointId,
+  // Fetch cached or new data
+  const initialData = useLoaderData() as Awaited<
+    ReturnType<ReturnType<typeof loader>>
+  >
+
+  const { data: adventuresData } = useQuery({
+    ...query({
+      id: waypointId,
+    }),
+    initialData,
   })
+
+  const data = adventuresData.data.data.waypoint
 
   // Hooks
   useEffect(() => {
@@ -51,45 +63,32 @@ const AdventuresPage = () => {
     <>
       <Head {...parsedMetadata} />
 
-      {isPending && <p>Loading...</p>}
+      {headerProps && <PageHeader {...headerProps} />}
 
-      {error && (
-        <p>
-          Oops, can't find destination! Please select a new configuration for
-          your new exciting adventure.
-        </p>
+      {data.children.length > 0 && (
+        <ContentRow isPadded={false}>
+          <WaypointList waypoints={data.children} />
+        </ContentRow>
       )}
 
-      {data && (
-        <>
-          {headerProps && <PageHeader {...headerProps} />}
+      <Container>
+        {data.adventure && (
+          <ContentRow>
+            <PageCta
+              as="anchor"
+              to={`${routes.adventures.url}/${data.adventure.id}`}
+            >
+              Book now
+            </PageCta>
+          </ContentRow>
+        )}
 
-          {data.children.length > 0 && (
-            <ContentRow isPadded={false}>
-              <WaypointList waypoints={data.children} />
-            </ContentRow>
-          )}
-
-          <Container>
-            {data.adventure && (
-              <ContentRow>
-                <PageCta
-                  as="anchor"
-                  to={`${routes.adventures.url}/${data.adventure.id}`}
-                >
-                  Book now
-                </PageCta>
-              </ContentRow>
-            )}
-
-            {data.details && (
-              <ContentRow>
-                <WaypointDetails waypoint={data} />
-              </ContentRow>
-            )}
-          </Container>
-        </>
-      )}
+        {data.details && (
+          <ContentRow>
+            <WaypointDetails waypoint={data} />
+          </ContentRow>
+        )}
+      </Container>
     </>
   )
 }

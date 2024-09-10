@@ -5,7 +5,7 @@ import { crop, scale } from "@cloudinary/url-gen/actions/resize"
 import { Props } from "./types"
 
 // Utils
-import { cld } from "@utils/helpers/asset.helpers"
+import { cloudinaryClient as cld } from "@utils/clients"
 
 // Setup
 const { VITE_CLOUDINARY_ASSETS_PATH = "" } = import.meta.env
