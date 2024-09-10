@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { useLocation, Link } from "react-router-dom"
 
 // Utils
@@ -23,9 +23,28 @@ const SiteHeader = () => {
   const currentUrl = location.pathname + location.search
   const isHomepage = location.pathname === "/"
 
+  // Handlers
   const handleOnMenuClick = () => {
     toggleNav()
   }
+
+  const handleOnKeyUp = useCallback(
+    (e: KeyboardEvent) => {
+      if (!isNavOpen) return
+
+      if (e.key === "Escape" || e.code === "Escape") {
+        closeNav()
+      }
+    },
+    [isNavOpen, closeNav]
+  )
+
+  // Hooks
+  useEffect(() => {
+    window.addEventListener("keyup", handleOnKeyUp)
+
+    return () => window.removeEventListener("keyup", handleOnKeyUp)
+  }, [handleOnKeyUp])
 
   useEffect(() => {
     closeNav()
