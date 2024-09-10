@@ -25,7 +25,7 @@ export const getWaypointByIdQuery = ({ id }: Props) => ({
     ),
 })
 
-export const loader =
+export const getWaypointByIdLoader =
   (queryClient: QueryClient) =>
   async ({ request }: LoaderFunctionArgs) => {
     const url = new URL(request.url)

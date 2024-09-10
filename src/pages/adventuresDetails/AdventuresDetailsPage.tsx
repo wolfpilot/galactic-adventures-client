@@ -11,7 +11,10 @@ import { adventuresDetailsPageData as pageData } from "./data/adventuresDetailsP
 import { routes } from "@constants/routes.constants"
 
 // Helpers
-import { loader, getProductByTypeAndIdQuery } from "./utils/loader.helpers"
+import {
+  getProductByTypeAndIdLoader as loader,
+  getProductByTypeAndIdQuery as query,
+} from "@utils/loaders"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
 
@@ -32,7 +35,7 @@ const AdventuresDetailsPage = () => {
   >
 
   const { data: adventuresDetailsData } = useQuery({
-    ...getProductByTypeAndIdQuery({
+    ...query({
       type: ProductType.adventure,
       id: productId,
     }),

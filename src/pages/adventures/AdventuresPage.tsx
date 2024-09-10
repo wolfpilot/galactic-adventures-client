@@ -9,7 +9,10 @@ import { adventuresPageData as pageData } from "./data/adventuresPage.data"
 import { routes } from "@constants/routes.constants"
 
 // Utils
-import { loader, getWaypointByIdQuery } from "./utils/loader.helpers"
+import {
+  getWaypointByIdLoader as loader,
+  getWaypointByIdQuery as query,
+} from "@utils/loaders"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
 
@@ -33,7 +36,7 @@ const AdventuresPage = () => {
   >
 
   const { data: adventuresData } = useQuery({
-    ...getWaypointByIdQuery({
+    ...query({
       id: waypointId,
     }),
     initialData,

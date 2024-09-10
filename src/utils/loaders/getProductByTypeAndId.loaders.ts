@@ -30,7 +30,7 @@ export const getProductByTypeAndIdQuery = ({ type, id }: Props) => ({
     ),
 })
 
-export const loader =
+export const getProductByTypeAndIdLoader =
   (queryClient: QueryClient) =>
   async ({ params, request }: LoaderFunctionArgs) => {
     const idParam = params.id
