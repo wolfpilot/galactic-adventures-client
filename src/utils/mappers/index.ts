@@ -1,3 +1,4 @@
 import { waypointCategoryToFolderName } from "./asset.mappers"
+import { urlToProductType } from "./url.mappers"
 
-export { waypointCategoryToFolderName }
+export { waypointCategoryToFolderName, urlToProductType }

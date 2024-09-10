@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom"
+import { useParams, useLoaderData } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 
 // Types
 import { ProductType } from "@ts/products/products.types"
@@ -9,10 +10,8 @@ import { adventuresDetailsPageData as pageData } from "./data/adventuresDetailsP
 // Constants
 import { routes } from "@constants/routes.constants"
 
-// Hooks
-import { useGetProduct } from "@utils/hooks/products"
-
 // Helpers
+import { loader, getProductByTypeAndIdQuery } from "./utils/loader.helpers"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
 
@@ -27,10 +26,20 @@ const AdventuresDetailsPage = () => {
 
   const productId = id ?? null
 
-  const { isPending, error, data } = useGetProduct({
-    type: ProductType.adventure,
-    id: productId,
+  // Fetch cached or new data
+  const initialData = useLoaderData() as Awaited<
+    ReturnType<ReturnType<typeof loader>>
+  >
+
+  const { data: adventuresDetailsData } = useQuery({
+    ...getProductByTypeAndIdQuery({
+      type: ProductType.adventure,
+      id: productId,
+    }),
+    initialData,
   })
+
+  const data = adventuresDetailsData?.data.data.product
 
   // Parse data
   const parsedMetadata = generateMetadata({
@@ -44,40 +53,27 @@ const AdventuresDetailsPage = () => {
     <>
       <Head {...parsedMetadata} />
 
-      {isPending && <p>Loading...</p>}
+      {headerProps && <PageHeader {...headerProps} />}
 
-      {error && (
-        <p>
-          Oops, can't find adventure! Please select a new configuration for your
-          new exciting adventure.
-        </p>
-      )}
+      <Container>
+        {data.id && (
+          <ContentRow>
+            <PageCta
+              as="anchor"
+              to={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
+            >
+              Continue
+            </PageCta>
+          </ContentRow>
+        )}
 
-      {data && (
-        <>
-          {headerProps && <PageHeader {...headerProps} />}
-
-          <Container>
-            {data.id && (
-              <ContentRow>
-                <PageCta
-                  as="anchor"
-                  to={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
-                >
-                  Continue
-                </PageCta>
-              </ContentRow>
-            )}
-
-            <ContentRow>
-              <ContentBlock>
-                {data.description && <p>{data.description}</p>}
-                {data.price_sb && <p>Price: {data.price_sb}</p>}
-              </ContentBlock>
-            </ContentRow>
-          </Container>
-        </>
-      )}
+        <ContentRow>
+          <ContentBlock>
+            {data.description && <p>{data.description}</p>}
+            {data.price_sb && <p>Price: {data.price_sb}</p>}
+          </ContentBlock>
+        </ContentRow>
+      </Container>
     </>
   )
 }

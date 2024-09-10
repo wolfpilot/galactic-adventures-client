@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom"
 // Utils
 import { queryClient } from "@utils/clients/query.clients"
 import { loader as adventuresLoader } from "@pages/adventures/utils/loader.helpers"
+import { loader as adventuresDetailsLoader } from "@pages/adventuresDetails/utils/loader.helpers"
 
 // Pages
 import {
@@ -39,6 +40,7 @@ export const routerClient = createBrowserRouter([
       {
         path: "adventures/:id",
         element: <AdventuresDetailsPage />,
+        loader: adventuresDetailsLoader(queryClient),
       },
       {
         path: "payment",
