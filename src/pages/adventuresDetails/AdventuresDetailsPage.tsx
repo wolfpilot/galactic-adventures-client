@@ -10,11 +10,9 @@ import { adventuresDetailsPageData as pageData } from "./data/adventuresDetailsP
 // Constants
 import { routes } from "@constants/routes.constants"
 
-// Helpers
-import {
-  getProductByTypeAndIdLoader as loader,
-  getProductByTypeAndIdQuery as query,
-} from "@utils/loaders"
+// Utils
+import { adventuresDetailsLoader as loader } from "@utils/loaders"
+import { getProductByTypeAndIdQuery as query } from "@utils/queries"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
 

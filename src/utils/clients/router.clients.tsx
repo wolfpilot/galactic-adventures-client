@@ -2,10 +2,7 @@ import { createBrowserRouter } from "react-router-dom"
 
 // Utils
 import { queryClient } from "@utils/clients/query.clients"
-import {
-  getWaypointByIdLoader as adventuresLoader,
-  getProductByTypeAndIdLoader as adventuresDetailsLoader,
-} from "@utils/loaders"
+import { adventuresLoader, adventuresDetailsLoader } from "@utils/loaders"
 
 // Pages
 import {
