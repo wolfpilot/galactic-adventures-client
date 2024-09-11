@@ -63,9 +63,13 @@ const OrderPage = () => {
   // Parse data
   const orderStatusText = getOrderStatusText(paymentIntentData?.status)
 
+  const criticalError = paymentIntentError
   const isPending = paymentIntentIsPending
-  const error = paymentIntentError?.message
   const hasData = !!(paymentIntentData && productData)
+
+  if (criticalError) {
+    throw criticalError
+  }
 
   return (
     <>
@@ -94,8 +98,6 @@ const OrderPage = () => {
           </ContentRow>
         </Container>
       )}
-
-      {error && <p>{error}</p>}
     </>
   )
 }

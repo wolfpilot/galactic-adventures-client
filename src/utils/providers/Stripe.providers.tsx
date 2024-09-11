@@ -29,10 +29,19 @@ const StripeProvider = ({ children }: Props) => {
     currency: "eur",
   }
 
+  /**
+   * Why throw here and not in the hooks themselves?
+   *
+   * These hooks are generic enough that they could theoretically be used anywhere in the app,
+   * perhaps where such an error would not result in a crash. This gives us a chance to handle
+   * them depending on the scenario.
+   */
+  if (error) {
+    throw error
+  }
+
   return (
     <>
-      {error && <p>Oops, something went wrong</p>}
-
       {isPending && <p>Loading...</p>}
 
       {stripe && (

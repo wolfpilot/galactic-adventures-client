@@ -14,6 +14,9 @@ import { pageData } from "./data/paymentPage.data"
 // Utils
 import { useClientSecret, useRetrievePaymentIntent } from "@utils/hooks/stripe"
 
+// Styles
+import styles from "./PaymentPage.module.css"
+
 // Components
 import Head from "@components/layout/Head/Head"
 import { PageHeader } from "@components/layout/Page"
@@ -22,7 +25,7 @@ import { ContentRow, ContentBlock } from "@components/layout/Content"
 import PaymentForm from "./components/form/PaymentForm/PaymentForm"
 
 const PaymentPage = () => {
-  const [errorMessage, setErrorMessage] = useState<string | undefined>()
+  const [formErrorMsg, setFormErrorMsg] = useState<string | undefined>()
   const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
   const stripe = useStripe()
@@ -54,17 +57,17 @@ const PaymentPage = () => {
   })
 
   // Utils
-  const handleError = (message?: string) => {
-    const newErrorMessage = message || "An unexpected error occurred."
+  const handleSubmitError = (message?: string) => {
+    const newErrorMsg = message || "An unexpected error occurred."
 
-    setErrorMessage(newErrorMessage)
+    setFormErrorMsg(newErrorMsg)
   }
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!stripe || !elements || !clientSecretData || !paymentIntentData) {
-      handleError("Oops, something went wrong! Please try again later.")
+      handleSubmitError("Oops, something went wrong! Please try again later.")
 
       return
     }
@@ -80,7 +83,7 @@ const PaymentPage = () => {
     const { error: submitError } = await elements.submit()
 
     if (submitError) {
-      handleError(submitError.message)
+      handleSubmitError(submitError.message)
 
       return
     }
@@ -98,24 +101,23 @@ const PaymentPage = () => {
       paymentError?.type === "card_error" ||
       paymentError?.type === "validation_error"
     ) {
-      handleError(paymentError.message)
+      handleSubmitError(paymentError.message)
 
       return
     }
 
-    handleError()
+    handleSubmitError()
     setIsProcessing(false)
   }
 
   // Parse data
+  const criticalError = clientSecretError || paymentIntentError
   const isPending = clientSecretIsPending || paymentIntentIsPending
-  const error =
-    clientSecretError?.message || paymentIntentError?.message || errorMessage
-  const hasData = !!(
-    clientSecretData &&
-    paymentIntentData?.currency &&
-    paymentIntentData?.amount
-  )
+  const hasData = !!(clientSecretData && paymentIntentData)
+
+  if (criticalError) {
+    throw criticalError
+  }
 
   return (
     <>
@@ -137,10 +139,14 @@ const PaymentPage = () => {
               />
             </ContentBlock>
           </ContentRow>
+
+          {formErrorMsg && (
+            <ContentRow>
+              <p className={styles.formError}>{formErrorMsg}</p>
+            </ContentRow>
+          )}
         </Container>
       )}
-
-      {error && <p>{error}</p>}
     </>
   )
 }
