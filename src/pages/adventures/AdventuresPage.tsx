@@ -15,6 +15,7 @@ import {
 } from "@utils/loaders"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
+import { updateQueryString } from "@utils/helpers/window.helpers"
 
 // Components
 import Head from "@components/layout/Head/Head"
@@ -25,7 +26,7 @@ import WaypointList from "./components/WaypointList/WaypointList"
 import WaypointDetails from "./components/WaypointDetails/WaypointDetails"
 
 const AdventuresPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const waypointIdParam = searchParams.get("waypointId")
   const waypointId = waypointIdParam ?? null
@@ -42,14 +43,14 @@ const AdventuresPage = () => {
     initialData,
   })
 
-  const data = adventuresData.data.data.waypoint
+  const data = adventuresData?.data?.data?.waypoint
 
   // Hooks
   useEffect(() => {
-    if (!data?.id) return
+    if (waypointIdParam || !data?.id) return
 
-    setSearchParams({ waypointId: `${data.id}` }, { replace: true })
-  }, [data?.id, setSearchParams])
+    updateQueryString("waypointId", `${data.id}`)
+  }, [data?.id, waypointIdParam])
 
   // Parse data
   const parsedMetadata = generateMetadata({
@@ -63,32 +64,36 @@ const AdventuresPage = () => {
     <>
       <Head {...parsedMetadata} />
 
-      {headerProps && <PageHeader {...headerProps} />}
+      {data && (
+        <>
+          {headerProps && <PageHeader {...headerProps} />}
 
-      {data.children.length > 0 && (
-        <ContentRow isPadded={false}>
-          <WaypointList waypoints={data.children} />
-        </ContentRow>
+          {data.children.length > 0 && (
+            <ContentRow isPadded={false}>
+              <WaypointList waypoints={data.children} />
+            </ContentRow>
+          )}
+
+          <Container>
+            {data.adventure && (
+              <ContentRow>
+                <PageCta
+                  as="anchor"
+                  to={`${routes.adventures.url}/${data.adventure.id}`}
+                >
+                  Book now
+                </PageCta>
+              </ContentRow>
+            )}
+
+            {data.details && (
+              <ContentRow>
+                <WaypointDetails waypoint={data} />
+              </ContentRow>
+            )}
+          </Container>
+        </>
       )}
-
-      <Container>
-        {data.adventure && (
-          <ContentRow>
-            <PageCta
-              as="anchor"
-              to={`${routes.adventures.url}/${data.adventure.id}`}
-            >
-              Book now
-            </PageCta>
-          </ContentRow>
-        )}
-
-        {data.details && (
-          <ContentRow>
-            <WaypointDetails waypoint={data} />
-          </ContentRow>
-        )}
-      </Container>
     </>
   )
 }
