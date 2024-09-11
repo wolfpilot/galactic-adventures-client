@@ -42,7 +42,7 @@ const AdventuresDetailsPage = () => {
     initialData,
   })
 
-  const data = adventuresDetailsData?.data.data.product
+  const data = adventuresDetailsData?.data?.data?.product
 
   // Parse data
   const parsedMetadata = generateMetadata({
