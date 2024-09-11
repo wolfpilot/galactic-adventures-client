@@ -2,7 +2,11 @@ import { createBrowserRouter } from "react-router-dom"
 
 // Utils
 import { queryClient } from "@utils/clients/query.clients"
-import { adventuresLoader, adventuresDetailsLoader } from "@utils/loaders"
+import {
+  adventuresLoader,
+  adventuresDetailsLoader,
+  orderLoader,
+} from "@utils/loaders"
 
 // Pages
 import {
@@ -48,6 +52,7 @@ export const routerClient = createBrowserRouter([
       {
         path: "order",
         element: <OrderPage />,
+        loader: orderLoader(queryClient),
       },
     ],
   },
