@@ -1,12 +1,5 @@
-import {
-  getProductByTypeAndIdQuery,
-  getProductByTypeAndIdLoader,
-} from "./getProductByTypeAndId.loaders"
-import { getWaypointByIdQuery, getWaypointByIdLoader } from "./loader.helpers"
+import { adventuresLoader } from "./adventures.loaders"
+import { adventuresDetailsLoader } from "./adventuresDetails.loaders"
+import { orderLoader } from "./order.loaders"
 
-export {
-  getProductByTypeAndIdQuery,
-  getProductByTypeAndIdLoader,
-  getWaypointByIdQuery,
-  getWaypointByIdLoader,
-}
+export { adventuresLoader, adventuresDetailsLoader, orderLoader }

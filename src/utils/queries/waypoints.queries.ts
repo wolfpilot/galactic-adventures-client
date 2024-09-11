@@ -1,5 +1,3 @@
-import { type QueryClient } from "@tanstack/react-query"
-import { LoaderFunctionArgs } from "react-router-dom"
 import axios from "axios"
 
 // Types
@@ -24,19 +22,3 @@ export const getWaypointByIdQuery = ({ id }: Props) => ({
       `${apiRoutes.waypoints}/${id}`
     ),
 })
-
-export const getWaypointByIdLoader =
-  (queryClient: QueryClient) =>
-  async ({ request }: LoaderFunctionArgs) => {
-    const url = new URL(request.url)
-    const params = new URLSearchParams(url.search)
-
-    const waypointIdParam = params.get("waypointId")
-    const waypointId = waypointIdParam || null
-
-    return queryClient.ensureQueryData(
-      getWaypointByIdQuery({
-        id: waypointId,
-      })
-    )
-  }

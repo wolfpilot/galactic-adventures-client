@@ -9,10 +9,8 @@ import { adventuresPageData as pageData } from "./data/adventuresPage.data"
 import { routes } from "@constants/routes.constants"
 
 // Utils
-import {
-  getWaypointByIdLoader as loader,
-  getWaypointByIdQuery as query,
-} from "@utils/loaders"
+import { adventuresLoader as loader } from "@utils/loaders"
+import { getWaypointByIdQuery as query } from "@utils/queries"
 import { generateMetadata } from "./utils/seo.helpers"
 import { getPageHeaderProps } from "./utils/data.helpers"
 import { updateQueryString } from "@utils/helpers/window.helpers"

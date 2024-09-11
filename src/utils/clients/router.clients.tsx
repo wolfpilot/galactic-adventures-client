@@ -3,8 +3,9 @@ import { createBrowserRouter } from "react-router-dom"
 // Utils
 import { queryClient } from "@utils/clients/query.clients"
 import {
-  getWaypointByIdLoader as adventuresLoader,
-  getProductByTypeAndIdLoader as adventuresDetailsLoader,
+  adventuresLoader,
+  adventuresDetailsLoader,
+  orderLoader,
 } from "@utils/loaders"
 
 // Pages
@@ -51,6 +52,7 @@ export const routerClient = createBrowserRouter([
       {
         path: "order",
         element: <OrderPage />,
+        loader: orderLoader(queryClient),
       },
     ],
   },

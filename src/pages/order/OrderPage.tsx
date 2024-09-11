@@ -1,4 +1,5 @@
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, useLoaderData } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 import { useStripe } from "@stripe/react-stripe-js"
 
 // Types
@@ -12,8 +13,9 @@ import { formatPrice } from "@utils/helpers/formatter.helpers"
 import { getOrderStatusText } from "./utils/helpers"
 
 // Hooks
+import { orderLoader as loader } from "@utils/loaders"
+import { getProductByTypeAndIdQuery as query } from "@utils/queries"
 import { useRetrievePaymentIntent } from "@utils/hooks/stripe"
-import { useGetProduct } from "@utils/hooks/products"
 
 // Components
 import Head from "@components/layout/Head/Head"
@@ -33,6 +35,22 @@ const OrderPage = () => {
   const productType = productTypeParam ?? null
   const productId = productIdParam ?? null
 
+  // Fetch cached or new data
+  const initialData = useLoaderData() as Awaited<
+    ReturnType<ReturnType<typeof loader>>
+  >
+
+  const { data: queryData } = useQuery({
+    ...query({
+      type: productType,
+      id: productId,
+    }),
+    initialData,
+  })
+
+  const productData = queryData?.data?.data?.product
+
+  // Hooks
   const {
     isPending: paymentIntentIsPending,
     error: paymentIntentError,
@@ -42,20 +60,11 @@ const OrderPage = () => {
     clientSecret: clientSecretParam,
   })
 
-  const {
-    isPending: productIsPending,
-    error: productError,
-    data: productData,
-  } = useGetProduct({
-    type: productType,
-    id: productId,
-  })
-
   // Parse data
   const orderStatusText = getOrderStatusText(paymentIntentData?.status)
 
-  const isPending = paymentIntentIsPending || productIsPending
-  const error = paymentIntentError?.message || productError?.message
+  const isPending = paymentIntentIsPending
+  const error = paymentIntentError?.message
   const hasData = !!(paymentIntentData && productData)
 
   return (
