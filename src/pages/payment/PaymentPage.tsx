@@ -119,13 +119,13 @@ const PaymentPage = () => {
     throw criticalError
   }
 
+  const headerProps = pageData.getHeaderProps(isPending)
+
   return (
     <>
       <Head {...pageData.metadata} />
 
-      <PageHeader {...pageData.headerData} />
-
-      {isPending && <p>Loading...</p>}
+      <PageHeader {...headerProps} />
 
       {hasData && (
         <Container>

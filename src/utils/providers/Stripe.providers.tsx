@@ -16,7 +16,7 @@ export interface Props {
 const StripeProvider = ({ children }: Props) => {
   const [stripe, setStripe] = useState<Promise<Stripe | null> | null>(null)
 
-  const { isPending, error, data } = usePublicKey()
+  const { error, data } = usePublicKey()
 
   useEffect(() => {
     if (!data) return
@@ -40,17 +40,11 @@ const StripeProvider = ({ children }: Props) => {
     throw error
   }
 
-  return (
-    <>
-      {isPending && <p>Loading...</p>}
-
-      {stripe && (
-        <Elements stripe={stripe} options={options}>
-          {children}
-        </Elements>
-      )}
-    </>
-  )
+  return stripe ? (
+    <Elements stripe={stripe} options={options}>
+      {children}
+    </Elements>
+  ) : null
 }
 
 export default StripeProvider
