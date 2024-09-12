@@ -2,10 +2,11 @@ import { useRouteError, isRouteErrorResponse } from "react-router-dom"
 import { AxiosError } from "axios"
 
 // Data
-import { defaultError, errorPageData } from "./data/errorPage.data"
+import { errorPageData } from "./data/errorPage.data"
 
 // Constants
 import { routes } from "@constants/routes.constants"
+import { errors } from "@constants/errors.constants"
 
 // Components
 import Head from "@components/layout/Head/Head"
@@ -23,13 +24,13 @@ const parseError = (error: unknown) => {
       }
     case error instanceof AxiosError:
       return {
-        title: error.response?.status.toString() || defaultError.title,
-        description: error.response?.statusText || defaultError.description,
+        title: error.response?.status.toString() || errors.Default.title,
+        description: error.response?.statusText || errors.Default.description,
       }
     default:
       console.error(error)
 
-      return errorPageData.defaultError
+      return errors.Default
   }
 }
 

@@ -5,11 +5,6 @@ import { Props as PageHeaderProps } from "@components/layout/Page/PageHeader/typ
 import { breakpoints } from "@constants/layout.constants"
 import { ERROR_PAGE_IMG, ERROR_PAGE_VID } from "@constants/assets.constants"
 
-export const defaultError = {
-  title: "Oops!",
-  description: "Something went wrong...",
-}
-
 export const headerData: Omit<PageHeaderProps, "title" | "description"> = {
   media: {
     type: "video",
@@ -30,6 +25,5 @@ export const headerData: Omit<PageHeaderProps, "title" | "description"> = {
 }
 
 export const errorPageData = {
-  defaultError,
   headerData,
 }

@@ -7,6 +7,7 @@ import { ProductType } from "@ts/products/products.types"
 
 // Constants
 import { BASE_ROUTE, routes } from "@constants/routes.constants"
+import { errors } from "@constants/errors.constants"
 
 // Data
 import { pageData } from "./data/paymentPage.data"
@@ -58,7 +59,7 @@ const PaymentPage = () => {
 
   // Utils
   const handleSubmitError = (message?: string) => {
-    const newErrorMsg = message || "An unexpected error occurred."
+    const newErrorMsg = message || errors.Unhandled.description
 
     setFormErrorMsg(newErrorMsg)
   }
@@ -67,7 +68,7 @@ const PaymentPage = () => {
     e.preventDefault()
 
     if (!stripe || !elements || !clientSecretData || !paymentIntentData) {
-      handleSubmitError("Oops, something went wrong! Please try again later.")
+      handleSubmitError()
 
       return
     }
