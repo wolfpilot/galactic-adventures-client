@@ -46,7 +46,7 @@ const HomePage = () => {
 
               return (
                 <li key={index} className={styles.ctaItem}>
-                  <ContentBlock>
+                  <ContentBlock className={styles.ctaItemContentBlock}>
                     <CustomLink
                       className={styles.ctaItemLink}
                       to={route.url}
@@ -58,7 +58,15 @@ const HomePage = () => {
                           className={styles.ctaItemImage}
                         />
                       )}
-                      <div className={styles.ctaItemContent}>{route.label}</div>
+                      <div className={styles.ctaItemContent}>
+                        <div className={styles.ctaItemLabel}>{route.label}</div>
+
+                        {route.disabled && (
+                          <div className={styles.ctaItemNotice}>
+                            Coming soon
+                          </div>
+                        )}
+                      </div>
                     </CustomLink>
                   </ContentBlock>
                 </li>

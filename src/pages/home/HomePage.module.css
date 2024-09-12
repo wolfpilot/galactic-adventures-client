@@ -1,20 +1,46 @@
 .ctaList {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: var(--grid-gutter-size);
+  gap: var(--grid-offset-size);
   list-style: none;
   margin: 0;
   padding: var(--spacing-default) 0;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    gap: var(--grid-gutter-size);
+  }
 }
 
 .ctaItem {
-  width: 33.33%;
+  height: 33.33vh;
+  min-height: 220px;
   text-align: center;
+
+  @media screen and (min-width: 768px) {
+    width: 33.33%;
+    height: auto;
+    min-height: none;
+  }
+}
+
+.ctaItemContentBlock {
+  width: 100%;
+  height: 100%;
 }
 
 .ctaItemLink {
   position: relative;
   display: block;
+  width: 100%;
+  height: 100%;
+
+  &[aria-disabled="true"] {
+    .ctaItemImage {
+      filter: grayscale(0.25) brightness(0.75) opacity(0.25);
+    }
+  }
 
   &:hover,
   &:focus-within {
@@ -26,17 +52,15 @@
 
 .ctaItemImage {
   border-radius: var(--border-radius-medium);
-  filter: grayscale(0.25) brightness(0.75) opacity(0.25);
   transition: filter var(--anim-ease-cubic) var(--anim-duration-medium);
-
-  @media screen and (hover: hover) {
-    filter: grayscale(0) brightness(0.75) opacity(1);
-  }
 
   img {
     object-fit: cover;
-    height: 75vh;
-    max-height: 950px;
+
+    @media screen and (min-width: 768px) {
+      height: 75vh;
+      max-height: 950px;
+    }
   }
 }
 
@@ -47,13 +71,32 @@
   bottom: 0;
   left: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: var(--c-white);
   font-family: var(--font-family-secondary);
   text-transform: uppercase;
   font-size: var(--heading-s-font-size);
-  writing-mode: vertical-rl;
-  text-orientation: upright;
   text-shadow: var(--t-blur-shadow);
+}
+
+.ctaItemLabel {
+  @media screen and (min-width: 768px) {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+}
+
+.ctaItemNotice {
+  width: 100%;
+  padding-top: var(--spacing-small);
+  padding-bottom: var(--spacing-small);
+  background-color: var(--c-black);
+  font-size: var(--copy-m-font-size);
+
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 5%;
+  }
 }
