@@ -6,7 +6,7 @@ import { useStripe } from "@stripe/react-stripe-js"
 import { ProductType } from "@ts/products/products.types"
 
 // Data
-import { orderPageData } from "./data/orderPage.data"
+import { pageData } from "./data/orderPage.data"
 
 // Utils
 import { formatPrice } from "@utils/helpers/formatter.helpers"
@@ -61,19 +61,22 @@ const OrderPage = () => {
   })
 
   // Parse data
-  const orderStatusText = getOrderStatusText(paymentIntentData?.status)
-
+  const criticalError = paymentIntentError
   const isPending = paymentIntentIsPending
-  const error = paymentIntentError?.message
   const hasData = !!(paymentIntentData && productData)
+
+  if (criticalError) {
+    throw criticalError
+  }
+
+  const headerProps = pageData.getHeaderProps(isPending)
+  const orderStatusText = getOrderStatusText(paymentIntentData?.status)
 
   return (
     <>
-      <Head {...orderPageData.metadata} />
+      <Head {...pageData.metadata} />
 
-      <PageHeader {...orderPageData.headerData} />
-
-      {isPending && <p>Loading...</p>}
+      <PageHeader {...headerProps} />
 
       {hasData && (
         <Container>
@@ -94,8 +97,6 @@ const OrderPage = () => {
           </ContentRow>
         </Container>
       )}
-
-      {error && <p>{error}</p>}
     </>
   )
 }

@@ -16,7 +16,7 @@ export interface Props {
 const StripeProvider = ({ children }: Props) => {
   const [stripe, setStripe] = useState<Promise<Stripe | null> | null>(null)
 
-  const { isPending, error, data } = usePublicKey()
+  const { error, data } = usePublicKey()
 
   useEffect(() => {
     if (!data) return
@@ -29,19 +29,22 @@ const StripeProvider = ({ children }: Props) => {
     currency: "eur",
   }
 
-  return (
-    <>
-      {error && <p>Oops, something went wrong</p>}
+  /**
+   * Why throw here and not in the hooks themselves?
+   *
+   * These hooks are generic enough that they could theoretically be used anywhere in the app,
+   * perhaps where such an error would not result in a crash. This gives us a chance to handle
+   * them depending on the scenario.
+   */
+  if (error) {
+    throw error
+  }
 
-      {isPending && <p>Loading...</p>}
-
-      {stripe && (
-        <Elements stripe={stripe} options={options}>
-          {children}
-        </Elements>
-      )}
-    </>
-  )
+  return stripe ? (
+    <Elements stripe={stripe} options={options}>
+      {children}
+    </Elements>
+  ) : null
 }
 
 export default StripeProvider
