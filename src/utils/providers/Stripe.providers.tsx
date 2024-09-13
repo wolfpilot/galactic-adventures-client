@@ -6,11 +6,17 @@ import {
 } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
 
-// Hooks
+// Utils
 import { usePublicKey } from "@utils/hooks/stripe"
 
 export interface Props {
   children: React.ReactNode
+}
+
+// Setup
+const stripeOptions: StripeElementsOptions = {
+  mode: "setup",
+  currency: "eur",
 }
 
 const StripeProvider = ({ children }: Props) => {
@@ -18,16 +24,12 @@ const StripeProvider = ({ children }: Props) => {
 
   const { error, data } = usePublicKey()
 
+  // Hooks
   useEffect(() => {
     if (!data) return
 
     setStripe(loadStripe(data))
   }, [data])
-
-  const options: StripeElementsOptions = {
-    mode: "setup",
-    currency: "eur",
-  }
 
   /**
    * Why throw here and not in the hooks themselves?
@@ -40,11 +42,11 @@ const StripeProvider = ({ children }: Props) => {
     throw error
   }
 
-  return stripe ? (
-    <Elements stripe={stripe} options={options}>
+  return (
+    <Elements stripe={stripe} options={stripeOptions}>
       {children}
     </Elements>
-  ) : null
+  )
 }
 
 export default StripeProvider
