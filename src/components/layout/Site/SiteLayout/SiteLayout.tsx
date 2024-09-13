@@ -1,10 +1,5 @@
-import { useLocation } from "react-router-dom"
-
 // Types
 import { Props } from "./types"
-
-// Utils
-import { useAppBoundStore } from "@utils/stores"
 
 // Styles
 import styles from "./SiteLayout.module.css"
@@ -19,27 +14,17 @@ import {
 } from "@components/layout/Site"
 import { PageWrapper } from "@components/layout/Page"
 
-const SiteLayout = ({ children }: Props) => {
-  const location = useLocation()
+const SiteLayout = ({ children }: Props) => (
+  <div className={styles.wrapper}>
+    <SiteBannerCookies />
+    <SiteBannerNews />
+    <SiteHeader />
+    <SiteNav />
 
-  const isHomepage = location.pathname === "/"
+    <PageWrapper>{children}</PageWrapper>
 
-  const siteBannerNewsData = useAppBoundStore((state) => state.bannerNewsData)
-
-  return (
-    <div className={styles.wrapper}>
-      <SiteBannerCookies />
-      {isHomepage && siteBannerNewsData && (
-        <SiteBannerNews {...siteBannerNewsData} />
-      )}
-      <SiteHeader />
-      <SiteNav />
-
-      <PageWrapper>{children}</PageWrapper>
-
-      <SiteFooter />
-    </div>
-  )
-}
+    <SiteFooter />
+  </div>
+)
 
 export default SiteLayout
