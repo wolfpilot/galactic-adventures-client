@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 
 // Data
-import { homePageData } from "./data/homePage.data"
+import { homePageData as pageData } from "./data/homePage.data"
 
 // Utils
 import { useAppBoundStore } from "@utils/stores"
@@ -22,21 +22,28 @@ import { CustomImage } from "@components/media"
 import { CustomLink } from "@components/links"
 
 const HomePage = () => {
-  const updateSiteBannerNewsData = useAppBoundStore(
+  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
+
+  const updateBannerNewsData = useAppBoundStore(
     (state) => state.updateBannerNewsData
   )
 
+  // Hooks
   useEffect(() => {
-    if (!homePageData.siteBannerNewsData) return
+    updateIsLoading(false)
+  }, [updateIsLoading])
 
-    updateSiteBannerNewsData(homePageData.siteBannerNewsData)
-  }, [updateSiteBannerNewsData])
+  useEffect(() => {
+    if (!pageData.siteBannerNewsData) return
+
+    updateBannerNewsData(pageData.siteBannerNewsData)
+  }, [updateBannerNewsData])
 
   return (
     <>
-      <Head {...homePageData.metadata} />
+      <Head {...pageData.metadata} />
 
-      <PageHeader {...homePageData.headerData} />
+      <PageHeader {...pageData.headerData} />
 
       <Container>
         <ContentRow isPadded={false}>

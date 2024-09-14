@@ -7,12 +7,12 @@ export const metadata: MetadataProps = {
   description: "Your order details",
 }
 
-export const getHeaderProps = (isPending: boolean): PageHeaderProps => ({
+export const headerData: PageHeaderProps = {
   title: "Order Summary",
-  description: isPending ? "Loading..." : "Your order details:",
-})
+  description: "Your order details:",
+}
 
 export const pageData = {
   metadata,
-  getHeaderProps,
+  headerData,
 }

@@ -6,6 +6,6 @@ export const metadata: MetadataProps = {
   description: "Ready, set... blast-off!",
 }
 
-export const adventuresDetailsPageData = {
+export const pageData = {
   metadata,
 }
