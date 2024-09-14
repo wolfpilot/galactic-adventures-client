@@ -1,6 +1,7 @@
 :root {
   --z-gridOverlay: 9999;
-  --z-siteCookieBanner: 9000;
+  --z-siteLoader: 9000;
+  --z-siteCookieBanner: 8000;
   --z-siteHeader: 1000;
   --z-siteNav: 999;
 }

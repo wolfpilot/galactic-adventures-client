@@ -3,12 +3,13 @@ import { useSearchParams, useLoaderData } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 
 // Data
-import { adventuresPageData as pageData } from "./data/adventuresPage.data"
+import { pageData } from "./data/adventuresPage.data"
 
 // Constants
 import { routes } from "@constants/routes.constants"
 
 // Utils
+import { useAppBoundStore } from "@utils/stores"
 import { adventuresLoader as loader } from "@utils/loaders"
 import { getWaypointByIdQuery as query } from "@utils/queries"
 import { generateMetadata } from "./utils/seo.helpers"
@@ -24,69 +25,80 @@ import WaypointList from "./components/WaypointList/WaypointList"
 import WaypointDetails from "./components/WaypointDetails/WaypointDetails"
 
 const AdventuresPage = () => {
-  const [searchParams] = useSearchParams()
+  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
+  const [searchParams] = useSearchParams()
   const waypointIdParam = searchParams.get("waypointId")
   const waypointId = waypointIdParam ?? null
 
-  // Fetch cached or new data
+  // Fetch cached or fresh data
   const initialData = useLoaderData() as Awaited<
     ReturnType<ReturnType<typeof loader>>
   >
 
-  const { data: adventuresData } = useQuery({
+  const { data: waypointData, isPending: waypointIsPending } = useQuery({
     ...query({
       id: waypointId,
     }),
     initialData,
   })
 
-  const data = adventuresData?.data?.data?.waypoint
+  const data = {
+    waypoint: waypointData?.data?.data?.waypoint,
+  }
+
+  const hasData = !!data.waypoint
 
   // Hooks
   useEffect(() => {
-    if (waypointIdParam || !data?.id) return
+    if (waypointIsPending) return
 
-    updateQueryString("waypointId", `${data.id}`)
-  }, [data?.id, waypointIdParam])
+    updateIsLoading(false)
+  }, [waypointIsPending, updateIsLoading])
+
+  useEffect(() => {
+    if (waypointIdParam || !data.waypoint.id) return
+
+    updateQueryString("waypointId", `${data.waypoint.id}`)
+  }, [data.waypoint?.id, waypointIdParam])
 
   // Parse data
   const parsedMetadata = generateMetadata({
-    name: data?.name,
+    name: data.waypoint?.name,
     metadata: pageData.metadata,
   })
 
-  const headerProps = getPageHeaderProps(data)
+  const headerProps = getPageHeaderProps(data.waypoint)
 
   return (
     <>
       <Head {...parsedMetadata} />
 
-      {data && (
-        <>
-          {headerProps && <PageHeader {...headerProps} />}
+      {headerProps && <PageHeader {...headerProps} />}
 
-          {data.children.length > 0 && (
+      {hasData && (
+        <>
+          {data.waypoint.children.length > 0 && (
             <ContentRow isPadded={false}>
-              <WaypointList waypoints={data.children} />
+              <WaypointList waypoints={data.waypoint.children} />
             </ContentRow>
           )}
 
           <Container>
-            {data.adventure && (
+            {data.waypoint.adventure && (
               <ContentRow>
                 <PageCta
                   as="anchor"
-                  to={`${routes.adventures.url}/${data.adventure.id}`}
+                  to={`${routes.adventures.url}/${data.waypoint.adventure.id}`}
                 >
                   Book now
                 </PageCta>
               </ContentRow>
             )}
 
-            {data.details && (
+            {data.waypoint.details && (
               <ContentRow>
-                <WaypointDetails waypoint={data} />
+                <WaypointDetails waypoint={data.waypoint} />
               </ContentRow>
             )}
           </Container>

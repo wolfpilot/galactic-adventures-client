@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useParams, useLoaderData } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 
@@ -5,12 +6,13 @@ import { useQuery } from "@tanstack/react-query"
 import { ProductType } from "@ts/products/products.types"
 
 // Data
-import { adventuresDetailsPageData as pageData } from "./data/adventuresDetailsPage.data"
+import { pageData } from "./data/adventuresDetailsPage.data"
 
 // Constants
 import { routes } from "@constants/routes.constants"
 
 // Utils
+import { useAppBoundStore } from "@utils/stores"
 import { adventuresDetailsLoader as loader } from "@utils/loaders"
 import { getProductByTypeAndIdQuery as query } from "@utils/queries"
 import { generateMetadata } from "./utils/seo.helpers"
@@ -23,16 +25,17 @@ import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 
 const AdventuresDetailsPage = () => {
-  const { id } = useParams()
+  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
+  const { id } = useParams()
   const productId = id ?? null
 
-  // Fetch cached or new data
+  // Fetch cached or fresh data
   const initialData = useLoaderData() as Awaited<
     ReturnType<ReturnType<typeof loader>>
   >
 
-  const { data: adventuresDetailsData } = useQuery({
+  const { data: productData, isPending: productIsPending } = useQuery({
     ...query({
       type: ProductType.adventure,
       id: productId,
@@ -40,15 +43,26 @@ const AdventuresDetailsPage = () => {
     initialData,
   })
 
-  const data = adventuresDetailsData?.data?.data?.product
+  const data = {
+    product: productData?.data?.data?.product,
+  }
+
+  const hasData = !!data.product
+
+  // Hooks
+  useEffect(() => {
+    if (productIsPending) return
+
+    updateIsLoading(false)
+  }, [productIsPending, updateIsLoading])
 
   // Parse data
   const parsedMetadata = generateMetadata({
-    name: data?.waypoint?.name,
+    name: data.product?.waypoint?.name,
     metadata: pageData.metadata,
   })
 
-  const headerProps = getPageHeaderProps(data)
+  const headerProps = getPageHeaderProps(data.product)
 
   return (
     <>
@@ -56,25 +70,27 @@ const AdventuresDetailsPage = () => {
 
       {headerProps && <PageHeader {...headerProps} />}
 
-      <Container>
-        {data.id && (
-          <ContentRow>
-            <PageCta
-              as="anchor"
-              to={`${routes.payment.url}?productType=adventure&productId=${data.id}`}
-            >
-              Continue
-            </PageCta>
-          </ContentRow>
-        )}
+      {hasData && (
+        <Container>
+          {data.product.id && (
+            <ContentRow>
+              <PageCta
+                as="anchor"
+                to={`${routes.payment.url}?productType=adventure&productId=${data.product.id}`}
+              >
+                Continue
+              </PageCta>
+            </ContentRow>
+          )}
 
-        <ContentRow>
-          <ContentBlock>
-            {data.description && <p>{data.description}</p>}
-            {data.price_sb && <p>Price: {data.price_sb}</p>}
-          </ContentBlock>
-        </ContentRow>
-      </Container>
+          <ContentRow>
+            <ContentBlock>
+              {data.product.description && <p>{data.product.description}</p>}
+              {data.product.price_sb && <p>Price: {data.product.price_sb}</p>}
+            </ContentBlock>
+          </ContentRow>
+        </Container>
+      )}
     </>
   )
 }

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 // Types
-import type { ApiResponse, ApiError } from "@ts/api.types"
+import type { ApiResponse } from "@ts/api.types"
 import { type Product, ProductType } from "@ts/products/products.types"
 
 // Constants
@@ -19,7 +19,7 @@ export interface Props {
 export const getProductByTypeAndIdQuery = ({ type, id }: Props) => ({
   queryKey: ["product", type, id],
   queryFn: () =>
-    axios.get<unknown, ApiResponse<ApiData>, ApiError>(
+    axios.get<unknown, ApiResponse<ApiData>>(
       `${apiRoutes.products.index}?type=${type!}&id=${id!}`
     ),
 })

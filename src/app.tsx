@@ -9,8 +9,13 @@ import {
   StripeProvider,
 } from "@utils/providers/"
 
+// Components
+import { OverlayLoader } from "@components/overlays"
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <OverlayLoader />
+
     <QueryProvider>
       <StripeProvider>
         <HelmetProvider>

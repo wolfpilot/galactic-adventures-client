@@ -1,18 +1,16 @@
 import { useQuery } from "@tanstack/react-query"
+import { useStripe } from "@stripe/react-stripe-js"
 
 // Types
-import type {
-  Stripe,
-  PaymentIntentResult,
-  StripeError,
-} from "@stripe/stripe-js"
+import type { PaymentIntentResult, StripeError } from "@stripe/stripe-js"
 
 export interface Props {
-  stripe: Stripe | null
   clientSecret: string | null
 }
 
-export const useRetrievePaymentIntent = ({ stripe, clientSecret }: Props) => {
+export const useRetrievePaymentIntent = ({ clientSecret }: Props) => {
+  const stripe = useStripe()
+
   const isEnabled = Boolean(stripe && clientSecret)
 
   const {

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 // Types
-import type { ApiResponse, ApiError } from "@ts/api.types"
+import type { ApiResponse } from "@ts/api.types"
 import type { Waypoint } from "@ts/waypoints/waypoint.types"
 
 // Constants
@@ -18,7 +18,5 @@ export interface Props {
 export const getWaypointByIdQuery = ({ id }: Props) => ({
   queryKey: ["waypoint", id],
   queryFn: () =>
-    axios.get<unknown, ApiResponse<ApiData>, ApiError>(
-      `${apiRoutes.waypoints}/${id}`
-    ),
+    axios.get<unknown, ApiResponse<ApiData>>(`${apiRoutes.waypoints}/${id}`),
 })

@@ -1,0 +1,11 @@
+@keyframes progressAnim {
+  0%,
+  74.99% {
+    border-color: var(--c-dGrey);
+  }
+
+  75%,
+  100% {
+    border-color: var(--c-white);
+  }
+}
