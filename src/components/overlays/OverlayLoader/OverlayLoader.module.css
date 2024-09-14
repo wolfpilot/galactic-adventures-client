@@ -1,0 +1,66 @@
+@import "./animation.css";
+
+.wrapper {
+  --progress-item-size: 20px;
+  --progress-item-border-size: 3px;
+
+  position: fixed;
+  z-index: var(--z-siteLoader);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--c-black);
+  transition:
+    opacity var(--anim-ease-cubic) var(--anim-duration-slow),
+    visibility var(--anim-ease-cubic) var(--anim-duration-slow);
+}
+
+.wrapper__isHidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.title {
+  margin-bottom: var(--spacing-small);
+  text-transform: uppercase;
+}
+
+.progress {
+  display: flex;
+  gap: var(--spacing-default);
+}
+
+.progressItem {
+  width: var(--progress-item-size);
+  height: var(--progress-item-size);
+  border: var(--progress-item-border-size) solid var(--c-white);
+  border-radius: var(--progress-item-border-size);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: 2s linear infinite both progressAnim;
+
+    &:nth-child(1) {
+      animation-delay: -1s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+  }
+}
+
+.notice {
+  position: absolute;
+  bottom: var(--spacing-default);
+}
+
+.noticeText {
+  color: var(--c-grey);
+  font-size: var(--copy-s-font-size);
+  text-align: center;
+}
