@@ -8,6 +8,7 @@ import { Elements } from "@stripe/react-stripe-js"
 
 // Utils
 import { usePublicKey } from "@utils/hooks/stripe"
+import { useAppBoundStore } from "@utils/stores"
 
 export interface Props {
   children: React.ReactNode
@@ -22,9 +23,15 @@ const stripeOptions: StripeElementsOptions = {
 const StripeProvider = ({ children }: Props) => {
   const [stripe, setStripe] = useState<Promise<Stripe | null> | null>(null)
 
-  const { error, data } = usePublicKey()
+  const { error, isPending, data } = usePublicKey()
+
+  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
   // Hooks
+  useEffect(() => {
+    updateIsLoading(isPending)
+  }, [isPending, updateIsLoading])
+
   useEffect(() => {
     if (!data) return
 
