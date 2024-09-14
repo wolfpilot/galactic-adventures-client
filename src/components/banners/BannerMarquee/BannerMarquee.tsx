@@ -8,6 +8,7 @@ import { useAppBoundStore } from "@utils/stores"
 import styles from "./BannerMarquee.module.css"
 
 const BannerMarquee = ({ children, className = "" }: Props) => {
+  const isLoading = useAppBoundStore((state) => state.isLoading)
   const isNavOpen = useAppBoundStore((state) => state.isNavOpen)
 
   return (
@@ -20,7 +21,7 @@ const BannerMarquee = ({ children, className = "" }: Props) => {
       <span
         className={`
           ${styles.content}
-          ${isNavOpen ? styles.content__isPaused : ""}
+          ${isLoading || isNavOpen ? styles.content__isPaused : ""}
         `}
       >
         {children}
