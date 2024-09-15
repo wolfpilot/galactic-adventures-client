@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react"
 
+// Data
+import { data } from "./data/overlayLoader.data"
+
 // Utils
 import { useAppBoundStore } from "@utils/stores"
 
@@ -53,14 +56,13 @@ const OverlayLoader = () => {
         <span className={styles.progressItem} />
       </div>
 
-      <div className={styles.notice}>
-        <Container>
-          <div className={styles.noticeText}>
-            Note: this app uses free dynos, first load may take up to 45s.
-            Please be patient.
-          </div>
-        </Container>
-      </div>
+      {data.text && (
+        <div className={styles.notice}>
+          <Container>
+            <div className={styles.noticeText}>{data.text}</div>
+          </Container>
+        </div>
+      )}
     </div>
   )
 }
