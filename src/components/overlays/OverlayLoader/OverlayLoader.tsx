@@ -19,7 +19,7 @@ const ENTRY_DELAY_MS = 500
 const OverlayLoader = () => {
   const isLoading = useAppBoundStore((state) => state.isLoading)
 
-  const [isHidden, setIsHidden] = useState(isLoading)
+  const [isHidden, setIsHidden] = useState(true)
 
   // Hooks
   useEffect(() => {
