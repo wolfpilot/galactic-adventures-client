@@ -1,6 +1,6 @@
 .wrapper {
   padding-top: var(--spacing-default);
-  padding-bottom: var(--spacing-default);
+  margin-bottom: var(--spacing-default);
 }
 
 .nav {

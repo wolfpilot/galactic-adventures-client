@@ -18,7 +18,7 @@ import { updateQueryString } from "@utils/helpers/window.helpers"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import { PageHeader, PageCta } from "@components/layout/Page"
+import { PageHeader, PageContent, PageCta } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow } from "@components/layout/Content"
 import WaypointList from "./components/WaypointList/WaypointList"
@@ -77,7 +77,7 @@ const AdventuresPage = () => {
       {headerProps && <PageHeader {...headerProps} />}
 
       {hasData && (
-        <>
+        <PageContent>
           {data.waypoint.children.length > 0 && (
             <ContentRow isPadded={false}>
               <WaypointList waypoints={data.waypoint.children} />
@@ -102,7 +102,7 @@ const AdventuresPage = () => {
               </ContentRow>
             )}
           </Container>
-        </>
+        </PageContent>
       )}
     </>
   )

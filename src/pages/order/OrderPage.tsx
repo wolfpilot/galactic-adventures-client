@@ -18,7 +18,7 @@ import { useRetrievePaymentIntent } from "@utils/hooks/stripe"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import { PageHeader } from "@components/layout/Page"
+import { PageHeader, PageContent } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 
@@ -85,32 +85,34 @@ const OrderPage = () => {
       <PageHeader {...pageData.headerData} />
 
       {hasData && (
-        <Container>
-          <ContentRow>
-            <ContentBlock>
-              <p>{orderStatusText}</p>
-              <br />
+        <PageContent>
+          <Container>
+            <ContentRow>
+              <ContentBlock>
+                <p>{orderStatusText}</p>
+                <br />
 
-              {data.paymentIntent?.id && (
-                <p>Order ID: {data.paymentIntent.id.toUpperCase()}</p>
-              )}
+                {data.paymentIntent?.id && (
+                  <p>Order ID: {data.paymentIntent.id.toUpperCase()}</p>
+                )}
 
-              {data.product.waypoint?.name && (
-                <p>Product: {data.product.waypoint.name}</p>
-              )}
+                {data.product.waypoint?.name && (
+                  <p>Product: {data.product.waypoint.name}</p>
+                )}
 
-              {data.paymentIntent?.currency && data.paymentIntent.amount && (
-                <p>
-                  Amount:{" "}
-                  {formatPrice({
-                    currency: data.paymentIntent.currency,
-                    amount: data.paymentIntent.amount / 100,
-                  })}
-                </p>
-              )}
-            </ContentBlock>
-          </ContentRow>
-        </Container>
+                {data.paymentIntent?.currency && data.paymentIntent.amount && (
+                  <p>
+                    Amount:{" "}
+                    {formatPrice({
+                      currency: data.paymentIntent.currency,
+                      amount: data.paymentIntent.amount / 100,
+                    })}
+                  </p>
+                )}
+              </ContentBlock>
+            </ContentRow>
+          </Container>
+        </PageContent>
       )}
     </>
   )

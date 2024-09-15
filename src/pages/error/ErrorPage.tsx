@@ -10,7 +10,7 @@ import { errors } from "@constants/errors.constants"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import { PageHeader, PageCta } from "@components/layout/Page"
+import { PageHeader, PageContent, PageCta } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow } from "@components/layout/Content"
 
@@ -45,13 +45,15 @@ const ErrorPage = () => {
 
       <PageHeader {...errorPageData.headerData} {...parsedError} />
 
-      <Container>
-        <ContentRow isPadded={false}>
-          <PageCta as="anchor" to={routes.home.url}>
-            Go back home?
-          </PageCta>
-        </ContentRow>
-      </Container>
+      <PageContent>
+        <Container>
+          <ContentRow isPadded={false}>
+            <PageCta as="anchor" to={routes.home.url}>
+              Go back home?
+            </PageCta>
+          </ContentRow>
+        </Container>
+      </PageContent>
     </>
   )
 }

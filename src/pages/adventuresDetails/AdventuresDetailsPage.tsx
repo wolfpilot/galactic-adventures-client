@@ -20,7 +20,7 @@ import { getPageHeaderProps } from "./utils/data.helpers"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import { PageHeader, PageCta } from "@components/layout/Page"
+import { PageHeader, PageContent, PageCta } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 
@@ -71,25 +71,27 @@ const AdventuresDetailsPage = () => {
       {headerProps && <PageHeader {...headerProps} />}
 
       {hasData && (
-        <Container>
-          {data.product.id && (
-            <ContentRow>
-              <PageCta
-                as="anchor"
-                to={`${routes.payment.url}?productType=adventure&productId=${data.product.id}`}
-              >
-                Continue
-              </PageCta>
-            </ContentRow>
-          )}
+        <PageContent>
+          <Container>
+            {data.product.id && (
+              <ContentRow>
+                <PageCta
+                  as="anchor"
+                  to={`${routes.payment.url}?productType=adventure&productId=${data.product.id}`}
+                >
+                  Continue
+                </PageCta>
+              </ContentRow>
+            )}
 
-          <ContentRow>
-            <ContentBlock>
-              {data.product.description && <p>{data.product.description}</p>}
-              {data.product.price_sb && <p>Price: {data.product.price_sb}</p>}
-            </ContentBlock>
-          </ContentRow>
-        </Container>
+            <ContentRow>
+              <ContentBlock>
+                {data.product.description && <p>{data.product.description}</p>}
+                {data.product.price_sb && <p>Price: {data.product.price_sb}</p>}
+              </ContentBlock>
+            </ContentRow>
+          </Container>
+        </PageContent>
       )}
     </>
   )

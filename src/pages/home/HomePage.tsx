@@ -15,7 +15,7 @@ import styles from "./HomePage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import { PageHeader } from "@components/layout/Page"
+import { PageHeader, PageContent } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 import { CustomImage } from "@components/media"
@@ -45,43 +45,47 @@ const HomePage = () => {
 
       <PageHeader {...pageData.headerData} />
 
-      <Container>
-        <ContentRow isPadded={false}>
-          <ul className={styles.ctaList}>
-            {navRoutes.map((route, index) => {
-              const imgProps = getCtaImageProps(route)
+      <PageContent>
+        <Container>
+          <ContentRow isPadded={false}>
+            <ul className={styles.ctaList}>
+              {navRoutes.map((route, index) => {
+                const imgProps = getCtaImageProps(route)
 
-              return (
-                <li key={index} className={styles.ctaItem}>
-                  <ContentBlock className={styles.ctaItemContentBlock}>
-                    <CustomLink
-                      className={styles.ctaItemLink}
-                      to={route.url}
-                      aria-disabled={route.disabled}
-                    >
-                      {imgProps && (
-                        <CustomImage
-                          {...imgProps}
-                          className={styles.ctaItemImage}
-                        />
-                      )}
-                      <div className={styles.ctaItemContent}>
-                        <div className={styles.ctaItemLabel}>{route.label}</div>
-
-                        {route.disabled && (
-                          <div className={styles.ctaItemNotice}>
-                            Coming soon
-                          </div>
+                return (
+                  <li key={index} className={styles.ctaItem}>
+                    <ContentBlock className={styles.ctaItemContentBlock}>
+                      <CustomLink
+                        className={styles.ctaItemLink}
+                        to={route.url}
+                        aria-disabled={route.disabled}
+                      >
+                        {imgProps && (
+                          <CustomImage
+                            {...imgProps}
+                            className={styles.ctaItemImage}
+                          />
                         )}
-                      </div>
-                    </CustomLink>
-                  </ContentBlock>
-                </li>
-              )
-            })}
-          </ul>
-        </ContentRow>
-      </Container>
+                        <div className={styles.ctaItemContent}>
+                          <div className={styles.ctaItemLabel}>
+                            {route.label}
+                          </div>
+
+                          {route.disabled && (
+                            <div className={styles.ctaItemNotice}>
+                              Coming soon
+                            </div>
+                          )}
+                        </div>
+                      </CustomLink>
+                    </ContentBlock>
+                  </li>
+                )
+              })}
+            </ul>
+          </ContentRow>
+        </Container>
+      </PageContent>
     </>
   )
 }
