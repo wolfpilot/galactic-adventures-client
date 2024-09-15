@@ -5,6 +5,7 @@ import { data } from "./data/overlayLoader.data"
 
 // Utils
 import { useAppBoundStore } from "@utils/stores"
+import { disableScroll } from "@utils/helpers/dom.helpers"
 
 // Styles
 import styles from "./OverlayLoader.module.css"
@@ -18,7 +19,7 @@ const ENTRY_DELAY_MS = 500
 const OverlayLoader = () => {
   const isLoading = useAppBoundStore((state) => state.isLoading)
 
-  const [isHidden, setIsHidden] = useState(isLoading)
+  const [isHidden, setIsHidden] = useState(true)
 
   // Hooks
   useEffect(() => {
@@ -40,6 +41,10 @@ const OverlayLoader = () => {
     }, ENTRY_DELAY_MS)
 
     return () => clearTimeout(timeoutId)
+  }, [isLoading])
+
+  useEffect(() => {
+    disableScroll(document.documentElement, isLoading)
   }, [isLoading])
 
   return (
