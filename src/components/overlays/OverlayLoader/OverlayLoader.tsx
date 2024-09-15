@@ -5,6 +5,7 @@ import { data } from "./data/overlayLoader.data"
 
 // Utils
 import { useAppBoundStore } from "@utils/stores"
+import { disableScroll } from "@utils/helpers/dom.helpers"
 
 // Styles
 import styles from "./OverlayLoader.module.css"
@@ -40,6 +41,10 @@ const OverlayLoader = () => {
     }, ENTRY_DELAY_MS)
 
     return () => clearTimeout(timeoutId)
+  }, [isLoading])
+
+  useEffect(() => {
+    disableScroll(document.documentElement, isLoading)
   }, [isLoading])
 
   return (
