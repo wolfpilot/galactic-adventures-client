@@ -23,10 +23,14 @@ const Scroller = ({ children, className = "" }: ScrollContainerProps) => {
 
   // Hooks
   useEffect(() => {
+    setHasInteracted(false)
+  }, [children])
+
+  useEffect(() => {
     if (!ref.current) return
 
     setIsScrollable(isElemScrollable(ref.current))
-  }, [ref, windowSize.width, windowSize.height])
+  }, [ref, children, windowSize.width, windowSize.height])
 
   // Handlers
   const handleOnInteract = () => {
