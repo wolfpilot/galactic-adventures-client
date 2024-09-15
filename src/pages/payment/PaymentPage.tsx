@@ -21,7 +21,7 @@ import styles from "./PaymentPage.module.css"
 
 // Components
 import Head from "@components/layout/Head/Head"
-import { PageHeader } from "@components/layout/Page"
+import { PageHeader, PageContent } from "@components/layout/Page"
 import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 import PaymentForm from "./components/form/PaymentForm/PaymentForm"
@@ -140,26 +140,28 @@ const PaymentPage = () => {
       <PageHeader {...pageData.headerData} />
 
       {hasData && (
-        <Container>
-          <ContentRow>
-            <ContentBlock>
-              {data.paymentIntent?.currency && data.paymentIntent?.amount && (
-                <PaymentForm
-                  isProcessing={isProcessing}
-                  currency={data.paymentIntent.currency}
-                  amount={data.paymentIntent.amount / 100}
-                  submitHandler={submitHandler}
-                />
-              )}
-            </ContentBlock>
-          </ContentRow>
-
-          {formErrorMsg && (
+        <PageContent>
+          <Container>
             <ContentRow>
-              <p className={styles.formError}>{formErrorMsg}</p>
+              <ContentBlock>
+                {data.paymentIntent?.currency && data.paymentIntent?.amount && (
+                  <PaymentForm
+                    isProcessing={isProcessing}
+                    currency={data.paymentIntent.currency}
+                    amount={data.paymentIntent.amount / 100}
+                    submitHandler={submitHandler}
+                  />
+                )}
+              </ContentBlock>
             </ContentRow>
-          )}
-        </Container>
+
+            {formErrorMsg && (
+              <ContentRow>
+                <p className={styles.formError}>{formErrorMsg}</p>
+              </ContentRow>
+            )}
+          </Container>
+        </PageContent>
       )}
     </>
   )
