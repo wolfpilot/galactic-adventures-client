@@ -4,11 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 // Types
 import { Props } from "./types"
 
-// Constants
-import { metadata } from "@constants/metadata.constants"
-
 // Components
-import Head from "@components/layout/Head/Head.tsx"
 import { SiteLayout } from "@components/layout/Site"
 import DebugGrid from "@components/utils/DebugGrid/DebugGrid"
 
@@ -25,8 +21,6 @@ const Root = ({ children }: Props) => {
 
   return (
     <>
-      <Head {...metadata} />
-
       <DebugGrid />
 
       <SiteLayout>{children}</SiteLayout>
