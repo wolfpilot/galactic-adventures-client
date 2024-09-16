@@ -6,11 +6,7 @@ import { HelmetProvider } from "react-helmet-async"
 import { metadata } from "@constants/metadata.constants"
 
 // Utils
-import {
-  RouterProvider,
-  QueryProvider,
-  StripeProvider,
-} from "@utils/providers/"
+import { RouterProvider, QueryProvider } from "@utils/providers/"
 
 // Components
 import Head from "@components/layout/Head/Head"
@@ -30,9 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Head {...metadata} />
 
       <QueryProvider>
-        <StripeProvider>
-          <RouterProvider />
-        </StripeProvider>
+        <RouterProvider />
       </QueryProvider>
     </HelmetProvider>
   </React.StrictMode>

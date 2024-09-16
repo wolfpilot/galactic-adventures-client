@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 
 // Utils
+import { StripeProvider } from "@utils/providers/layout"
 import { queryClient } from "@utils/clients/query.clients"
 import {
   adventuresLoader,
@@ -46,13 +47,18 @@ export const routerClient = createBrowserRouter([
         loader: adventuresDetailsLoader(queryClient),
       },
       {
-        path: "payment",
-        element: <PaymentPage />,
-      },
-      {
-        path: "order",
-        element: <OrderPage />,
-        loader: orderLoader(queryClient),
+        element: <StripeProvider />,
+        children: [
+          {
+            path: "payment",
+            element: <PaymentPage />,
+          },
+          {
+            path: "order",
+            element: <OrderPage />,
+            loader: orderLoader(queryClient),
+          },
+        ],
       },
     ],
   },

@@ -39,7 +39,11 @@ const OrderPage = () => {
     ReturnType<ReturnType<typeof loader>>
   >
 
-  const { data: productData, isPending: productIsPending } = useQuery({
+  const {
+    isPending: productIsPending,
+    error: productError,
+    data: productData,
+  } = useQuery({
     ...query({
       type: productType,
       id: productId,
@@ -61,22 +65,20 @@ const OrderPage = () => {
     product: productData?.data?.data?.product,
   }
 
-  const isPending = paymentIntentIsPending || productIsPending
-  const criticalError = paymentIntentError
-  const hasData = !!(data.paymentIntent && data.product)
+  const isPending = productIsPending || paymentIntentIsPending
+  const error = productError || paymentIntentError
+  const hasData = !!(data.product || data.paymentIntent)
 
   useEffect(() => {
-    if (isPending) return
-
-    updateIsLoading(false)
+    updateIsLoading(isPending)
   }, [isPending, updateIsLoading])
 
-  if (criticalError) {
-    throw criticalError
+  if (error) {
+    throw error
   }
 
   // Parse data
-  const orderStatusText = getOrderStatusText(paymentIntentData?.status)
+  const orderStatusText = getOrderStatusText(data.paymentIntent?.status)
 
   return (
     <>

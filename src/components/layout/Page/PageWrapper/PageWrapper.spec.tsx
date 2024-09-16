@@ -1,25 +1,19 @@
 import { HelmetProvider } from "react-helmet-async"
 
 // Utils
-import {
-  RouterProvider,
-  QueryProvider,
-  StripeProvider,
-} from "@utils/providers/"
+import { RouterProvider, QueryProvider } from "@utils/providers/"
 import { render, screen } from "@testing-library/react"
 
 describe("PageWrapper", () => {
   it("renders the PageWrapper component", () => {
     render(
       <QueryProvider>
-        <StripeProvider>
-          <HelmetProvider>
-            <RouterProvider />
-          </HelmetProvider>
-        </StripeProvider>
+        <HelmetProvider>
+          <RouterProvider />
+        </HelmetProvider>
       </QueryProvider>
     )
 
-    screen.debug() // prints out the jsx in the PageWrapper component unto the command line
+    screen.debug()
   })
 })
