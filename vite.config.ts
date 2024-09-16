@@ -1,25 +1,24 @@
 import path from "path"
 import { defineConfig } from "vitest/config"
 import pluginReact from "@vitejs/plugin-react"
-import pluginPrettyClassnames from "vite-plugin-pretty-module-classnames"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [pluginReact(), pluginPrettyClassnames()],
+  plugins: [pluginReact()],
   /**
-   * By default, Vite-generated CSS classnames lack the module prefix
-   * which can be confusing while debugging.
+   * By default, Vite-generated CSS classnames lack the module prefix which can be
+   * confusing while debugging.
    *
    * There are two simple solutions, one the config below, the other the plugin.
-   *
-   * css: {
-   *   modules: {
-   *     generateScopedName: "[name]__[local]_[hash:base64:5]",
-   *   },
-   * },
+   * Unfortunately the plugin breaks the composes property, so for now it's a no-go.
    *
    * @see https://github.com/teplostanski/vite-plugin-pretty-module-classnames
    */
+  css: {
+    modules: {
+      generateScopedName: "[name]__[local]_[hash:base64:5]",
+    },
+  },
   resolve: {
     alias: {
       "@components": path.resolve(__dirname, "./src/components"),
