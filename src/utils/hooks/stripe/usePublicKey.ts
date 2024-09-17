@@ -11,6 +11,13 @@ export interface ApiData {
   publishableKey: string
 }
 
+/**
+ * Why not store locally as an ENV var?
+ *
+ * As recommended by Matthew Ling @Stripe, storing the key in only one place makes it easier
+ * to change it if needed, particularly if the APIs are consumed by multiple clients,
+ * ex: website, mobile app, etc.
+ */
 export const usePublicKey = () => {
   const {
     isPending,

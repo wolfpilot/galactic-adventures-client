@@ -1,7 +1,7 @@
 export interface Props {
-  className?: string
   title: string
   text: string
   isClosed: boolean
+  className?: string | undefined
   onCloseHandler: () => void
 }

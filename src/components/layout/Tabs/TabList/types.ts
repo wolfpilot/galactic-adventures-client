@@ -5,5 +5,5 @@ export interface Props {
   children:
     | React.ReactElement<TabItemProps[]>
     | React.ReactElement<TabItemProps[]>[]
-  className?: string
+  className?: string | undefined
 }
