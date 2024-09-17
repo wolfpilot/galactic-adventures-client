@@ -9,7 +9,8 @@ import { BASE_ROUTE, routes } from "@constants/routes.constants"
 import { pageData } from "./data/paymentPage.data"
 
 // Utils
-import { useAppBoundStore } from "@utils/stores"
+import { useAppBoundStore, usePaymentBoundStore } from "@utils/stores"
+import { formatPrice } from "@utils/helpers/formatter.helpers"
 
 // Styles
 import styles from "./PaymentPage.module.css"
@@ -23,6 +24,8 @@ import PaymentForm from "./components/form/PaymentForm/PaymentForm"
 
 const PaymentPage = () => {
   const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
+  const paymentAmount = usePaymentBoundStore((state) => state.amount)
+  const paymentCurrency = usePaymentBoundStore((state) => state.currency)
 
   const [formErrorMsg, setFormErrorMsg] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState<boolean>(false)
@@ -34,10 +37,14 @@ const PaymentPage = () => {
   const productTypeParam = searchParams.get("productType")
   const productIdParam = searchParams.get("productId")
 
+  const hasData = !!(paymentAmount && paymentCurrency)
+
   // Hooks
   useEffect(() => {
     updateAppIsLoading(false)
   }, [updateAppIsLoading])
+
+  if (!hasData) return null
 
   // Utils
   const resetError = () => {
@@ -80,6 +87,12 @@ const PaymentPage = () => {
     setIsProcessing(false)
   }
 
+  // Parse data
+  const formattedPrice = formatPrice({
+    currency: paymentCurrency,
+    amount: paymentAmount / 100,
+  })
+
   return (
     <>
       <Head {...pageData.metadata} />
@@ -92,6 +105,7 @@ const PaymentPage = () => {
             <ContentRow>
               <ContentBlock>
                 <PaymentForm
+                  price={formattedPrice}
                   isProcessing={isProcessing}
                   submitHandler={submitHandler}
                 />

@@ -7,12 +7,15 @@ import { Elements } from "@stripe/react-stripe-js"
 import { ProductType } from "@ts/products/products.types"
 
 // Utils
-import { useAppBoundStore } from "@utils/stores"
-import { usePublicKey, useClientSecret } from "@utils/hooks/stripe"
+import { useAppBoundStore, usePaymentBoundStore } from "@utils/stores"
+import { usePublicKey, useCreatePaymentIntent } from "@utils/hooks/stripe"
 import { getCssVar } from "@utils/helpers/dom.helpers"
 
 const StripeProvider = () => {
   const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
+  const updatePaymentDetails = usePaymentBoundStore(
+    (state) => state.updateDetails
+  )
 
   const [searchParams] = useSearchParams()
   const productTypeParam = searchParams.get("productType") as ProductType
@@ -24,6 +27,7 @@ const StripeProvider = () => {
   const [stripePromise, setStripePromise] =
     useState<Promise<Stripe | null> | null>(null)
 
+  // Fetch data
   const {
     isPending: publicKeyIsPending,
     error: publicKeyError,
@@ -31,17 +35,17 @@ const StripeProvider = () => {
   } = usePublicKey()
 
   const {
-    isPending: clientSecretIsPending,
-    error: clientSecretError,
-    data: clientSecretData,
-  } = useClientSecret({
+    isPending: paymentIntentIsPending,
+    error: paymentIntentError,
+    data: paymentIntentData,
+  } = useCreatePaymentIntent({
     productType,
     productId,
   })
 
-  const isPending = publicKeyIsPending || clientSecretIsPending
-  const error = publicKeyError || clientSecretError
-  const hasData = !!(publicKeyData && clientSecretData)
+  const isPending = publicKeyIsPending || paymentIntentIsPending
+  const error = publicKeyError || paymentIntentError
+  const hasData = !!(publicKeyData && paymentIntentData)
 
   // Hooks
   useEffect(() => {
@@ -53,6 +57,15 @@ const StripeProvider = () => {
 
     setStripePromise(loadStripe(publicKeyData))
   }, [publicKeyData])
+
+  useEffect(() => {
+    if (!paymentIntentData) return
+
+    updatePaymentDetails({
+      amount: paymentIntentData.amount,
+      currency: paymentIntentData.currency,
+    })
+  }, [paymentIntentData, updatePaymentDetails])
 
   if (error) {
     throw error
@@ -95,7 +108,7 @@ const StripeProvider = () => {
   }
 
   const stripeOptions = {
-    clientSecret: clientSecretData,
+    clientSecret: paymentIntentData.clientSecret,
     appearance,
   }
 

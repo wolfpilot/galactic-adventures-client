@@ -77,6 +77,8 @@ const OrderPage = () => {
     throw error
   }
 
+  if (!hasData) return null
+
   // Parse data
   const orderStatusText = getOrderStatusText(data.paymentIntent?.status)
 
@@ -86,36 +88,34 @@ const OrderPage = () => {
 
       <PageHeader {...pageData.headerData} />
 
-      {hasData && (
-        <PageContent>
-          <Container>
-            <ContentRow>
-              <ContentBlock>
-                <p>{orderStatusText}</p>
-                <br />
+      <PageContent>
+        <Container>
+          <ContentRow>
+            <ContentBlock>
+              <p>{orderStatusText}</p>
+              <br />
 
-                {data.paymentIntent?.id && (
-                  <p>Order ID: {data.paymentIntent.id.toUpperCase()}</p>
-                )}
+              {data.paymentIntent?.id && (
+                <p>Order ID: {data.paymentIntent.id.toUpperCase()}</p>
+              )}
 
-                {data.product.waypoint?.name && (
-                  <p>Product: {data.product.waypoint.name}</p>
-                )}
+              {data.product.waypoint?.name && (
+                <p>Product: {data.product.waypoint.name}</p>
+              )}
 
-                {data.paymentIntent?.currency && data.paymentIntent.amount && (
-                  <p>
-                    Amount:{" "}
-                    {formatPrice({
-                      currency: data.paymentIntent.currency,
-                      amount: data.paymentIntent.amount / 100,
-                    })}
-                  </p>
-                )}
-              </ContentBlock>
-            </ContentRow>
-          </Container>
-        </PageContent>
-      )}
+              {data.paymentIntent?.currency && data.paymentIntent.amount && (
+                <p>
+                  Amount:{" "}
+                  {formatPrice({
+                    currency: data.paymentIntent.currency,
+                    amount: data.paymentIntent.amount / 100,
+                  })}
+                </p>
+              )}
+            </ContentBlock>
+          </ContentRow>
+        </Container>
+      </PageContent>
     </>
   )
 }

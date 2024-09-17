@@ -11,6 +11,8 @@ import { apiRoutes } from "@constants/api.constants"
 
 export interface ApiData {
   clientSecret: string
+  amount: number
+  currency: string
 }
 
 export interface Props {
@@ -18,7 +20,7 @@ export interface Props {
   productId: string | null
 }
 
-export const useClientSecret = ({ productType, productId }: Props) => {
+export const useCreatePaymentIntent = ({ productType, productId }: Props) => {
   const shouldMutate = Boolean(
     productId && productType && Object.values(ProductType).includes(productType)
   )
@@ -29,7 +31,7 @@ export const useClientSecret = ({ productType, productId }: Props) => {
     error,
     data: res,
   } = useMutation<ApiResponse<ApiData>, ApiError>({
-    mutationKey: ["clientSecret", productType, productId],
+    mutationKey: ["createPaymentIntent", productType, productId],
     // This fn only gets called if the initial check passes,
     // therefore we can safely assert that the params are not null.
     mutationFn: () =>
@@ -46,12 +48,12 @@ export const useClientSecret = ({ productType, productId }: Props) => {
   }, [shouldMutate, mutate])
 
   if (error) {
-    console.error("Could not fetch client secret", error)
+    console.error("Could not create payment intent", error)
   }
 
   return {
     isPending,
     error,
-    data: res?.data.data.clientSecret || null,
+    data: res?.data.data || null,
   }
 }
