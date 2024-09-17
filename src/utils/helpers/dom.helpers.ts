@@ -15,3 +15,8 @@ export const disableScroll = (elem: HTMLElement, value: boolean) => {
     ? elem.classList.add(DISABLE_SCROLL_CLASSNAME)
     : elem.classList.remove(DISABLE_SCROLL_CLASSNAME)
 }
+
+export const getCssVar = (
+  property: string,
+  elem: HTMLElement = document.documentElement
+) => getComputedStyle(elem).getPropertyValue(property)

@@ -1,5 +1,6 @@
 .wrapper {
   composes: button from "@styles/buttons.css";
+  width: 100%;
   background-color: var(--c-accent1);
   color: var(--c-white);
 
