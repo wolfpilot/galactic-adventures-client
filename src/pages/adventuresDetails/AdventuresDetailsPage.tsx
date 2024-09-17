@@ -25,7 +25,7 @@ import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 
 const AdventuresDetailsPage = () => {
-  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
+  const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
   const { id } = useParams()
   const productId = id ?? null
@@ -35,7 +35,7 @@ const AdventuresDetailsPage = () => {
     ReturnType<ReturnType<typeof loader>>
   >
 
-  const { data: productData, isPending: productIsPending } = useQuery({
+  const { data, isPending } = useQuery({
     ...query({
       type: ProductType.adventure,
       id: productId,
@@ -43,18 +43,12 @@ const AdventuresDetailsPage = () => {
     initialData,
   })
 
-  const data = {
-    product: productData?.data?.data?.product,
-  }
-
-  const hasData = !!data.product
-
   // Hooks
   useEffect(() => {
-    if (productIsPending) return
+    if (isPending) return
 
-    updateIsLoading(false)
-  }, [productIsPending, updateIsLoading])
+    updateAppIsLoading(false)
+  }, [isPending, updateAppIsLoading])
 
   // Parse data
   const parsedMetadata = generateMetadata({
@@ -70,7 +64,7 @@ const AdventuresDetailsPage = () => {
 
       {headerProps && <PageHeader {...headerProps} />}
 
-      {hasData && (
+      {data && (
         <PageContent>
           <Container>
             {data.product.id && (

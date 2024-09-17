@@ -22,7 +22,7 @@ import { CustomImage } from "@components/media"
 import { CustomLink } from "@components/links"
 
 const HomePage = () => {
-  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
+  const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
   const updateBannerNewsData = useAppBoundStore(
     (state) => state.updateBannerNewsData
@@ -30,8 +30,8 @@ const HomePage = () => {
 
   // Hooks
   useEffect(() => {
-    updateIsLoading(false)
-  }, [updateIsLoading])
+    updateAppIsLoading(false)
+  }, [updateAppIsLoading])
 
   useEffect(() => {
     if (!pageData.siteBannerNewsData) return

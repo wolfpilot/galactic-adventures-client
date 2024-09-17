@@ -67,6 +67,12 @@ const StripeProvider = () => {
     })
   }, [paymentIntentData, updatePaymentDetails])
 
+  if (!productType || !productId) {
+    throw new Error(
+      `Cannot initialise Stripe Provider. Parameters productType=${productType} or productId=${productId} are missing.`
+    )
+  }
+
   if (error) {
     throw error
   }

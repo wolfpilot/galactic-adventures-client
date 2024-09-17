@@ -18,8 +18,8 @@ export const orderLoader =
 
     return queryClient.ensureQueryData(
       getProductByTypeAndIdQuery({
-        type: productTypeParam ?? null,
-        id: productIdParam ?? null,
+        type: productTypeParam || null,
+        id: productIdParam || null,
       })
     )
   }

@@ -18,5 +18,7 @@ export interface Props {
 export const getWaypointByIdQuery = ({ id }: Props) => ({
   queryKey: ["waypoint", id],
   queryFn: () =>
-    axios.get<unknown, ApiResponse<ApiData>>(`${apiRoutes.waypoints}/${id}`),
+    axios
+      .get<unknown, ApiResponse<ApiData>>(`${apiRoutes.waypoints}/${id}`)
+      .then((res) => res.data.data),
 })

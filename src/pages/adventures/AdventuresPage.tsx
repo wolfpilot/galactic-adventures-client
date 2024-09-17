@@ -25,7 +25,7 @@ import WaypointList from "./components/WaypointList/WaypointList"
 import WaypointDetails from "./components/WaypointDetails/WaypointDetails"
 
 const AdventuresPage = () => {
-  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
+  const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
   const [searchParams] = useSearchParams()
   const waypointIdParam = searchParams.get("waypointId")
@@ -36,25 +36,19 @@ const AdventuresPage = () => {
     ReturnType<ReturnType<typeof loader>>
   >
 
-  const { data: waypointData, isPending: waypointIsPending } = useQuery({
+  const { isPending, data } = useQuery({
     ...query({
       id: waypointId,
     }),
     initialData,
   })
 
-  const data = {
-    waypoint: waypointData?.data?.data?.waypoint,
-  }
-
-  const hasData = !!data.waypoint
-
   // Hooks
   useEffect(() => {
-    if (waypointIsPending) return
+    if (isPending) return
 
-    updateIsLoading(false)
-  }, [waypointIsPending, updateIsLoading])
+    updateAppIsLoading(false)
+  }, [isPending, updateAppIsLoading])
 
   useEffect(() => {
     if (waypointIdParam || !data.waypoint.id) return
@@ -76,7 +70,7 @@ const AdventuresPage = () => {
 
       {headerProps && <PageHeader {...headerProps} />}
 
-      {hasData && (
+      {data && (
         <PageContent>
           {data.waypoint.children.length > 0 && (
             <ContentRow isPadded={false}>

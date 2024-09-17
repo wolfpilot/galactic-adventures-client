@@ -23,7 +23,7 @@ import Container from "@components/layout/Container/Container"
 import { ContentRow, ContentBlock } from "@components/layout/Content"
 
 const OrderPage = () => {
-  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
+  const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
   const [searchParams] = useSearchParams()
   const clientSecretParam = searchParams.get("payment_intent_client_secret")
@@ -31,19 +31,15 @@ const OrderPage = () => {
   const productTypeParam = searchParams.get("productType") as ProductType
   const productIdParam = searchParams.get("productId")
 
-  const productType = productTypeParam ?? null
-  const productId = productIdParam ?? null
+  const productType = productTypeParam || null
+  const productId = productIdParam || null
 
   // Fetch cached or fresh data
   const initialData = useLoaderData() as Awaited<
     ReturnType<ReturnType<typeof loader>>
   >
 
-  const {
-    isPending: productIsPending,
-    error: productError,
-    data: productData,
-  } = useQuery({
+  const { isPending: productIsPending, data: productData } = useQuery({
     ...query({
       type: productType,
       id: productId,
@@ -52,30 +48,22 @@ const OrderPage = () => {
   })
 
   // Hooks
-  const {
-    isPending: paymentIntentIsPending,
-    error: paymentIntentError,
-    data: paymentIntentData,
-  } = useRetrievePaymentIntent({
-    clientSecret: clientSecretParam,
-  })
+  const { isPending: paymentIntentIsPending, data: paymentIntentData } =
+    useRetrievePaymentIntent({
+      clientSecret: clientSecretParam,
+    })
 
   const data = {
     paymentIntent: paymentIntentData,
-    product: productData?.data?.data?.product,
+    product: productData?.product,
   }
 
   const isPending = productIsPending || paymentIntentIsPending
-  const error = productError || paymentIntentError
   const hasData = !!(data.product || data.paymentIntent)
 
   useEffect(() => {
-    updateIsLoading(isPending)
-  }, [isPending, updateIsLoading])
-
-  if (error) {
-    throw error
-  }
+    updateAppIsLoading(isPending)
+  }, [isPending, updateAppIsLoading])
 
   if (!hasData) return null
 
