@@ -35,7 +35,7 @@ export const useCreatePaymentIntent = ({ productType, productId }: Props) => {
     // This fn only gets called if the initial check passes,
     // therefore we can safely assert that the params are not null.
     mutationFn: () =>
-      axios.post(apiRoutes.payment, {
+      axios.post(apiRoutes.payment.intent, {
         productType: productType!,
         productId: productId!,
       }),

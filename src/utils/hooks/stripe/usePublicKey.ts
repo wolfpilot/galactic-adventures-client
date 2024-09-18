@@ -25,7 +25,7 @@ export const usePublicKey = () => {
     data: res,
   } = useQuery<ApiResponse<ApiData>, ApiError>({
     queryKey: ["publicKey"],
-    queryFn: () => axios.get(apiRoutes.payment),
+    queryFn: () => axios.get(apiRoutes.payment.index),
   })
 
   if (error) {
