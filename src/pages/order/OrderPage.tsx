@@ -28,28 +28,30 @@ const OrderPage = () => {
   const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
   const [searchParams] = useSearchParams()
-  const clientSecretParam = searchParams.get("payment_intent_client_secret")
+  const paymentIntentIdParam = searchParams.get("payment_intent")
 
   // Hooks
   const { isPending, data } = useRetrievePaymentIntent({
-    clientSecret: clientSecretParam,
+    id: paymentIntentIdParam,
   })
 
   useEffect(() => {
     updateAppIsLoading(isPending)
   }, [isPending, updateAppIsLoading])
 
-  if (!data) return null
+  if (!data?.paymentIntent) return null
 
   // Parse data
-  const pageHeaderData = pageData.getHeaderData(data.id)
-  const orderStatusText = getOrderStatusText(data.status)
-  const metadata = parseJSON<PaymentIntentMetadata>(data.description)
+  const pageHeaderData = pageData.getHeaderData(data.paymentIntent.id)
+  const orderStatusText = getOrderStatusText(data.paymentIntent.status)
+  const metadata = parseJSON<PaymentIntentMetadata>(
+    data.paymentIntent.description
+  )
   const formattedPrice = formatPrice({
-    currency: data.currency,
-    amount: data.amount / 100,
+    currency: data.paymentIntent.currency,
+    amount: data.paymentIntent.amount / 100,
   })
-  const date = new Date(data.created * 1000)
+  const date = new Date(data.paymentIntent.created * 1000)
   const formattedDate = date.toLocaleDateString(undefined, {
     year: "numeric",
     month: "long",

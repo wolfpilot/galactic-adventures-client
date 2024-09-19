@@ -4,7 +4,7 @@ import axios from "axios"
 
 // Types
 import { ProductType } from "@ts/products/products.types"
-import { ApiResponse, ApiError } from "@ts/api.types"
+import type { ApiResponse, ApiError } from "@ts/api.types"
 
 // Constants
 import { apiRoutes } from "@constants/api.constants"

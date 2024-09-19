@@ -1,28 +1,30 @@
 import { useQuery } from "@tanstack/react-query"
-import { useStripe } from "@stripe/react-stripe-js"
+import axios from "axios"
 
 // Types
-import type { PaymentIntentResult, StripeError } from "@stripe/stripe-js"
+import type { PaymentIntentResult } from "@stripe/stripe-js"
+import type { ApiResponse, ApiError } from "@ts/api.types"
 
-export interface Props {
-  clientSecret: string | null
+// Constants
+import { apiRoutes } from "@constants/api.constants"
+
+export interface ApiData {
+  paymentIntent: PaymentIntentResult["paymentIntent"]
 }
 
-export const useRetrievePaymentIntent = ({ clientSecret }: Props) => {
-  const stripe = useStripe()
+export interface Props {
+  id: string | null
+}
 
-  const isEnabled = Boolean(stripe && clientSecret)
-
+export const useRetrievePaymentIntent = ({ id }: Props) => {
   const {
     isPending,
     error,
     data: res,
-  } = useQuery<PaymentIntentResult, StripeError>({
-    enabled: isEnabled,
-    queryKey: ["paymentIntent", clientSecret],
-    // This fn only gets called if the initial check passes,
-    // therefore we can safely assert that the params are not null.
-    queryFn: () => stripe!.retrievePaymentIntent(clientSecret!),
+  } = useQuery<ApiResponse<ApiData>, ApiError>({
+    enabled: !!id,
+    queryKey: ["paymentIntent", id],
+    queryFn: () => axios.get(`${apiRoutes.payment.intent}/${id}`),
   })
 
   if (error) {
@@ -32,6 +34,6 @@ export const useRetrievePaymentIntent = ({ clientSecret }: Props) => {
   return {
     isPending,
     error,
-    data: res?.paymentIntent || null,
+    data: res?.data.data || null,
   }
 }
