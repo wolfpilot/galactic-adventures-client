@@ -1,18 +1,12 @@
 import { useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
-
-// Types
-import { PaymentIntentMetadata } from "@ts/payment/payment.types"
 
 // Data
 import { pageData } from "./data/orderPage.data"
 
 // Utils
-import { useAppBoundStore } from "@utils/stores"
-import { parseJSON } from "@utils/helpers/object.helpers"
+import { useAppBoundStore, usePaymentBoundStore } from "@utils/stores"
 import { formatPrice } from "@utils/helpers/formatter.helpers"
 import { getOrderStatusText } from "./utils/helpers"
-import { useRetrievePaymentIntent } from "@utils/hooks/stripe"
 
 // Styles
 import styles from "./OrderPage.module.css"
@@ -25,33 +19,32 @@ import { ContentRow, ContentBlock } from "@components/layout/Content"
 
 // Utils
 const OrderPage = () => {
+  const paymentIntent = usePaymentBoundStore((state) => state.intent)
   const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
 
-  const [searchParams] = useSearchParams()
-  const paymentIntentIdParam = searchParams.get("payment_intent")
-
   // Hooks
-  const { isPending, data } = useRetrievePaymentIntent({
-    id: paymentIntentIdParam,
-  })
-
   useEffect(() => {
-    updateAppIsLoading(isPending)
-  }, [isPending, updateAppIsLoading])
+    updateAppIsLoading(false)
+  }, [updateAppIsLoading])
 
-  if (!data?.paymentIntent) return null
+  if (
+    !paymentIntent?.id ||
+    !paymentIntent?.currency ||
+    !paymentIntent?.amount ||
+    !paymentIntent?.created ||
+    !paymentIntent?.metadata
+  ) {
+    return null
+  }
 
   // Parse data
-  const pageHeaderData = pageData.getHeaderData(data.paymentIntent.id)
-  const orderStatusText = getOrderStatusText(data.paymentIntent.status)
-  const metadata = parseJSON<PaymentIntentMetadata>(
-    data.paymentIntent.description
-  )
+  const pageHeaderData = pageData.getHeaderData(paymentIntent.id)
+  const orderStatusText = getOrderStatusText(paymentIntent.status)
   const formattedPrice = formatPrice({
-    currency: data.paymentIntent.currency,
-    amount: data.paymentIntent.amount / 100,
+    currency: paymentIntent.currency,
+    amount: paymentIntent.amount / 100,
   })
-  const date = new Date(data.paymentIntent.created * 1000)
+  const date = new Date(paymentIntent.created * 1000)
   const formattedDate = date.toLocaleDateString(undefined, {
     year: "numeric",
     month: "long",
@@ -69,11 +62,19 @@ const OrderPage = () => {
           <ContentRow>
             <ContentBlock>
               <p>Status: {orderStatusText}</p>
+
               <br />
-              {formattedDate && <p>Date: {formattedDate}</p>}
-              {metadata?.product?.name && (
-                <p>Products: {metadata.product.name}</p>
+
+              {paymentIntent.payment_method?.type && (
+                <p>Payment method: {paymentIntent.payment_method.type}</p>
               )}
+
+              {formattedDate && <p>Date: {formattedDate}</p>}
+
+              {paymentIntent.metadata.productName && (
+                <p>Products: {paymentIntent.metadata.productName}</p>
+              )}
+
               {formattedPrice && <p>Total: {formattedPrice}</p>}
             </ContentBlock>
           </ContentRow>

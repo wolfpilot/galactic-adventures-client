@@ -1,28 +1,18 @@
 import { useState, useEffect } from "react"
-import { Outlet, useSearchParams } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 import { type Stripe, type Appearance, loadStripe } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
 
-// Types
-import { ProductType } from "@ts/products/products.types"
-
 // Utils
 import { useAppBoundStore, usePaymentBoundStore } from "@utils/stores"
-import { usePublicKey, useCreatePaymentIntent } from "@utils/hooks/stripe"
 import { getCssVar } from "@utils/helpers/dom.helpers"
+import { usePublicKey, usePaymentIntent } from "@utils/hooks/stripe"
 
 const StripeProvider = () => {
   const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
-  const updatePaymentDetails = usePaymentBoundStore(
-    (state) => state.updateDetails
+  const updatePaymentIntent = usePaymentBoundStore(
+    (state) => state.updateIntent
   )
-
-  const [searchParams] = useSearchParams()
-  const productTypeParam = searchParams.get("productType") as ProductType
-  const productIdParam = searchParams.get("productId")
-
-  const productType = productTypeParam ?? null
-  const productId = productIdParam ?? null
 
   const [stripePromise, setStripePromise] =
     useState<Promise<Stripe | null> | null>(null)
@@ -38,10 +28,9 @@ const StripeProvider = () => {
     isPending: paymentIntentIsPending,
     error: paymentIntentError,
     data: paymentIntentData,
-  } = useCreatePaymentIntent({
-    productType,
-    productId,
-  })
+  } = usePaymentIntent()
+
+  const clientSecret = paymentIntentData?.paymentIntent?.client_secret
 
   const isPending = publicKeyIsPending || paymentIntentIsPending
   const error = publicKeyError || paymentIntentError
@@ -59,25 +48,25 @@ const StripeProvider = () => {
   }, [publicKeyData])
 
   useEffect(() => {
-    if (!paymentIntentData) return
+    if (!paymentIntentData?.paymentIntent) return
 
-    updatePaymentDetails({
-      amount: paymentIntentData.amount,
-      currency: paymentIntentData.currency,
-    })
-  }, [paymentIntentData, updatePaymentDetails])
+    /**
+     * Exclude the client_secret from being set as state, even though
+     * for some reason it's technically public.
+     *
+     * @see https://github.com/stripe/react-stripe-js/issues/507
+     */
+    const { client_secret: _clientSecret, ...rest } =
+      paymentIntentData.paymentIntent
 
-  if (!productType || !productId) {
-    throw new Error(
-      `Cannot initialise Stripe Provider. Parameters productType=${productType} or productId=${productId} are missing.`
-    )
-  }
+    updatePaymentIntent(rest)
+  }, [paymentIntentData, updatePaymentIntent])
 
   if (error) {
     throw error
   }
 
-  if (!hasData || !stripePromise) return null
+  if (!hasData || !clientSecret || !stripePromise) return null
 
   /**
    * !: Do not move this config outside the component.
@@ -114,7 +103,7 @@ const StripeProvider = () => {
   }
 
   const stripeOptions = {
-    clientSecret: paymentIntentData.clientSecret,
+    clientSecret,
     appearance,
   }
 

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
 import { useStripe, useElements } from "@stripe/react-stripe-js"
 
 // Constants
@@ -24,8 +23,7 @@ import PaymentForm from "./components/form/PaymentForm/PaymentForm"
 
 const PaymentPage = () => {
   const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
-  const paymentAmount = usePaymentBoundStore((state) => state.amount)
-  const paymentCurrency = usePaymentBoundStore((state) => state.currency)
+  const paymentIntent = usePaymentBoundStore((state) => state.intent)
 
   const [formErrorMsg, setFormErrorMsg] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState<boolean>(false)
@@ -33,18 +31,14 @@ const PaymentPage = () => {
   const stripe = useStripe()
   const elements = useElements()
 
-  const [searchParams] = useSearchParams()
-  const productTypeParam = searchParams.get("productType")
-  const productIdParam = searchParams.get("productId")
-
-  const hasData = !!(paymentAmount && paymentCurrency)
-
   // Hooks
   useEffect(() => {
     updateAppIsLoading(false)
   }, [updateAppIsLoading])
 
-  if (!hasData) return null
+  if (!paymentIntent?.amount || !paymentIntent?.currency) {
+    return null
+  }
 
   // Utils
   const resetError = () => {
@@ -70,7 +64,7 @@ const PaymentPage = () => {
       elements,
       confirmParams: {
         // URL to redirect the user to if no error occurs
-        return_url: `${BASE_ROUTE}${routes.order.url}?productType=${productTypeParam}&productId=${productIdParam}`,
+        return_url: `${BASE_ROUTE}${routes.order.url}`,
       },
     })
 
@@ -89,8 +83,8 @@ const PaymentPage = () => {
 
   // Parse data
   const formattedPrice = formatPrice({
-    currency: paymentCurrency,
-    amount: paymentAmount / 100,
+    currency: paymentIntent.currency,
+    amount: paymentIntent.amount / 100,
   })
 
   return (
