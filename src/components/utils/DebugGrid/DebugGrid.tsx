@@ -1,6 +1,5 @@
 "use client"
 
-import { useSearchParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 // Utils
@@ -20,7 +19,7 @@ const DebugGrid: React.FC = () => {
 
   const { width, height } = useWindowSize()
 
-  const [searchParams] = useSearchParams()
+  const searchParams = new URLSearchParams(window.location.search)
   const debugGridParam = searchParams.get("debugGrid")
 
   /**

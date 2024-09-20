@@ -16,16 +16,16 @@ import {
 } from "@pages/index"
 
 // Components
-import Root from "@components/layout/Root/Root"
+import SiteLayout from "@components/layout/Site/SiteLayout/SiteLayout"
 
 export const routerClient = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <SiteLayout />,
     errorElement: (
-      <Root>
+      <SiteLayout>
         <ErrorPage />
-      </Root>
+      </SiteLayout>
     ),
     children: [
       {
