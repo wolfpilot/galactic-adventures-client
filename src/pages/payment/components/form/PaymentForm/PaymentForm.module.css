@@ -1,0 +1,9 @@
+.elementsWrapper {
+  margin-bottom: var(--spacing-default);
+}
+
+.element {
+  &:not(:last-child) {
+    margin-bottom: var(--spacing-default);
+  }
+}

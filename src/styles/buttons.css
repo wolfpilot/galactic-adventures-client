@@ -1,9 +1,9 @@
 .button {
-  padding: var(--spacing-small);
+  padding: 0 var(--spacing-small);
   background-color: var(--c-dGrey);
   color: var(--c-white);
   border: none;
-  border-radius: calc(var(--spacing-small) / 2);
+  border-radius: var(--border-radius-default);
   outline: none;
   cursor: pointer;
   transition: background-color var(--anim-ease-default)

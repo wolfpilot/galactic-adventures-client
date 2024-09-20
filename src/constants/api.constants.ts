@@ -11,5 +11,8 @@ export const apiRoutes = {
     merchandise: `${VITE_SERVER_URL}/products/merchandise`,
     tours: `${VITE_SERVER_URL}/products/tours`,
   },
-  payment: `${VITE_SERVER_URL}/payment`,
+  payment: {
+    index: `${VITE_SERVER_URL}/payment`,
+    intent: `${VITE_SERVER_URL}/payment/intent`,
+  },
 }

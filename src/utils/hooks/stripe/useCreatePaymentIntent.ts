@@ -1,18 +1,26 @@
 import { useEffect } from "react"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
+import type { PaymentIntent } from "@stripe/stripe-js"
 
 // Types
 import { ProductType } from "@ts/products/products.types"
-import { ApiResponse, ApiError } from "@ts/api.types"
+import type { ApiResponse, ApiError } from "@ts/api.types"
 
 // Constants
 import { apiRoutes } from "@constants/api.constants"
 
 export interface ApiData {
-  clientSecret: string
-  amount: number
-  currency: string
+  paymentIntent: {
+    id: PaymentIntent["id"]
+    client_secret: PaymentIntent["client_secret"]
+    amount: PaymentIntent["amount"]
+    currency: PaymentIntent["currency"]
+  }
+}
+
+export interface ApiDataCreate extends ApiData {
+  type: "create"
 }
 
 export interface Props {
@@ -21,8 +29,10 @@ export interface Props {
 }
 
 export const useCreatePaymentIntent = ({ productType, productId }: Props) => {
-  const shouldMutate = Boolean(
-    productId && productType && Object.values(ProductType).includes(productType)
+  const isEnabled = !!(
+    productId &&
+    productType &&
+    Object.values(ProductType).includes(productType)
   )
 
   const {
@@ -35,25 +45,35 @@ export const useCreatePaymentIntent = ({ productType, productId }: Props) => {
     // This fn only gets called if the initial check passes,
     // therefore we can safely assert that the params are not null.
     mutationFn: () =>
-      axios.post(apiRoutes.payment, {
+      axios.post(apiRoutes.payment.intent, {
         productType: productType!,
         productId: productId!,
       }),
   })
 
   useEffect(() => {
-    if (!shouldMutate) return
+    if (!isEnabled) return
 
     mutate()
-  }, [shouldMutate, mutate])
+  }, [isEnabled, mutate])
 
   if (error) {
     console.error("Could not create payment intent", error)
   }
 
+  // Format response
+  const resData = res?.data.data
+  const data = resData
+    ? ({
+        ...resData,
+        type: "create",
+      } as ApiDataCreate)
+    : null
+
   return {
-    isPending,
+    // Ensure hook doesn't hang in pending state if it's not supposed to fire
+    isPending: isEnabled === false ? false : isPending,
     error,
-    data: res?.data.data || null,
+    data,
   }
 }

@@ -3,11 +3,7 @@ import { createBrowserRouter } from "react-router-dom"
 // Utils
 import { StripeProvider } from "@utils/providers/layout"
 import { queryClient } from "@utils/clients/query.clients"
-import {
-  adventuresLoader,
-  adventuresDetailsLoader,
-  orderLoader,
-} from "@utils/loaders"
+import { adventuresLoader, adventuresDetailsLoader } from "@utils/loaders"
 
 // Pages
 import {
@@ -56,7 +52,6 @@ export const routerClient = createBrowserRouter([
           {
             path: "order",
             element: <OrderPage />,
-            loader: orderLoader(queryClient),
           },
         ],
       },
