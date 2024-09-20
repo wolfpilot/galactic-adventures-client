@@ -8,7 +8,7 @@ import { ApiResponse, ApiError } from "@ts/api.types"
 import { apiRoutes } from "@constants/api.constants"
 
 export interface ApiData {
-  publishableKey: string
+  publishable_key: string
 }
 
 /**
@@ -35,6 +35,6 @@ export const usePublicKey = () => {
   return {
     isPending,
     error,
-    data: res?.data.data.publishableKey || null,
+    data: res?.data.data.publishable_key || null,
   }
 }
