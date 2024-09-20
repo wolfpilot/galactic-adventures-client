@@ -4,21 +4,37 @@ import type { StateCreator } from "zustand"
 // Types
 import type { ProductType } from "@ts/products/products.types"
 
-export interface PaymentIntentMetadataState {
-  productId: number
-  productType: ProductType
-  productName: string
+// Create
+export type PaymentIntentCreate = Pick<
+  PaymentIntent,
+  "id" | "amount" | "currency"
+> & {
+  type: "create"
 }
 
-export type PaymentIntentState = Partial<{
-  id: PaymentIntent["id"]
-  status: PaymentIntent["status"]
-  created: PaymentIntent["created"]
-  amount: PaymentIntent["amount"]
-  currency: PaymentIntent["currency"]
-  payment_method: PaymentMethod
+// Retrieve
+export interface PaymentIntentMetadataState {
+  product_id: number
+  product_type: ProductType
+  product_name: string | null
+}
+
+export type PaymentIntentMethodState = Pick<
+  PaymentMethod,
+  "id" | "created" | "type" | "livemode" | "billing_details" | "ideal" | "card"
+>
+
+export type PaymentIntentRetrieve = Pick<
+  PaymentIntent,
+  "id" | "status" | "created" | "amount" | "currency"
+> & {
+  payment_method: PaymentIntentMethodState
   metadata: PaymentIntentMetadataState
-}>
+} & {
+  type: "retrieve"
+}
+
+export type PaymentIntentState = PaymentIntentCreate | PaymentIntentRetrieve
 
 export interface PaymentState {
   intent: PaymentIntentState | undefined

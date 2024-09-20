@@ -9,6 +9,16 @@ import type { ProductType } from "@ts/products/products.types"
 // Constants
 import { apiRoutes } from "@constants/api.constants"
 
+export interface ApiDataPaymentMethod {
+  id: PaymentMethod["id"]
+  created: PaymentMethod["created"]
+  type: PaymentMethod["type"]
+  livemode: PaymentMethod["livemode"]
+  billing_details: PaymentMethod["billing_details"]
+  ideal?: PaymentMethod["ideal"]
+  card?: PaymentMethod["card"]
+}
+
 export interface ApiData {
   paymentIntent: {
     id: PaymentIntent["id"]
@@ -17,11 +27,11 @@ export interface ApiData {
     created: PaymentIntent["created"]
     amount: PaymentIntent["amount"]
     currency: PaymentIntent["currency"]
-    payment_method: PaymentMethod
+    payment_method: ApiDataPaymentMethod
     metadata: {
-      productId: number
-      productType: ProductType
-      productName: string
+      product_id: number
+      product_type: ProductType
+      product_name: string | null
     }
   }
 }

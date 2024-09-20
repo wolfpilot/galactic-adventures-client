@@ -36,9 +36,7 @@ const PaymentPage = () => {
     updateAppIsLoading(false)
   }, [updateAppIsLoading])
 
-  if (!paymentIntent?.amount || !paymentIntent?.currency) {
-    return null
-  }
+  if (paymentIntent?.type !== "create") return null
 
   // Utils
   const resetError = () => {

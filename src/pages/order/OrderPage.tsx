@@ -27,15 +27,7 @@ const OrderPage = () => {
     updateAppIsLoading(false)
   }, [updateAppIsLoading])
 
-  if (
-    !paymentIntent?.id ||
-    !paymentIntent?.currency ||
-    !paymentIntent?.amount ||
-    !paymentIntent?.created ||
-    !paymentIntent?.metadata
-  ) {
-    return null
-  }
+  if (paymentIntent?.type !== "retrieve") return null
 
   // Parse data
   const pageHeaderData = pageData.getHeaderData(paymentIntent.id)
@@ -71,8 +63,8 @@ const OrderPage = () => {
 
               {formattedDate && <p>Date: {formattedDate}</p>}
 
-              {paymentIntent.metadata.productName && (
-                <p>Products: {paymentIntent.metadata.productName}</p>
+              {paymentIntent.metadata.product_name && (
+                <p>Products: {paymentIntent.metadata.product_name}</p>
               )}
 
               {formattedPrice && <p>Total: {formattedPrice}</p>}

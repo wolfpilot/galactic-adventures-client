@@ -3,6 +3,9 @@ import { Outlet } from "react-router-dom"
 import { type Stripe, type Appearance, loadStripe } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
 
+// Types
+import { PaymentIntentState } from "@utils/stores/payment/paymentSlice"
+
 // Utils
 import { useAppBoundStore, usePaymentBoundStore } from "@utils/stores"
 import { getCssVar } from "@utils/helpers/dom.helpers"
@@ -59,7 +62,10 @@ const StripeProvider = () => {
     const { client_secret: _clientSecret, ...rest } =
       paymentIntentData.paymentIntent
 
-    updatePaymentIntent(rest)
+    updatePaymentIntent({
+      type: paymentIntentData.type,
+      ...rest,
+    } as PaymentIntentState)
   }, [paymentIntentData, updatePaymentIntent])
 
   if (error) {
