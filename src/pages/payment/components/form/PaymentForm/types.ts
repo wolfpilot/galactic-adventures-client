@@ -1,6 +1,5 @@
 export interface Props {
   isProcessing: boolean
-  currency: string
-  amount: number
+  price: string
   submitHandler: (e: React.FormEvent<HTMLFormElement>) => void
 }

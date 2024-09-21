@@ -14,7 +14,7 @@ export const adventuresLoader =
 
     return queryClient.ensureQueryData(
       getWaypointByIdQuery({
-        id: waypointIdParam ?? null,
+        id: waypointIdParam || null,
       })
     )
   }

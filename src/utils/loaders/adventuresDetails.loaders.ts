@@ -22,8 +22,8 @@ export const adventuresDetailsLoader =
 
     return queryClient.ensureQueryData(
       getProductByTypeAndIdQuery({
-        type: productType ?? null,
-        id: idParam ?? null,
+        type: productType || null,
+        id: idParam || null,
       })
     )
   }

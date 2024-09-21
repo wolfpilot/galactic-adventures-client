@@ -1,12 +1,9 @@
 import { createBrowserRouter } from "react-router-dom"
 
 // Utils
+import { StripeProvider } from "@utils/providers/layout"
 import { queryClient } from "@utils/clients/query.clients"
-import {
-  adventuresLoader,
-  adventuresDetailsLoader,
-  orderLoader,
-} from "@utils/loaders"
+import { adventuresLoader, adventuresDetailsLoader } from "@utils/loaders"
 
 // Pages
 import {
@@ -19,16 +16,16 @@ import {
 } from "@pages/index"
 
 // Components
-import Root from "@components/layout/Root/Root"
+import SiteLayout from "@components/layout/Site/SiteLayout/SiteLayout"
 
 export const routerClient = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <SiteLayout />,
     errorElement: (
-      <Root>
+      <SiteLayout>
         <ErrorPage />
-      </Root>
+      </SiteLayout>
     ),
     children: [
       {
@@ -46,13 +43,17 @@ export const routerClient = createBrowserRouter([
         loader: adventuresDetailsLoader(queryClient),
       },
       {
-        path: "payment",
-        element: <PaymentPage />,
-      },
-      {
-        path: "order",
-        element: <OrderPage />,
-        loader: orderLoader(queryClient),
+        element: <StripeProvider />,
+        children: [
+          {
+            path: "payment",
+            element: <PaymentPage />,
+          },
+          {
+            path: "order",
+            element: <OrderPage />,
+          },
+        ],
       },
     ],
   },

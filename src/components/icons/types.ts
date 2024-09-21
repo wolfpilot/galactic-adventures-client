@@ -10,7 +10,7 @@ export enum Icons {
 }
 
 export interface Props extends React.SVGAttributes<SVGElement> {
-  className?: string | undefined
   width?: number
   height?: number
+  className?: string | undefined
 }

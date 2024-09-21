@@ -1,5 +1,5 @@
 import { useRouteError, isRouteErrorResponse } from "react-router-dom"
-import { AxiosError } from "axios"
+import { isAxiosError } from "axios"
 
 // Data
 import { errorPageData } from "./data/errorPage.data"
@@ -22,7 +22,7 @@ const parseError = (error: unknown) => {
         title: error.status.toString(),
         description: error.statusText,
       }
-    case error instanceof AxiosError:
+    case isAxiosError(error):
       return {
         title: error.response?.status.toString() || errors.Default.title,
         description: error.response?.statusText || errors.Default.description,

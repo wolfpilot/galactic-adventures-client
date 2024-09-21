@@ -1,5 +1,11 @@
-import { useClientSecret } from "./useClientSecret"
 import { usePublicKey } from "./usePublicKey"
+import { usePaymentIntent } from "./usePaymentIntent"
+import { useCreatePaymentIntent } from "./useCreatePaymentIntent"
 import { useRetrievePaymentIntent } from "./useRetrievePaymentIntent"
 
-export { useClientSecret, usePublicKey, useRetrievePaymentIntent }
+export {
+  usePublicKey,
+  usePaymentIntent,
+  useCreatePaymentIntent,
+  useRetrievePaymentIntent,
+}

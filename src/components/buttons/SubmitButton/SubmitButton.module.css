@@ -1,5 +1,10 @@
 .wrapper {
+  /* Match the Stripe form field heights */
+  --btn-min-height: 44px;
+
   composes: button from "@styles/buttons.css";
+  width: 100%;
+  min-height: var(--btn-min-height);
   background-color: var(--c-accent1);
   color: var(--c-white);
 

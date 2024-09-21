@@ -19,7 +19,10 @@ export interface Props {
 export const getProductByTypeAndIdQuery = ({ type, id }: Props) => ({
   queryKey: ["product", type, id],
   queryFn: () =>
-    axios.get<unknown, ApiResponse<ApiData>>(
-      `${apiRoutes.products.index}?type=${type!}&id=${id!}`
-    ),
+    axios
+      .get<
+        unknown,
+        ApiResponse<ApiData>
+      >(`${apiRoutes.products.index}?type=${type}&id=${id}`)
+      .then((res) => res.data.data),
 })

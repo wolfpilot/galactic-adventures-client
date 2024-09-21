@@ -8,9 +8,16 @@ import { ApiResponse, ApiError } from "@ts/api.types"
 import { apiRoutes } from "@constants/api.constants"
 
 export interface ApiData {
-  publishableKey: string
+  publishable_key: string
 }
 
+/**
+ * Why not store locally as an ENV var?
+ *
+ * As recommended by Matthew Ling @Stripe, storing the key in only one place makes it easier
+ * to change it if needed, particularly if the APIs are consumed by multiple clients,
+ * ex: website, mobile app, etc.
+ */
 export const usePublicKey = () => {
   const {
     isPending,
@@ -18,7 +25,7 @@ export const usePublicKey = () => {
     data: res,
   } = useQuery<ApiResponse<ApiData>, ApiError>({
     queryKey: ["publicKey"],
-    queryFn: () => axios.get(apiRoutes.payment),
+    queryFn: () => axios.get(apiRoutes.payment.index),
   })
 
   if (error) {
@@ -28,6 +35,6 @@ export const usePublicKey = () => {
   return {
     isPending,
     error,
-    data: res?.data.data.publishableKey || null,
+    data: res?.data.data.publishable_key || null,
   }
 }

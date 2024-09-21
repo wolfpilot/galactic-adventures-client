@@ -13,11 +13,11 @@ export interface MediaVideoProps {
 }
 
 export interface Props {
-  className?: string
   title: string
   subtitle?: string
   description?: string
   media?: {
     isContained?: boolean
   } & (MediaImageProps | MediaVideoProps)
+  className?: string | undefined
 }

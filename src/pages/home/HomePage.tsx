@@ -22,17 +22,11 @@ import { CustomImage } from "@components/media"
 import { CustomLink } from "@components/links"
 
 const HomePage = () => {
-  const updateIsLoading = useAppBoundStore((state) => state.updateIsLoading)
-
   const updateBannerNewsData = useAppBoundStore(
     (state) => state.updateBannerNewsData
   )
 
   // Hooks
-  useEffect(() => {
-    updateIsLoading(false)
-  }, [updateIsLoading])
-
   useEffect(() => {
     if (!pageData.siteBannerNewsData) return
 
