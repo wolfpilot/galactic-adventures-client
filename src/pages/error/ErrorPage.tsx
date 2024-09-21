@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useRouteError, isRouteErrorResponse } from "react-router-dom"
 import { isAxiosError } from "axios"
 
@@ -8,9 +7,6 @@ import { errorPageData } from "./data/errorPage.data"
 // Constants
 import { routes } from "@constants/routes.constants"
 import { errors } from "@constants/errors.constants"
-
-// Utils
-import { useAppBoundStore } from "@utils/stores"
 
 // Components
 import Head from "@components/layout/Head/Head"
@@ -39,18 +35,9 @@ const parseError = (error: unknown) => {
 }
 
 const ErrorPage = () => {
-  const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
-
   const error = useRouteError()
 
-  console.error("Error", error)
-
   const parsedError = parseError(error)
-
-  // Hooks
-  useEffect(() => {
-    updateAppIsLoading(false)
-  }, [updateAppIsLoading])
 
   return (
     <>

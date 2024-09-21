@@ -1,10 +1,8 @@
-import { useEffect } from "react"
-
 // Data
 import { pageData } from "./data/orderPage.data"
 
 // Utils
-import { useAppBoundStore, usePaymentBoundStore } from "@utils/stores"
+import { usePaymentBoundStore } from "@utils/stores"
 import { formatPrice } from "@utils/helpers/formatter.helpers"
 import { getOrderStatusText } from "./utils/helpers"
 
@@ -20,12 +18,6 @@ import { ContentRow, ContentBlock } from "@components/layout/Content"
 // Utils
 const OrderPage = () => {
   const paymentIntent = usePaymentBoundStore((state) => state.intent)
-  const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
-
-  // Hooks
-  useEffect(() => {
-    updateAppIsLoading(false)
-  }, [updateAppIsLoading])
 
   if (paymentIntent?.type !== "retrieve") return null
 

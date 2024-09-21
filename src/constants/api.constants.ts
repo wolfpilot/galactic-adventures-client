@@ -4,6 +4,7 @@ const { VITE_SERVER_URL = "" } = import.meta.env
 export const BASE_API_ROUTE = VITE_SERVER_URL
 
 export const apiRoutes = {
+  ping: `${VITE_SERVER_URL}/ping`,
   waypoints: `${VITE_SERVER_URL}/waypoints`,
   products: {
     index: `${VITE_SERVER_URL}/products`,

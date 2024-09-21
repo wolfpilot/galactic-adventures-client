@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useStripe, useElements } from "@stripe/react-stripe-js"
 
 // Constants
@@ -8,7 +8,7 @@ import { BASE_ROUTE, routes } from "@constants/routes.constants"
 import { pageData } from "./data/paymentPage.data"
 
 // Utils
-import { useAppBoundStore, usePaymentBoundStore } from "@utils/stores"
+import { usePaymentBoundStore } from "@utils/stores"
 import { formatPrice } from "@utils/helpers/formatter.helpers"
 
 // Styles
@@ -22,7 +22,6 @@ import { ContentRow, ContentBlock } from "@components/layout/Content"
 import PaymentForm from "./components/form/PaymentForm/PaymentForm"
 
 const PaymentPage = () => {
-  const updateAppIsLoading = useAppBoundStore((state) => state.updateIsLoading)
   const paymentIntent = usePaymentBoundStore((state) => state.intent)
 
   const [formErrorMsg, setFormErrorMsg] = useState<string | null>(null)
@@ -30,11 +29,6 @@ const PaymentPage = () => {
 
   const stripe = useStripe()
   const elements = useElements()
-
-  // Hooks
-  useEffect(() => {
-    updateAppIsLoading(false)
-  }, [updateAppIsLoading])
 
   if (paymentIntent?.type !== "create") return null
 
