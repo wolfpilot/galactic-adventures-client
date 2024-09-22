@@ -28,7 +28,7 @@ export type PaymentIntentRetrieve = Pick<
   PaymentIntent,
   "id" | "status" | "created" | "amount" | "currency"
 > & {
-  payment_method: PaymentIntentMethodState
+  payment_method: PaymentIntentMethodState | null
   metadata: PaymentIntentMetadataState
 } & {
   type: "retrieve"

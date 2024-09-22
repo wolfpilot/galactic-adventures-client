@@ -53,7 +53,7 @@ const OrderPage = () => {
                 <p>Payment method: {paymentIntent.payment_method.type}</p>
               )}
 
-              {paymentIntent.payment_method.billing_details.email && (
+              {paymentIntent.payment_method?.billing_details.email && (
                 <p>
                   E-mail: {paymentIntent.payment_method.billing_details.email}
                 </p>
