@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react"
 import { Outlet } from "react-router-dom"
-import { type Stripe, type Appearance, loadStripe } from "@stripe/stripe-js"
+import {
+  type Stripe,
+  type StripeElementsOptions,
+  loadStripe,
+} from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
 
 // Types
@@ -79,8 +83,7 @@ const StripeProvider = () => {
    *
    * Styles can only be computed during a render cycle after the document has loaded.
    */
-  const appearance: Appearance = {
-    theme: "stripe",
+  const elementsAppearance = {
     variables: {
       gridRowSpacing: getCssVar("--spacing-default"),
       gridColumnSpacing: getCssVar("--spacing-default"),
@@ -108,9 +111,17 @@ const StripeProvider = () => {
     },
   }
 
-  const stripeOptions = {
+  const elementsFonts = [
+    {
+      cssSrc:
+        "https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Space+Mono&display=swap",
+    },
+  ]
+
+  const stripeOptions: StripeElementsOptions = {
     clientSecret,
-    appearance,
+    appearance: elementsAppearance,
+    fonts: elementsFonts,
   }
 
   return (
