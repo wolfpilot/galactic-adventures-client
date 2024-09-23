@@ -32,7 +32,7 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
-    setupFiles: "./test/setup.ts",
+    setupFiles: "./__mocks__/setup.ts",
     globals: true,
   },
 })
