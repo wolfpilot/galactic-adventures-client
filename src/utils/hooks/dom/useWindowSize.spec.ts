@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react"
 
 // Utils
-import { updateWindowSize } from "@utils/helpers/test.helpers"
+import { mockWindowSize } from "@utils/helpers/test.helpers"
 
 import { useWindowSize } from "./useWindowSize"
 
@@ -14,7 +14,7 @@ describe("useWindowSize", () => {
   })
 
   it("should get the correct window width and height on update", () => {
-    updateWindowSize({
+    mockWindowSize({
       width: 1920,
       height: 1080,
     })

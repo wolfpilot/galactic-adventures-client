@@ -1,10 +1,21 @@
 /**
+ * Update search params without triggering a navigation event
+ *
+ * @see https://rafaelcamargo.com/blog/mocking-search-params-in-tests-for-react-components/
+ */
+export const mockSearchParams = (params: string) => {
+  const { pathname } = window.location
+  const url = params ? `${pathname}?${params}` : pathname
+
+  window.history.pushState({}, "", url)
+}
+
+/**
  * Update the pre-defined jsdom window object
  *
- * For more info, see:
- * https://stackoverflow.com/a/60817030
+ * @see https://stackoverflow.com/a/60817030
  */
-export const updateWindowSize = ({
+export const mockWindowSize = ({
   width,
   height,
 }: {

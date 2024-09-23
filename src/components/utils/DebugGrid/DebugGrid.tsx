@@ -50,7 +50,7 @@ const DebugGrid: React.FC = () => {
     // Check if it's enabled in the App State
     !showDebugGrid ||
     // Check if all necessary params are available
-    !(width || height || columnsNr)
+    !(width && height && columnsNr)
   ) {
     return null
   }
@@ -61,13 +61,13 @@ const DebugGrid: React.FC = () => {
         {width} x {height}
       </h2>
 
-      <div className={styles.grid}>
+      <ul className={styles.grid}>
         {new Array(columnsNr).fill(0).map((_, index) => (
-          <div className={styles.column} key={index}>
+          <li className={styles.column} key={index}>
             {index + 1}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   )
 }
