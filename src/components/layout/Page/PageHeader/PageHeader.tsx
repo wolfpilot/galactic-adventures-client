@@ -1,5 +1,5 @@
 // Types
-import { type Props } from "./types"
+import type { Props } from "./types"
 
 // Styles
 import styles from "./PageHeader.module.css"
