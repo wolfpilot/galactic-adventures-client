@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom"
-
 // Types
 import { Props } from "./types"
 
 // Styles
 import styles from "./Cta.module.css"
+
+// Components
+import { CustomLink as Link } from "@components/links"
 
 const Cta = (props: Props) => {
   if (props.as === "anchor") {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react"
-import { useLocation, Link } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 // Utils
 import { useAppBoundStore } from "@utils/stores"
@@ -7,6 +7,7 @@ import { useAppBoundStore } from "@utils/stores"
 import styles from "./SiteHeader.module.css"
 
 // Components
+import { CustomLink as Link } from "@components/links"
 import Container from "@components/layout/Container/Container"
 import Icon from "@components/icons/Icon"
 
