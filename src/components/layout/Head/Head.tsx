@@ -22,8 +22,9 @@ const Head = ({ title, description }: Props) => {
 
   return (
     <Helmet>
-      <title>{metaTitle}</title>
       <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link
