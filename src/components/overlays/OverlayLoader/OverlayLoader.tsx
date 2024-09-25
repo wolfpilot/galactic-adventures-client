@@ -97,6 +97,7 @@ const OverlayLoader = () => {
         ${styles.wrapper}
         ${isHidden ? styles.wrapper__isHidden : ""}
         `}
+      aria-hidden={isHidden}
     >
       <h1 className={styles.title}>Loading</h1>
       <div className={styles.progress}>

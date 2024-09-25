@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom"
-
 // Types
 import { Props } from "./types"
 
@@ -14,6 +12,7 @@ import { waypointCategoryToFolderName } from "@utils/mappers"
 import styles from "./WaypointList.module.css"
 
 // Components
+import { CustomLink as Link } from "@components/links"
 import Scroller from "@components/sliders/Scroller/Scroller"
 import { CustomImage } from "@components/media"
 import Icon from "@components/icons/Icon"

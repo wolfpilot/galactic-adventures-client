@@ -2,7 +2,7 @@ import { HelmetProvider } from "react-helmet-async"
 
 // Utils
 import { RouterProvider, QueryProvider } from "@utils/providers/"
-import { render, screen } from "@testing-library/react"
+import { render } from "@testing-library/react"
 
 describe("PageWrapper", () => {
   it("renders the PageWrapper component", () => {
@@ -13,7 +13,5 @@ describe("PageWrapper", () => {
         </HelmetProvider>
       </QueryProvider>
     )
-
-    screen.debug()
   })
 })

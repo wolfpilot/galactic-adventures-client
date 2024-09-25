@@ -14,7 +14,7 @@ import {
 export const useFormatDistanceUnit = (value: number | null) => {
   const unit = usePersistBoundStore((state) => state.units.distance)
 
-  if (isNullish(value)) return "N/A"
+  if (isNullish(value) || isNaN(value)) return "N/A"
 
   if (unit === DistanceUnit.kilometres) {
     return `${formatNumber(value)}${DistanceUnit.kilometres}`
@@ -22,15 +22,13 @@ export const useFormatDistanceUnit = (value: number | null) => {
 
   const newVal = convertKilometresToMiles(value)
 
-  if (isNaN(newVal)) return "N/A"
-
   return `${formatNumber(newVal)}${DistanceUnit.miles}`
 }
 
 export const useFormatSpeedUnit = (value: number | null) => {
   const unit = usePersistBoundStore((state) => state.units.distance)
 
-  if (isNullish(value)) return "N/A"
+  if (isNullish(value) || isNaN(value)) return "N/A"
 
   if (unit === DistanceUnit.kilometres) {
     return `${formatNumber(value)}${SpeedUnit.kilometresPerHour}`
@@ -38,23 +36,19 @@ export const useFormatSpeedUnit = (value: number | null) => {
 
   const newVal = convertKilometresToMiles(value)
 
-  if (isNaN(newVal)) return "N/A"
-
   return `${formatNumber(newVal)}${SpeedUnit.milesPerHour}`
 }
 
 export const useFormatTemperatureUnit = (value: number | null) => {
   const unit = usePersistBoundStore((state) => state.units.temperature)
 
-  if (isNullish(value)) return "N/A"
+  if (isNullish(value) || isNaN(value)) return "N/A"
 
   if (unit === TemperatureUnit.kelvin) {
     return `${formatNumber(value)}${TemperatureUnit.kelvin}`
   }
 
   const newVal = convertKelvinToCelsius(value)
-
-  if (isNaN(newVal)) return "N/A"
 
   return `${formatNumber(newVal)}${TemperatureUnit.celsius}`
 }
@@ -66,11 +60,17 @@ export const useFormatTemperatureToRange = (
   const formattedMin = useFormatTemperatureUnit(min)
   const formattedMax = useFormatTemperatureUnit(max)
 
-  return min && max
+  // Check for both null
+  if (isNullish(min) && isNullish(max)) return null
+
+  // Check for invalid params
+  if (!isNullish(min) && !isNullish(max) && min >= max) return null
+
+  return !isNullish(min) && !isNullish(max)
     ? `${formattedMin} - ${formattedMax}`
-    : min
+    : !isNullish(min)
       ? `≥ ${formattedMin}`
-      : max
+      : !isNullish(max)
         ? `≤ ${formattedMax}`
-        : null
+        : "N/A"
 }
